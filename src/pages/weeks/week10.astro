@@ -1,140 +1,179 @@
 ---
-import NewtonLaw from "../../components/NewtonLaw.astro";
 import Layout from '../../layouts/Layout.astro';
+import QuizCard from '../../components/QuizCard.astro';
 ---
 
 <Layout title="Week 10: 運動方程式">
   <h1>Week 10: 運動方程式</h1>
-  <p class="subtitle">ニュートンの魔法の公式！</p>
 
-  <h2>🎯 今日の目標</h2>
-  <ul>
-    <li>ニュートンの運動の法則を理解する</li>
-    <li>運動方程式 F = ma を使える</li>
-    <li>斜面上の運動を解ける</li>
-  </ul>
-
-  <h2>ニュートンの運動の法則</h2>
-
-  <h3>第1法則（慣性の法則）</h3>
-  <p>外力が作用しないとき、物体は静止または等速直線運動を続ける</p>
-
-  <h3>第2法則（運動方程式）</h3>
-  <div class="formula-box">
-    <span class="big-formula">F = ma</span>
-    <p>力 = 質量 × 加速度</p>
-  </div>
-
-  <table>
-    <tr><th>記号</th><th>意味</th><th>単位</th></tr>
-    <tr><td>F</td><td>力（合力）</td><td>N</td></tr>
-    <tr><td>m</td><td>質量</td><td>kg</td></tr>
-    <tr><td>a</td><td>加速度</td><td>m/s²</td></tr>
-  </table>
-
-  <h3>第3法則（作用・反作用の法則）</h3>
-  <p>AがBに力を加えるとき、BもAに同じ大きさで逆向きの力を加える</p>
-
-  <h2>F = ma の意味</h2>
-
-  <div class="highlight-box">
-    <ul>
-      <li><strong>m が大きい</strong>（重い）→ 同じ力でも加速しにくい</li>
-      <li><strong>F が大きい</strong>（強く押す）→ より大きく加速</li>
-    </ul>
-  </div>
-
-  <h2>運動方程式の立て方</h2>
-
-  <div class="example">
-    <h4>4ステップ</h4>
-    <div class="step">
-      <span class="step-number">1</span>
-      <span>物体を1つ選ぶ</span>
+  <!-- ===== Section 1: 運動方程式 F=ma ===== -->
+  <section class="content-section">
+    <h2>🚀 運動方程式 F = ma</h2>
+    
+    <div class="intro-box">
+      力を加えると物体は加速する！<br/>
+      <strong>力（F）</strong>、<strong>質量（m）</strong>、<strong>加速度（a）</strong>のカンケイ！
     </div>
-    <div class="step">
-      <span class="step-number">2</span>
-      <span>その物体にはたらく力をすべて描く</span>
+
+    <div class="formula-box">
+      <span class="big-formula">F = ma</span>
+      <p>F: 力 [N]、m: 質量 [kg]、a: 加速度 [m/s²]</p>
     </div>
-    <div class="step">
-      <span class="step-number">3</span>
-      <span>座標軸を決める（運動方向を正）</span>
+
+    <div class="simple-cases">
+      <div class="case-card">
+        <div class="case-text"><strong>加速度を知りたい</strong></div>
+        <div class="case-example">a = F / m</div>
+        <p>力が大きいほど、質量が小さいほど加速する</p>
+      </div>
+      <div class="case-card">
+        <div class="case-text"><strong>質量を知りたい</strong></div>
+        <div class="case-example">m = F / a</div>
+      </div>
     </div>
-    <div class="step">
-      <span class="step-number">4</span>
-      <span>ma = ΣF を立てる</span>
+  </section>
+
+  <!-- ===== Section 2: 斜面を滑り降りる運動 ===== -->
+  <section class="content-section">
+    <h2>⛰️ 斜面を滑り降りる運動</h2>
+
+    <div class="intro-box">
+      摩擦がない斜面を物体が滑り降りるとき、運動させる力は<strong>重力の斜面下向き成分</strong>！
     </div>
-  </div>
 
-  <h2>滑らかな斜面</h2>
+    <div class="formula-box">
+      <span class="big-formula">滑る力：F = mg sin θ</span>
+      <span class="big-formula">加速度：a = g sin θ</span>
+      <p>※ 運動方程式 $ma = mg \sin \theta$ より、$m$が消える！つまり質量に関係なく加速度は同じ。</p>
+    </div>
+  </section>
 
-  <p>「滑らかな」＝ 摩擦がない（理想モデル）</p>
+  <!-- ===== Section 3: 練習問題 ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習問題（全11問）</h2>
 
-  <div class="formula-box">
-    <span class="big-formula">ma = mg sin θ</span>
-    <span class="big-formula">a = g sin θ</span>
-    <p>斜面の角度だけで加速度が決まる！</p>
-  </div>
+    <QuizCard 
+      id="1"
+      question="質量 2.0 kg の物体に 10 N の力を加えた。加速度は？"
+      answer="5.0"
+      answerUnit="m/s²"
+      steps={[
+        "F = ma より、a = F / m",
+        "= 10 / 2.0 = <strong>5.0 m/s²</strong>"
+      ]}
+    />
 
-  <h2>摩擦がある斜面</h2>
+    <QuizCard 
+      id="2"
+      question="質量 5.0 kg の物体が 3.0 m/s² で加速している。加わっている力は？"
+      answer="15"
+      answerUnit="N"
+      steps={[
+        "F = ma",
+        "= 5.0 × 3.0 = <strong>15 N</strong>"
+      ]}
+    />
 
-  <div class="formula-box">
-    <span class="big-formula">ma = mg sin θ − μ' mg cos θ</span>
-    <span class="big-formula">a = g (sin θ − μ' cos θ)</span>
-  </div>
+    <QuizCard 
+      id="3"
+      question="物体に 20 N の力を加えると 4.0 m/s² で加速した。物体の質量は？"
+      answer="5.0"
+      answerUnit="kg"
+      steps={[
+        "F = ma より、m = F / a",
+        "= 20 / 4.0 = <strong>5.0 kg</strong>"
+      ]}
+    />
 
-  <h2>例題</h2>
+    <QuizCard 
+      id="4"
+      question="右向きに 15 N、左向きに 5 N の力が加わっている質量 2.0 kg の物体の加速度は？"
+      answer="5.0"
+      answerUnit="m/s²"
+      steps={[
+        "合力 F = 15 - 5 = 10 N",
+        "a = F / m = 10 / 2.0 = <strong>5.0 m/s²</strong>（右向き）"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題1：水平面</h4>
-    <p><strong>問題：</strong>質量 2 kg の物体に 6 N の力を加える。加速度は？</p>
-    <p><strong>解答：</strong></p>
-    <p>a = F/m = 6/2 = <strong>3 m/s²</strong></p>
-  </div>
+    <QuizCard 
+      id="5"
+      question="摩擦のない水平面上で質量 m kg の物体を F N で引くとき、加速度 a を表す式は？"
+      answer="F/m"
+      answerUnit=""
+      steps={[
+        "運動方程式 ma = F より、",
+        "a = <strong>F/m</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題2：滑らかな斜面</h4>
-    <p><strong>問題：</strong>30°の滑らかな斜面上の物体の加速度は？（g = 10 m/s²）</p>
-    <p><strong>解答：</strong></p>
-    <p>a = g sin 30° = 10 × 0.5 = <strong>5 m/s²</strong></p>
-  </div>
+    <QuizCard 
+      id="6"
+      question="傾角 30° の摩擦のない斜面を滑り降りる物体の加速度は？（重力加速度 g=9.8 m/s² とする）"
+      answer="4.9"
+      answerUnit="m/s²"
+      steps={[
+        "a = g sin 30°",
+        "= 9.8 × 0.5 = <strong>4.9 m/s²</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題3：糸でつながれた2物体</h4>
-    <p><strong>問題：</strong>物体A（4kg）を60Nで引く。物体B（8kg）と糸でつながっている。加速度と張力は？</p>
-    <p><strong>解答：</strong></p>
-    <p>全体の運動方程式：(4+8)a = 60</p>
-    <p>a = 60/12 = <strong>5 m/s²</strong></p>
-    <p>Bの運動方程式：8 × 5 = T</p>
-    <p>T = <strong>40 N</strong></p>
-  </div>
+    <QuizCard 
+      id="7"
+      question="傾角 30° の摩擦のない斜面に質量 2.0 kg の物体を置いた。斜面下向きに働く力は？（g=9.8 m/s²）"
+      answer="9.8"
+      answerUnit="N"
+      steps={[
+        "F = mg sin 30°",
+        "= 2.0 × 9.8 × 0.5 = <strong>9.8 N</strong>"
+      ]}
+    />
 
-  <h2>🎮 インタラクティブ練習</h2>
+    <QuizCard 
+      id="8"
+      question="問7の物体の加速度は？"
+      answer="4.9"
+      answerUnit="m/s²"
+      steps={[
+        "a = F / m = 9.8 / 2.0 = <strong>4.9 m/s²</strong>",
+        "（または a = g sin 30° = 9.8 × 0.5 = 4.9）"
+      ]}
+    />
 
-<NewtonLaw />
+    <QuizCard 
+      id="9"
+      question="傾角 45° の斜面を滑る物体の加速度は？（g=9.8、sin 45°≒0.71）"
+      answer="7.0"
+      answerUnit="m/s²"
+      steps={[
+        "a = g sin 45°",
+        "= 9.8 × 0.71 ≒ <strong>7.0 m/s²</strong>"
+      ]}
+    />
 
-<h2>練習問題</h2>
-  <table>
-    <tr><th>問題</th><th>解答</th></tr>
-    <tr>
-      <td>① 質量 5 kg に 20 N の力。加速度は？</td>
-      <td><details><summary>答え</summary>a = 20/5 = 4 m/s²</details></td>
-    </tr>
-    <tr>
-      <td>② 45°の滑らかな斜面での加速度は？（g=10）</td>
-      <td><details><summary>答え</summary>a = 10 × sin45° ≈ 7.1 m/s²</details></td>
-    </tr>
-  </table>
+    <QuizCard 
+      id="10"
+      question="質量 10 kg の物体に重力以外の力が働かず、落下している。加速度は？（g=9.8）"
+      answer="9.8"
+      answerUnit="m/s²"
+      steps={[
+        "重力のみが働くので、加速度は重力加速度 g と同じ。",
+        "<strong>9.8 m/s²</strong>"
+      ]}
+    />
 
-  <h2>📝 今日のポイント</h2>
-  <div class="highlight-box">
-    <ul>
-      <li>✓ 運動方程式：<strong>F = ma</strong></li>
-      <li>✓ 滑らかな斜面：<strong>a = g sin θ</strong></li>
-      <li>✓ 摩擦あり：<strong>a = g(sin θ − μ' cos θ)</strong></li>
-      <li>✓ 連結物体：全体でまとめて考える</li>
-    </ul>
-  </div>
+    <QuizCard 
+      id="11"
+      question="質量 m が2倍になったとき、同じ力 F で引いたときの加速度はどうなる？"
+      answer="半分"
+      answerUnit="になる"
+      steps={[
+        "a = F / m",
+        "m が2倍になると分母が2倍になるため、加速度は<strong>半分（1/2倍）</strong>になる。"
+      ]}
+    />
+
+  </section>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week09/" class="nav-btn secondary">← Week 9</a>
@@ -143,8 +182,108 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; }
-  .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
-  .big-formula { font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
-  details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
+  /* Base styles */
+  .content-section {
+    margin: 40px 0;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .content-section h2 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #3b82f6;
+  }
+
+  .intro-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+  }
+
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .big-formula {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    display: block;
+    margin: 8px 0;
+    font-family: 'Courier New', monospace;
+  }
+
+  .simple-cases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .case-card {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .case-example {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #059669;
+    margin: 8px 0;
+  }
+
+  .exercise-section {
+    background: #fafbfc;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 16px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    display: inline-block;
+    padding: 14px 24px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:not(.secondary) {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .nav-btn:not(.secondary):hover {
+    background: #2563eb;
+  }
+
+  .nav-btn.secondary {
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .nav-btn.secondary:hover {
+    background: #e2e8f0;
+  }
 </style>

@@ -1,424 +1,324 @@
 ---
-import VerticalMotion from "../../components/VerticalMotion.astro";
 import Layout from '../../layouts/Layout.astro';
+import QuizCard from '../../components/QuizCard.astro';
 ---
 
-<Layout title="Week 12: 落下運動と放物運動">
-  <h1>Week 12: 落下運動と放物運動</h1>
-  <p class="subtitle">空を飛ぶ物体の秘密！</p>
+<Layout title="Week 12: 鉛直運動">
+  <h1>Week 12: 鉛直運動</h1>
 
-  <h2>🎯 今日の目標</h2>
-  <ul>
-    <li>自由落下・鉛直投げ上げを計算できる</li>
-    <li>水平投射を理解する</li>
-    <li>斜方投射の計算ができる</li>
-  </ul>
-
-  <h2>鉛直方向の運動</h2>
-
-  <h3>自由落下（初速度 0 で落下）</h3>
-  <div class="formula-box">
-    <span class="big-formula">v = gt</span>
-    <span class="big-formula">y = ½gt²</span>
-    <span class="big-formula">v² = 2gy</span>
-  </div>
-
-  <h3>鉛直投げ上げ</h3>
-  <p>上向きを正とすると、加速度は <strong>−g</strong></p>
-
-  <div class="formula-box">
-    <span class="big-formula">v = v₀ − gt</span>
-    <span class="big-formula">y = v₀t − ½gt²</span>
-  </div>
-
-  <h3>最高点</h3>
-  <div class="highlight-box">
-    最高点では <strong>v = 0</strong>！
-  </div>
-
-  <table>
-    <tr><th>求めるもの</th><th>公式</th></tr>
-    <tr><td>到達時間</td><td>t = v₀ / g</td></tr>
-    <tr><td>最高点の高さ</td><td>h = v₀² / 2g</td></tr>
-  </table>
-
-  <h2>水平投射</h2>
-
-  <div class="highlight-box">
-    水平方向に投げ出す運動 → <strong>横と縦を分けて考える！</strong>
-  </div>
-
-  <table>
-    <tr><th>方向</th><th>運動の種類</th><th>公式</th></tr>
-    <tr><td>水平（x）</td><td>等速度運動</td><td>x = v₀t</td></tr>
-    <tr><td>鉛直（y）</td><td>自由落下</td><td>y = ½gt²</td></tr>
-  </table>
-
-  <div class="example">
-    <h4>高さ h から水平に投げる</h4>
-    <p>落下時間：t = √(2h/g)</p>
-    <p>水平到達距離：x = v₀ × √(2h/g)</p>
-  </div>
-
-  <h2>斜方投射</h2>
-
-  <div class="highlight-box">
-    角度 θ で投げる → 初速度を分解！
-  </div>
-
-  <h3>🎮 抛体大炮シミュレーター</h3>
-  <div class="animation-container">
-    <canvas id="cannonCanvas" width="500" height="300"></canvas>
-    <div class="cannon-controls">
-      <label>
-        角度 θ: <span id="angle-val">45</span>°
-        <input type="range" id="angle-slider" min="10" max="80" value="45" />
-      </label>
-      <label>
-        初速度 v₀: <span id="velocity-val">30</span> m/s
-        <input type="range" id="velocity-slider" min="10" max="50" value="30" />
-      </label>
-      <button id="fire-btn">🚀 発射！</button>
+  <!-- ===== Section 1: 自由落下 ===== -->
+  <section class="content-section">
+    <h2>🍎 自由落下</h2>
+    
+    <div class="intro-box">
+      物体から静かに手を放す運動。初速度 <strong>v₀ = 0</strong> で、加速度が <strong>g（重力加速度）</strong> の等加速度運動！<br/>
+      （下向きを正とする）
     </div>
-    <div class="cannon-info">
-      <span>飛距離: <strong id="range-val">--</strong> m</span>
-      <span>最高点: <strong id="height-val">--</strong> m</span>
-      <span>滞空時間: <strong id="time-val">--</strong> s</span>
+
+    <div class="formula-box">
+      <h4>自由落下の公式</h4>
+      <span class="big-formula">v = gt</span>
+      <span class="big-formula">h = ½gt²</span>
+      <span class="big-formula">v² = 2gh</span>
+      <p>※ 先週の等加速度公式の、v₀=0, a=g, x=h にしただけ！</p>
     </div>
-  </div>
+  </section>
 
-  <div class="formula-box">
-    <span class="big-formula">v₀x = v₀ cos θ</span>
-    <span class="big-formula">v₀y = v₀ sin θ</span>
-  </div>
+  <!-- ===== Section 2: 鉛直投げ上げ ===== -->
+  <section class="content-section">
+    <h2>⬆️ 鉛直投げ上げ</h2>
 
-  <table>
-    <tr><th>方向</th><th>運動</th><th>公式</th></tr>
-    <tr><td>水平</td><td>等速度</td><td>x = v₀ cos θ · t</td></tr>
-    <tr><td>鉛直</td><td>投げ上げ</td><td>y = v₀ sin θ · t − ½gt²</td></tr>
-  </table>
+    <div class="intro-box">
+      真上に物体を投げる運動！ 初速度 <strong>v₀</strong>、加速度は重力に逆らうので <strong>-g</strong> になる。<br/>
+      （上向きを正とする）
+    </div>
 
-  <h3>重要な公式</h3>
-  <table>
-    <tr><th>求めるもの</th><th>公式</th></tr>
-    <tr><td>最高点の高さ</td><td>h = (v₀ sin θ)² / 2g</td></tr>
-    <tr><td>滞空時間</td><td>T = 2v₀ sin θ / g</td></tr>
-    <tr><td>飛距離</td><td><strong>R = v₀² sin 2θ / g</strong></td></tr>
-  </table>
+    <div class="formula-box">
+      <h4>投げ上げの公式</h4>
+      <span class="big-formula">v = v₀ - gt</span>
+      <span class="big-formula">h = v₀t - ½gt²</span>
+      <span class="big-formula">v² - v₀² = -2gh</span>
+    </div>
 
-  <div class="highlight-box warning">
-    <strong>⚠️ 最大飛距離：θ = 45° のとき！</strong>
-    <p>R_max = v₀² / g</p>
-  </div>
+    <div class="tip-box">
+      <strong>💡 重要ポイント（対称性）</strong>
+      <ul>
+        <li><strong>最高点：</strong> 速度 <strong>v = 0</strong> になる！</li>
+        <li><strong>落ちてくる時間：</strong> 行きの時間と帰りの時間は <strong>同じ！</strong></li>
+        <li><strong>元の高さでの速度：</strong> 初速度と同じ大きさ（向きは下）</li>
+      </ul>
+    </div>
+  </section>
 
-  <h2>例題</h2>
+  <!-- ===== Section 3: 練習問題 ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習問題（全12問）</h2>
+    <p>※ 以下の問題では、特に指定がない限り <strong>重力加速度 g = 9.8 m/s²</strong> とする。</p>
 
-  <div class="example">
-    <h4>例題1：鉛直投げ上げ</h4>
-    <p><strong>問題：</strong>初速度 20 m/s で投げ上げ。最高点の高さと到達時間は？（g = 10）</p>
-    <p><strong>解答：</strong></p>
-    <p>t = v₀/g = 20/10 = <strong>2 s</strong></p>
-    <p>h = v₀²/2g = 400/20 = <strong>20 m</strong></p>
-  </div>
+    <h3>【自由落下】</h3>
+    <QuizCard 
+      id="1"
+      question="ビルからリンゴを静かに落とした。2秒後の速度 v は？"
+      answer="19.6"
+      answerUnit="m/s"
+      steps={[
+        "v = gt",
+        "= 9.8 × 2",
+        "= <strong>19.6 m/s</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題2：水平投射</h4>
-    <p><strong>問題：</strong>高さ 45 m から水平に 10 m/s で投げる。落下時間と水平到達距離は？</p>
-    <p><strong>解答：</strong></p>
-    <p>t = √(2×45/10) = √9 = <strong>3 s</strong></p>
-    <p>x = 10 × 3 = <strong>30 m</strong></p>
-  </div>
+    <QuizCard 
+      id="2"
+      question="問1のとき、2秒間に落下した距離（高さ h）は？"
+      answer="19.6"
+      answerUnit="m"
+      steps={[
+        "h = ½gt²",
+        "= ½ × 9.8 × 2²",
+        "= 4.9 × 4 = <strong>19.6 m</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題3：斜方投射の飛距離</h4>
-    <p><strong>問題：</strong>初速度 20 m/s、角度 30° で投げる。飛距離は？（g = 10）</p>
-    <p><strong>解答：</strong></p>
-    <p>R = v₀² sin 2θ / g = 400 × sin 60° / 10</p>
-    <p>= 400 × 0.87 / 10 ≈ <strong>34.6 m</strong></p>
-  </div>
+    <QuizCard 
+      id="3"
+      question="高さ 44.1 m の橋から石を落とした。水面につくまでの時間 t は？"
+      answer="3"
+      answerUnit="s"
+      steps={[
+        "h = ½gt²",
+        "44.1 = 4.9 × t²",
+        "t² = 44.1 / 4.9 = 9",
+        "t = <strong>3 s</strong>"
+      ]}
+    />
 
-  <h2>🎮 インタラクティブ練習</h2>
+    <QuizCard 
+      id="4"
+      question="問3の石が水面につく瞬間の速度 v は？"
+      answer="29.4"
+      answerUnit="m/s"
+      steps={[
+        "v = gt",
+        "= 9.8 × 3 = <strong>29.4 m/s</strong>"
+      ]}
+    />
 
-<VerticalMotion />
+    <QuizCard 
+      id="5"
+      question="地面に 14 m/s で衝突する物体は、何 m の高さから落下したか？（v²=2gh を使う）"
+      answer="10"
+      answerUnit="m"
+      steps={[
+        "v² = 2gh",
+        "14² = 2 × 9.8 × h",
+        "196 = 19.6h",
+        "h = <strong>10 m</strong>"
+      ]}
+    />
 
-<h2>練習問題</h2>
-  <table>
-    <tr><th>問題</th><th>解答</th></tr>
-    <tr>
-      <td>① 初速度 30 m/s で投げ上げ。最高点の高さは？</td>
-      <td><details><summary>答え</summary>h = 900/20 = 45 m</details></td>
-    </tr>
-    <tr>
-      <td>② 高さ 20 m から落下。地面に着くまでの時間は？</td>
-      <td><details><summary>答え</summary>t = √(40/10) = 2 s</details></td>
-    </tr>
-    <tr>
-      <td>③ 飛距離が最大になる角度は？</td>
-      <td><details><summary>答え</summary>45°</details></td>
-    </tr>
-  </table>
+    <h3>【鉛直投げ上げ】</h3>
+    <QuizCard 
+      id="6"
+      question="ボールを初速度 19.6 m/s で真上に投げた。最高点に達するまでの時間 t は？"
+      answer="2"
+      answerUnit="s"
+      steps={[
+        "最高点では v = 0",
+        "v = v₀ - gt",
+        "0 = 19.6 - 9.8t",
+        "9.8t = 19.6  ⇒  t = <strong>2 s</strong>"
+      ]}
+    />
 
-  <h2>📝 今日のポイント</h2>
-  <div class="highlight-box">
-    <ul>
-      <li>✓ 自由落下：v = gt, y = ½gt²</li>
-      <li>✓ 投げ上げ：最高点で v = 0</li>
-      <li>✓ 水平投射：横は等速、縦は自由落下</li>
-      <li>✓ 斜方投射：<strong>v₀x = v₀cosθ, v₀y = v₀sinθ</strong></li>
-      <li>✓ 最大飛距離：<strong>θ = 45°</strong></li>
-    </ul>
-  </div>
+    <QuizCard 
+      id="7"
+      question="問6のとき、最高点の高さ h（投げ上げた位置から）は？"
+      answer="19.6"
+      answerUnit="m"
+      steps={[
+        "h = v₀t - ½gt²",
+        "= 19.6 × 2 - ½ × 9.8 × 2²",
+        "= 39.2 - 19.6 = <strong>19.6 m</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="8"
+      question="初速度 29.4 m/s で投げ上げた物体が、再び元の高さに戻ってくるまでの時間は？"
+      answer="6"
+      answerUnit="s"
+      steps={[
+        "まず最高点までの時間を出す。0 = 29.4 - 9.8t ⇒ t = 3s",
+        "往復の時間はその2倍！",
+        "t = 3 × 2 = <strong>6 s</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="9"
+      question="初速度 29.4 m/s で投げ上げた物体が、元の高さに戻ってきたときの速度の大きさは？"
+      answer="29.4"
+      answerUnit="m/s"
+      steps={[
+        "対称性より、投げ上げた初速度と同じ大きさで戻ってくる！",
+        "速度の大きさ = <strong>29.4 m/s</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="10"
+      question="ボールを真上に投げたら、3秒後に最高点に達した。初速度 v₀ は？"
+      answer="29.4"
+      answerUnit="m/s"
+      steps={[
+        "最高点で v = 0",
+        "0 = v₀ - 9.8 × 3",
+        "v₀ = <strong>29.4 m/s</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="11"
+      question="初速度 9.8 m/s で真上に投げた。1.5秒後の速度は？"
+      answer="-4.9"
+      answerUnit="m/s"
+      steps={[
+        "v = v₀ - gt",
+        "= 9.8 - 9.8 × 1.5",
+        "= 9.8 - 14.7 = <strong>-4.9 m/s</strong>",
+        "（負なので、下向きに落ちてきている状態！）"
+      ]}
+    />
+
+    <QuizCard 
+      id="12"
+      question="真上に投げ上げた物体が最高点にあるときの「加速度」は 0 か？（はい/いいえ）"
+      answer="いいえ"
+      answerUnit=""
+      steps={[
+        "速度は 0 になるが、常に重力（下向きに9.8 m/s²の加速度）は働き続けている！",
+        "よって答えは <strong>いいえ</strong>"
+      ]}
+    />
+  </section>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week11/" class="nav-btn secondary">← Week 11</a>
-    <a href="/physics-basic/" class="nav-btn">🏠 ホームへ</a>
+    <a href="/physics-basic/weeks/week13/" class="nav-btn">Week 13 へ →</a>
   </div>
 </Layout>
 
 <style>
-  .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; }
-  .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
-  .big-formula { font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
-  details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
-  
-  #cannonCanvas {
-    background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 70%, #8B4513 70%, #8B4513 100%);
-    border-radius: 8px;
+  /* Base styles */
+  .content-section {
+    margin: 40px 0;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .content-section h2 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #3b82f6;
+  }
+
+  .content-section h3 {
+    margin-top: 32px;
+    color: #334155;
+    border-left: 4px solid #f59e0b;
+    padding-left: 12px;
+  }
+
+  .intro-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+  }
+
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .formula-box h4 {
+    margin: 0 0 12px;
+    color: #1d4ed8;
+  }
+
+  .big-formula {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1d4ed8;
     display: block;
-    margin: 0 auto;
-    max-width: 100%;
+    margin: 8px 0;
+    font-family: 'Courier New', monospace;
   }
-  .cannon-controls {
+
+  .tip-box {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+  }
+
+  .tip-box ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+  }
+
+  .tip-box li {
+    margin-bottom: 4px;
+  }
+
+  .exercise-section {
+    background: #fafbfc;
+  }
+
+  .nav-buttons {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem 0;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 16px;
   }
-  .cannon-controls label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-  }
-  .cannon-controls input[type="range"] {
-    width: 120px;
-  }
-  #fire-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 1.1rem;
-    background: #ef4444;
-    color: white;
-    border: none;
+
+  .nav-btn {
+    flex: 1;
+    display: inline-block;
+    padding: 14px 24px;
+    text-align: center;
+    text-decoration: none;
     border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.1s;
+    font-weight: 600;
+    transition: all 0.2s;
   }
-  #fire-btn:hover { background: #dc2626; }
-  #fire-btn:active { transform: scale(0.95); }
-  .cannon-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    font-size: 0.95rem;
+
+  .nav-btn:not(.secondary) {
+    background: #3b82f6;
+    color: white;
   }
-  .cannon-info span {
+
+  .nav-btn:not(.secondary):hover {
+    background: #2563eb;
+  }
+
+  .nav-btn.secondary {
     background: #f1f5f9;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    color: #475569;
+  }
+
+  .nav-btn.secondary:hover {
+    background: #e2e8f0;
   }
 </style>
-
-<script>
-  const canvas = document.getElementById('cannonCanvas') as HTMLCanvasElement;
-  const ctx = canvas?.getContext('2d');
-  const angleSlider = document.getElementById('angle-slider') as HTMLInputElement;
-  const velocitySlider = document.getElementById('velocity-slider') as HTMLInputElement;
-  const angleVal = document.getElementById('angle-val');
-  const velocityVal = document.getElementById('velocity-val');
-  const fireBtn = document.getElementById('fire-btn');
-  const rangeVal = document.getElementById('range-val');
-  const heightVal = document.getElementById('height-val');
-  const timeVal = document.getElementById('time-val');
-
-  const g = 10;
-  const scale = 3; // pixels per meter
-  const groundY = 210;
-  const cannonX = 40;
-  const cannonY = groundY;
-  
-  let trajectory: {x: number, y: number}[] = [];
-  let animating = false;
-  let currentBall: {x: number, y: number, vx: number, vy: number, t: number} | null = null;
-
-  function drawScene() {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, 500, 300);
-    
-    // Sky gradient
-    const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
-    skyGrad.addColorStop(0, '#87CEEB');
-    skyGrad.addColorStop(1, '#B0E0E6');
-    ctx.fillStyle = skyGrad;
-    ctx.fillRect(0, 0, 500, groundY);
-    
-    // Ground
-    ctx.fillStyle = '#8B4513';
-    ctx.fillRect(0, groundY, 500, 90);
-    ctx.fillStyle = '#228B22';
-    ctx.fillRect(0, groundY, 500, 5);
-
-    // Cannon base
-    ctx.fillStyle = '#4a4a4a';
-    ctx.beginPath();
-    ctx.arc(cannonX, cannonY, 15, 0, Math.PI * 2);
-    ctx.fill();
-    
-    // Cannon barrel
-    const angle = parseInt(angleSlider?.value || '45') * Math.PI / 180;
-    ctx.save();
-    ctx.translate(cannonX, cannonY);
-    ctx.rotate(-angle);
-    ctx.fillStyle = '#2d2d2d';
-    ctx.fillRect(0, -8, 40, 16);
-    ctx.fillStyle = '#1a1a1a';
-    ctx.fillRect(35, -10, 10, 20);
-    ctx.restore();
-
-    // Trajectory preview (dotted)
-    if (!animating) {
-      const v0 = parseInt(velocitySlider?.value || '30');
-      const theta = parseInt(angleSlider?.value || '45') * Math.PI / 180;
-      const vx = v0 * Math.cos(theta);
-      const vy = v0 * Math.sin(theta);
-      
-      ctx.strokeStyle = 'rgba(100, 100, 100, 0.5)';
-      ctx.setLineDash([5, 5]);
-      ctx.beginPath();
-      
-      for (let t = 0; t < 10; t += 0.1) {
-        const x = cannonX + vx * t * scale;
-        const y = cannonY - (vy * t - 0.5 * g * t * t) * scale;
-        if (y > groundY) break;
-        if (t === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-      ctx.setLineDash([]);
-    }
-
-    // Drawn trajectory
-    if (trajectory.length > 1) {
-      ctx.strokeStyle = '#22c55e';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(trajectory[0].x, trajectory[0].y);
-      trajectory.forEach(p => ctx.lineTo(p.x, p.y));
-      ctx.stroke();
-      ctx.lineWidth = 1;
-    }
-
-    // Ball
-    if (currentBall) {
-      ctx.fillStyle = '#ef4444';
-      ctx.beginPath();
-      ctx.arc(currentBall.x, currentBall.y, 8, 0, Math.PI * 2);
-      ctx.fill();
-      
-      // Velocity vectors
-      const arrowScale = 0.5;
-      // Horizontal (red)
-      ctx.strokeStyle = '#dc2626';
-      ctx.lineWidth = 3;
-      drawArrow(ctx, currentBall.x, currentBall.y, currentBall.x + currentBall.vx * arrowScale, currentBall.y);
-      // Vertical (blue)
-      ctx.strokeStyle = '#2563eb';
-      drawArrow(ctx, currentBall.x, currentBall.y, currentBall.x, currentBall.y - currentBall.vy * arrowScale);
-      ctx.lineWidth = 1;
-    }
-  }
-
-  function drawArrow(ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
-    const headLen = 8;
-    const angle = Math.atan2(y2 - y1, x2 - x1);
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
-    ctx.moveTo(x2, y2);
-    ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
-    ctx.stroke();
-  }
-
-  function fire() {
-    if (animating) return;
-    
-    const v0 = parseInt(velocitySlider?.value || '30');
-    const theta = parseInt(angleSlider?.value || '45') * Math.PI / 180;
-    const vx = v0 * Math.cos(theta);
-    const vy = v0 * Math.sin(theta);
-    
-    trajectory = [];
-    currentBall = { x: cannonX, y: cannonY, vx: vx * scale, vy: vy * scale, t: 0 };
-    animating = true;
-    
-    // Calculate theoretical values
-    const range = (v0 * v0 * Math.sin(2 * theta)) / g;
-    const maxHeight = (v0 * v0 * Math.sin(theta) * Math.sin(theta)) / (2 * g);
-    const totalTime = (2 * v0 * Math.sin(theta)) / g;
-    
-    if (rangeVal) rangeVal.textContent = range.toFixed(1);
-    if (heightVal) heightVal.textContent = maxHeight.toFixed(1);
-    if (timeVal) timeVal.textContent = totalTime.toFixed(2);
-
-    animate();
-  }
-
-  function animate() {
-    if (!currentBall || !animating) return;
-    
-    const dt = 0.05;
-    currentBall.t += dt;
-    
-    const v0 = parseInt(velocitySlider?.value || '30');
-    const theta = parseInt(angleSlider?.value || '45') * Math.PI / 180;
-    const vx = v0 * Math.cos(theta);
-    const vy = v0 * Math.sin(theta);
-    
-    currentBall.x = cannonX + vx * currentBall.t * scale;
-    currentBall.y = cannonY - (vy * currentBall.t - 0.5 * g * currentBall.t * currentBall.t) * scale;
-    currentBall.vy = (vy - g * currentBall.t) * scale;
-    
-    trajectory.push({ x: currentBall.x, y: currentBall.y });
-    
-    drawScene();
-    
-    if (currentBall.y >= groundY) {
-      animating = false;
-      currentBall.y = groundY;
-      drawScene();
-    } else {
-      requestAnimationFrame(animate);
-    }
-  }
-
-  angleSlider?.addEventListener('input', () => {
-    if (angleVal) angleVal.textContent = angleSlider.value;
-    trajectory = [];
-    currentBall = null;
-    drawScene();
-  });
-
-  velocitySlider?.addEventListener('input', () => {
-    if (velocityVal) velocityVal.textContent = velocitySlider.value;
-    trajectory = [];
-    currentBall = null;
-    drawScene();
-  });
-
-  fireBtn?.addEventListener('click', fire);
-
-  drawScene();
-</script>

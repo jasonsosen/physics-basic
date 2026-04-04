@@ -1,142 +1,206 @@
 ---
-import KinematicsSolver from "../../components/KinematicsSolver.astro";
 import Layout from '../../layouts/Layout.astro';
+import QuizCard from '../../components/QuizCard.astro';
 ---
 
-<Layout title="Week 11: 等速度・等加速度運動">
-  <h1>Week 11: 等速度・等加速度運動</h1>
-  <p class="subtitle">3つの魔法公式をマスター！</p>
+<Layout title="Week 11: 等速度運動と等加速度運動">
+  <h1>Week 11: 等速度運動と等加速度運動</h1>
 
-  <h2>🎯 今日の目標</h2>
-  <ul>
-    <li>等速度運動の計算ができる</li>
-    <li>等加速度運動の3公式を使い分けられる</li>
-    <li>問題に応じて適切な公式を選べる</li>
-  </ul>
+  <!-- ===== Section 1: 等速直線運動 ===== -->
+  <section class="content-section">
+    <h2>➡️ 等速直線運動</h2>
+    
+    <div class="intro-box">
+      速度がずっと変わらない（一定の）運動！
+    </div>
 
-  <h2>等速度運動</h2>
+    <div class="formula-box">
+      <h4>位置の公式</h4>
+      <span class="big-formula">x = x₀ + vt</span>
+      <p>x₀: 初期位置（t=0のときの位置）、v: 速度、t: 時間</p>
+    </div>
+  </section>
 
-  <div class="highlight-box">
-    速度が一定の運動（加速度 = 0）
-  </div>
+  <!-- ===== Section 2: 等加速度直線運動 ===== -->
+  <section class="content-section">
+    <h2>🚀 等加速度直線運動</h2>
 
-  <div class="formula-box">
-    <span class="big-formula">x = x₀ + vt</span>
-    <p>位置 = 初期位置 + 速度 × 時間</p>
-  </div>
+    <div class="intro-box">
+      加速度が一定（少しずつ速くなる or 遅くなる）運動！<br/>
+      物理で一番大事な <strong>3つの公式</strong> を覚えよう！
+    </div>
 
-  <div class="example">
-    <h4>例</h4>
-    <p>速さ 5 m/s で 8 秒間移動 → 変位 = 5 × 8 = <strong>40 m</strong></p>
-  </div>
+    <div class="formula-box">
+      <h4>🔥 等加速度 3大公式</h4>
+      <p>① 速度と時間の関係（vを知りたい）</p>
+      <span class="big-formula">v = v₀ + at</span>
+      <hr style="border:0; border-top:1px solid #bfdbfe; margin:16px 0;">
+      <p>② 位置と時間の関係（xを知りたい）</p>
+      <span class="big-formula">x = v₀t + ½at²</span>
+      <hr style="border:0; border-top:1px solid #bfdbfe; margin:16px 0;">
+      <p>③ 時間 t が分からないとき（vとxの関係）</p>
+      <span class="big-formula">v² - v₀² = 2ax</span>
+      
+      <div style="margin-top: 16px; text-align: left; background: white; padding: 12px; border-radius: 8px;">
+        <p><strong>v₀</strong>: 初速度（最初のスピード）</p>
+        <p><strong>v</strong>: t 秒後の速度</p>
+        <p><strong>a</strong>: 加速度</p>
+        <p><strong>t</strong>: 時間</p>
+        <p><strong>x</strong>: 変位（進んだ距離）</p>
+      </div>
+    </div>
+  </section>
 
-  <h2>等加速度運動</h2>
+  <!-- ===== Section 3: 練習問題 ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習問題（全12問）</h2>
 
-  <div class="highlight-box">
-    加速度が一定の運動
-  </div>
+    <h3>【等速直線運動】</h3>
+    <QuizCard 
+      id="1"
+      question="初めの位置 x₀=5 m から、速度 3 m/s で等速直線運動をした。4秒後の位置 x は？"
+      answer="17"
+      answerUnit="m"
+      steps={[
+        "x = x₀ + vt",
+        "= 5 + 3 × 4",
+        "= 5 + 12 = <strong>17 m</strong>"
+      ]}
+    />
 
-  <h3>3つの基本公式</h3>
+    <QuizCard 
+      id="2"
+      question="原点(x₀=0)から等速で進み、5秒後に x=20 m に到達した。速度 v は？"
+      answer="4"
+      answerUnit="m/s"
+      steps={[
+        "x = vt より、20 = v × 5",
+        "v = 20 / 5 = <strong>4 m/s</strong>"
+      ]}
+    />
 
-  <div class="formula-box">
-    <p><strong>公式1：速度を求める</strong></p>
-    <span class="big-formula">v = v₀ + at</span>
-  </div>
+    <h3>【等加速度直線運動：公式① v = v₀ + at】</h3>
+    <QuizCard 
+      id="3"
+      question="初速度 2 m/s、加速度 3 m/s² のとき、4秒後の速度 v は？"
+      answer="14"
+      answerUnit="m/s"
+      steps={[
+        "v = v₀ + at",
+        "= 2 + 3 × 4",
+        "= 2 + 12 = <strong>14 m/s</strong>"
+      ]}
+    />
 
-  <div class="formula-box">
-    <p><strong>公式2：位置を求める</strong></p>
-    <span class="big-formula">x = x₀ + v₀t + ½at²</span>
-  </div>
+    <QuizCard 
+      id="4"
+      question="静止していた物体（v₀=0）が加速度 5 m/s² で動き出した。3秒後の速度は？"
+      answer="15"
+      answerUnit="m/s"
+      steps={[
+        "v = 0 + 5 × 3",
+        "= <strong>15 m/s</strong>"
+      ]}
+    />
 
-  <div class="formula-box">
-    <p><strong>公式3：時間なしで計算</strong></p>
-    <span class="big-formula">v² = v₀² + 2a(x − x₀)</span>
-  </div>
+    <QuizCard 
+      id="5"
+      question="初速度 10 m/s の車がブレーキをかけ、加速度 -2 m/s² で減速した。何秒後に停止(v=0)するか？"
+      answer="5"
+      answerUnit="s"
+      steps={[
+        "v = v₀ + at",
+        "0 = 10 + (-2) × t",
+        "2t = 10  ⇒  t = <strong>5 s</strong>"
+      ]}
+    />
 
-  <h3>🎯 公式の使い分け</h3>
+    <h3>【等加速度直線運動：公式② x = v₀t + ½at²】</h3>
+    <QuizCard 
+      id="6"
+      question="初速度 0 m/s、加速度 4 m/s² のとき、3秒間に進む距離 x は？"
+      answer="18"
+      answerUnit="m"
+      steps={[
+        "x = v₀t + ½at²",
+        "= 0 × 3 + ½ × 4 × 3²",
+        "= 2 × 9 = <strong>18 m</strong>"
+      ]}
+    />
 
-  <div class="highlight-box">
-    <strong>公式選びのコツ</strong>
-    <ul>
-      <li>時間 t がわかっている → <strong>公式1 or 2</strong></li>
-      <li>時間 t がわからない → <strong>公式3</strong></li>
-      <li>速度 v を求める → <strong>公式1 or 3</strong></li>
-      <li>位置 x を求める → <strong>公式2 or 3</strong></li>
-    </ul>
-  </div>
+    <QuizCard 
+      id="7"
+      question="初速度 5 m/s、加速度 2 m/s² のとき、4秒間に進む距離 x は？"
+      answer="36"
+      answerUnit="m"
+      steps={[
+        "x = 5 × 4 + ½ × 2 × 4²",
+        "= 20 + 1 × 16 = <strong>36 m</strong>"
+      ]}
+    />
 
-  <h3>初速度 0 の場合（よく出る！）</h3>
-  <div class="example">
-    <p>v₀ = 0 のとき、公式はシンプルに：</p>
-    <ul>
-      <li>v = at</li>
-      <li>x = ½at²</li>
-      <li>v² = 2ax</li>
-    </ul>
-  </div>
+    <QuizCard 
+      id="8"
+      question="静止から動き出し、加速度 10 m/s² で 5 秒間進んだ距離は？"
+      answer="125"
+      answerUnit="m"
+      steps={[
+        "x = 0 + ½ × 10 × 5²",
+        "= 5 × 25 = <strong>125 m</strong>"
+      ]}
+    />
 
-  <h2>例題</h2>
+    <h3>【等加速度直線運動：公式③ v² - v₀² = 2ax】</h3>
+    <QuizCard 
+      id="9"
+      question="初速度 0 m/s、加速度 3 m/s² で 24 m 進んだ。そのときの速度 v は？"
+      answer="12"
+      answerUnit="m/s"
+      steps={[
+        "v² - v₀² = 2ax",
+        "v² - 0² = 2 × 3 × 24",
+        "v² = 144",
+        "v = <strong>12 m/s</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題1：速度を求める</h4>
-    <p><strong>問題：</strong>初速度 2 m/s、加速度 3 m/s²。4秒後の速度は？</p>
-    <p><strong>解答：</strong></p>
-    <p>v = v₀ + at = 2 + 3×4 = <strong>14 m/s</strong></p>
-  </div>
+    <QuizCard 
+      id="10"
+      question="初速度 4 m/s の物体が加速し、8 m 進んだときに速度が 6 m/s になった。加速度 a は？"
+      answer="1.25"
+      answerUnit="m/s²"
+      steps={[
+        "v² - v₀² = 2ax",
+        "6² - 4² = 2 × a × 8",
+        "36 - 16 = 16a",
+        "20 = 16a  ⇒  a = 20 / 16 = <strong>1.25 m/s²</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題2：位置を求める</h4>
-    <p><strong>問題：</strong>上記の条件で、4秒後の位置は？（初期位置0）</p>
-    <p><strong>解答：</strong></p>
-    <p>x = v₀t + ½at² = 2×4 + ½×3×16 = 8 + 24 = <strong>32 m</strong></p>
-  </div>
+    <QuizCard 
+      id="11"
+      question="速度 20 m/s で走る車がブレーキをかけ、加速度 -4 m/s² で停止(v=0)した。停止するまでに進んだ距離(制動距離)は？"
+      answer="50"
+      answerUnit="m"
+      steps={[
+        "v² - v₀² = 2ax",
+        "0² - 20² = 2 × (-4) × x",
+        "-400 = -8x",
+        "x = <strong>50 m</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題3：時間がわからない</h4>
-    <p><strong>問題：</strong>初速度 0、加速度 2 m/s² で 100 m 進んだときの速度は？</p>
-    <p><strong>解答：</strong></p>
-    <p>v² = v₀² + 2aΔx = 0 + 2×2×100 = 400</p>
-    <p>v = <strong>20 m/s</strong></p>
-  </div>
-
-  <div class="example">
-    <h4>例題4：止まるまで</h4>
-    <p><strong>問題：</strong>初速度 10 m/s、加速度 −2 m/s²。止まるまでの時間と距離は？</p>
-    <p><strong>解答：</strong></p>
-    <p>時間：0 = 10 + (−2)t → t = <strong>5 s</strong></p>
-    <p>距離：x = 10×5 + ½×(−2)×25 = 50 − 25 = <strong>25 m</strong></p>
-  </div>
-
-  <h2>🎮 インタラクティブ練習</h2>
-
-<KinematicsSolver />
-
-<h2>練習問題</h2>
-  <table>
-    <tr><th>問題</th><th>解答</th></tr>
-    <tr>
-      <td>① 初速度 0、加速度 5 m/s²。3秒後の速度は？</td>
-      <td><details><summary>答え</summary>v = 0 + 5×3 = 15 m/s</details></td>
-    </tr>
-    <tr>
-      <td>② 初速度 4 m/s、加速度 2 m/s²。2秒間の変位は？</td>
-      <td><details><summary>答え</summary>x = 4×2 + ½×2×4 = 8 + 4 = 12 m</details></td>
-    </tr>
-    <tr>
-      <td>③ 初速度 6 m/s、加速度 −3 m/s²。止まるまでの距離は？</td>
-      <td><details><summary>答え</summary>v² = v₀² + 2ax → 0 = 36 + 2×(−3)×x → x = 6 m</details></td>
-    </tr>
-  </table>
-
-  <h2>📝 今日のポイント</h2>
-  <div class="highlight-box">
-    <ul>
-      <li>✓ 等速度運動：<strong>x = x₀ + vt</strong></li>
-      <li>✓ 公式1：<strong>v = v₀ + at</strong></li>
-      <li>✓ 公式2：<strong>x = x₀ + v₀t + ½at²</strong></li>
-      <li>✓ 公式3：<strong>v² = v₀² + 2aΔx</strong>（時間なし）</li>
-    </ul>
-  </div>
+    <QuizCard 
+      id="12"
+      question="公式②で v₀=0 のとき、進む距離 x は時間の「何乗」に比例する？"
+      answer="2"
+      answerUnit="乗"
+      steps={[
+        "x = ½at²",
+        "よって、距離 x は時間 t の<strong>2乗</strong>に比例する！"
+      ]}
+    />
+  </section>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week10/" class="nav-btn secondary">← Week 10</a>
@@ -145,8 +209,98 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; }
-  .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
-  .big-formula { font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
-  details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
+  /* Base styles */
+  .content-section {
+    margin: 40px 0;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .content-section h2 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #3b82f6;
+  }
+
+  .content-section h3 {
+    margin-top: 32px;
+    color: #334155;
+    border-left: 4px solid #f59e0b;
+    padding-left: 12px;
+  }
+
+  .intro-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+  }
+
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .formula-box h4 {
+    margin: 0 0 12px;
+    color: #1d4ed8;
+  }
+
+  .big-formula {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    display: block;
+    margin: 8px 0;
+    font-family: 'Courier New', monospace;
+  }
+
+  .exercise-section {
+    background: #fafbfc;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 16px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    display: inline-block;
+    padding: 14px 24px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:not(.secondary) {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .nav-btn:not(.secondary):hover {
+    background: #2563eb;
+  }
+
+  .nav-btn.secondary {
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .nav-btn.secondary:hover {
+    background: #e2e8f0;
+  }
 </style>

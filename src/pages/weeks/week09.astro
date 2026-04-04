@@ -1,131 +1,177 @@
 ---
-import GraphReader from "../../components/GraphReader.astro";
 import Layout from '../../layouts/Layout.astro';
+import QuizCard from '../../components/QuizCard.astro';
 ---
 
 <Layout title="Week 9: 運動の表し方">
   <h1>Week 9: 運動の表し方</h1>
-  <p class="subtitle">グラフで運動を読み解こう！</p>
 
-  <h2>🎯 今日の目標</h2>
-  <ul>
-    <li>x-t図（位置-時間グラフ）を読める</li>
-    <li>v-t図（速度-時間グラフ）を読める</li>
-    <li>グラフの「傾き」と「面積」の意味を理解する</li>
-  </ul>
+  <!-- ===== Section 1: x-t グラフ ===== -->
+  <section class="content-section">
+    <h2>📈 x-t グラフ（位置-時間グラフ）</h2>
+    
+    <div class="intro-box">
+      <strong>x-t グラフ</strong> では、縦軸が位置 $x$、横軸が時間 $t$ を表します。<br/>
+      このグラフの <strong>傾き</strong> が <strong>速度 $v$</strong> になります！
+    </div>
 
-  <h2>グラフの2大ルール</h2>
+    <div class="formula-box">
+      <h4>速度の求め方（グラフの傾き）</h4>
+      <span class="big-formula">v = Δx / Δt = (x₂ - x₁) / (t₂ - t₁)</span>
+      <p>※ $\Delta$（デルタ）は「変化量」を意味します。</p>
+    </div>
 
-  <div class="highlight-box">
-    <strong>傾き</strong> と <strong>面積</strong> だけ覚えれば OK！
-  </div>
+    <div class="simple-cases">
+      <div class="case-card">
+        <div class="case-icon">↗️</div>
+        <div class="case-text"><strong>右上がり：</strong></div>
+        <div class="case-example">速度 $v > 0$（正の向きに進む）</div>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">➡️</div>
+        <div class="case-text"><strong>水平：</strong></div>
+        <div class="case-example">速度 $v = 0$（止まっている）</div>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">↘️</div>
+        <div class="case-text"><strong>右下がり：</strong></div>
+        <div class="case-example">速度 $v < 0$（負の向きに進む）</div>
+      </div>
+    </div>
+  </section>
 
-  <table>
-    <tr><th>グラフ</th><th>傾きの意味</th><th>面積の意味</th></tr>
-    <tr><td><strong>x-t図</strong></td><td>速度</td><td>—</td></tr>
-    <tr><td><strong>v-t図</strong></td><td>加速度</td><td>変位（移動距離）</td></tr>
-  </table>
+  <!-- ===== Section 2: 平均の速度 ===== -->
+  <section class="content-section">
+    <h2>🏃 平均の速度</h2>
 
-  <h2>x-t図（位置-時間グラフ）</h2>
+    <div class="formula-box">
+      <span class="big-formula">平均の速度 = 総変位 / 総時間</span>
+    </div>
 
-  <h3>グラフの形と運動</h3>
-  <table>
-    <tr><th>グラフの形</th><th>運動の種類</th></tr>
-    <tr><td>水平な直線</td><td>静止（止まっている）</td></tr>
-    <tr><td>傾きのある直線</td><td>等速直線運動</td></tr>
-    <tr><td>曲線</td><td>加速または減速</td></tr>
-  </table>
+    <div class="example-box">
+      <h4>例：平均の速度の計算</h4>
+      <p>ある物体が $t=0$ s で $x=2$ m にあり、$t=4$ s で $x=10$ m の位置に移動した。</p>
+      <div class="solution-steps">
+        <p>変位 $\Delta x = 10 - 2 = 8$ m</p>
+        <p>時間 $\Delta t = 4 - 0 = 4$ s</p>
+        <p>平均の速度 $v = 8 / 4 =$ <strong>2 m/s</strong></p>
+      </div>
+    </div>
+  </section>
 
-  <div class="formula-box">
-    <span class="big-formula">傾き = Δx / Δt = 速度</span>
-    <p>傾きが急 → 速い、傾きがゆるやか → 遅い</p>
-  </div>
+  <!-- ===== Section 3: 練習問題 ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習問題（全10問）</h2>
 
-  <h3>傾きの正負</h3>
-  <ul>
-    <li>傾き > 0：正の向きに進む</li>
-    <li>傾き < 0：負の向きに進む（戻っている）</li>
-    <li>傾き = 0：静止</li>
-  </ul>
+    <QuizCard 
+      id="1"
+      question="t=0 sでx=0 m、t=2 sでx=10 mにある物体の平均の速度は？"
+      answer="5"
+      answerUnit="m/s"
+      steps={[
+        "v = Δx / Δt",
+        "= (10 - 0) / (2 - 0)",
+        "= 10 / 2 = <strong>5 m/s</strong>"
+      ]}
+    />
 
-  <h2>v-t図（速度-時間グラフ）</h2>
+    <QuizCard 
+      id="2"
+      question="t=1 sでx=3 m、t=4 sでx=15 mにある物体の平均の速度は？"
+      answer="4"
+      answerUnit="m/s"
+      steps={[
+        "v = (15 - 3) / (4 - 1)",
+        "= 12 / 3 = <strong>4 m/s</strong>"
+      ]}
+    />
 
-  <div class="formula-box">
-    <span class="big-formula">傾き = Δv / Δt = 加速度</span>
-    <span class="big-formula">面積 = 変位（移動距離）</span>
-  </div>
+    <QuizCard 
+      id="3"
+      question="t=2 sでx=20 m、t=5 sでx=5 mに移動した。このときの平均の速度は？"
+      answer="-5"
+      answerUnit="m/s"
+      steps={[
+        "v = (5 - 20) / (5 - 2)",
+        "= -15 / 3 = <strong>-5 m/s</strong>"
+      ]}
+    />
 
-  <h3>グラフの形と運動</h3>
-  <table>
-    <tr><th>グラフの形</th><th>運動の種類</th></tr>
-    <tr><td>水平な直線（v = 一定）</td><td>等速直線運動</td></tr>
-    <tr><td>傾きのある直線</td><td>等加速度運動</td></tr>
-    <tr><td>v = 0 の直線</td><td>静止</td></tr>
-  </table>
+    <QuizCard 
+      id="4"
+      question="x-tグラフが原点を通る直線で、t=5 sのときx=25 mである。この直線の傾き（速度）は？"
+      answer="5"
+      answerUnit="m/s"
+      steps={[
+        "v = 25 / 5 = <strong>5 m/s</strong>"
+      ]}
+    />
 
-  <h3>面積で移動距離を求める</h3>
-  <div class="example">
-    <h4>💡 ポイント</h4>
-    <p>v-t図と横軸で囲まれた部分の <strong>面積</strong> ＝ 移動距離</p>
-    <ul>
-      <li>長方形なら：縦 × 横</li>
-      <li>三角形なら：底辺 × 高さ ÷ 2</li>
-    </ul>
-  </div>
+    <QuizCard 
+      id="5"
+      question="速度 8 m/s で等速直線運動をしている。3秒間に進む距離（変位）は？"
+      answer="24"
+      answerUnit="m"
+      steps={[
+        "Δx = v × Δt",
+        "= 8 × 3 = <strong>24 m</strong>"
+      ]}
+    />
 
-  <h2>例題</h2>
+    <QuizCard 
+      id="6"
+      question="x-tグラフで、t=2 sからt=6 sまでグラフが水平になっている。この間の速度は？"
+      answer="0"
+      answerUnit="m/s"
+      steps={[
+        "水平なグラフの傾きは 0 なので、速度は <strong>0 m/s</strong>（停止している）"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題1：x-t図から速度</h4>
-    <p><strong>問題：</strong>t=0で x=0、t=4sで x=8m（直線グラフ）。速度は？</p>
-    <p><strong>解答：</strong></p>
-    <p>v = Δx/Δt = (8-0)/(4-0) = <strong>2 m/s</strong></p>
-  </div>
+    <QuizCard 
+      id="7"
+      question="ある人が東へ 30 m、そこから西へ 10 m 移動した。総変位（東を正とする）は？"
+      answer="20"
+      answerUnit="m"
+      steps={[
+        "東へ30m、西へ10m戻ったので",
+        "変位 = 30 + (-10) = <strong>20 m</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題2：v-t図から加速度</h4>
-    <p><strong>問題：</strong>t=0で v=0、t=5sで v=10m/s（直線グラフ）。加速度は？</p>
-    <p><strong>解答：</strong></p>
-    <p>a = Δv/Δt = (10-0)/(5-0) = <strong>2 m/s²</strong></p>
-  </div>
+    <QuizCard 
+      id="8"
+      question="問7の移動にかかった総時間が 10 s だった。平均の速度は？"
+      answer="2"
+      answerUnit="m/s"
+      steps={[
+        "v = 総変位 / 総時間",
+        "= 20 / 10 = <strong>2 m/s</strong>"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題3：v-t図から変位</h4>
-    <p><strong>問題：</strong>上記の運動で、0〜5sの変位は？</p>
-    <p><strong>解答：</strong></p>
-    <p>面積（三角形）= (1/2) × 5 × 10 = <strong>25 m</strong></p>
-  </div>
+    <QuizCard 
+      id="9"
+      question="平均の速さ（道のり÷時間）を求めよ。問7の移動（東30m→西10m）を10秒で行った場合。"
+      answer="4"
+      answerUnit="m/s"
+      steps={[
+        "総移動距離（道のり） = 30 + 10 = 40 m",
+        "平均の速さ = 40 / 10 = <strong>4 m/s</strong>",
+        "※ 速さは方向を考慮せず、移動距離で計算する。"
+      ]}
+    />
 
-  <h2>🎮 インタラクティブ練習</h2>
-
-<GraphReader />
-
-<h2>練習問題</h2>
-  <table>
-    <tr><th>問題</th><th>解答</th></tr>
-    <tr>
-      <td>① x-t図で、傾きが負のとき物体は？</td>
-      <td><details><summary>答え</summary>負の向きに進む（戻っている）</details></td>
-    </tr>
-    <tr>
-      <td>② v-t図で、v=4m/sで3秒間。変位は？</td>
-      <td><details><summary>答え</summary>面積 = 4 × 3 = 12 m</details></td>
-    </tr>
-    <tr>
-      <td>③ v-t図の傾きが負のとき、物体は？</td>
-      <td><details><summary>答え</summary>減速している（ブレーキ）</details></td>
-    </tr>
-  </table>
-
-  <h2>📝 今日のポイント</h2>
-  <div class="highlight-box">
-    <ul>
-      <li>✓ x-t図の<strong>傾き</strong> = 速度</li>
-      <li>✓ v-t図の<strong>傾き</strong> = 加速度</li>
-      <li>✓ v-t図の<strong>面積</strong> = 変位</li>
-      <li>✓ 傾きが正→進む、負→戻る、0→止まる</li>
-    </ul>
-  </div>
+    <QuizCard 
+      id="10"
+      question="x-tグラフの傾きが急なほど、速度の大きさは どうなる？（大きい or 小さい で答えよ）"
+      answer="大きい"
+      answerUnit=""
+      steps={[
+        "傾き = 速度 なので、傾きが急（大きい）ほど速度の大きさも<strong>大きい</strong>。"
+      ]}
+    />
+  </section>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week08/" class="nav-btn secondary">← Week 8</a>
@@ -134,8 +180,135 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; }
-  .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
-  .big-formula { font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
-  details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
+  /* Base styles inherited from week04 layout */
+  .content-section {
+    margin: 40px 0;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .content-section h2 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #3b82f6;
+  }
+
+  .intro-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+  }
+
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .formula-box h4 {
+    margin: 0 0 12px;
+    color: #1d4ed8;
+  }
+
+  .big-formula {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    display: block;
+    margin: 8px 0;
+    font-family: 'Courier New', monospace;
+  }
+
+  .simple-cases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .case-card {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .case-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .example-box {
+    background: #f0fdf4;
+    border: 2px solid #22c55e;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+
+  .example-box h4 {
+    color: #15803d;
+    margin: 0 0 12px;
+  }
+
+  .solution-steps {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 12px;
+  }
+
+  .solution-steps p {
+    margin: 6px 0;
+  }
+
+  .exercise-section {
+    background: #fafbfc;
+  }
+
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 16px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    display: inline-block;
+    padding: 14px 24px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:not(.secondary) {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .nav-btn:not(.secondary):hover {
+    background: #2563eb;
+  }
+
+  .nav-btn.secondary {
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .nav-btn.secondary:hover {
+    background: #e2e8f0;
+  }
 </style>
