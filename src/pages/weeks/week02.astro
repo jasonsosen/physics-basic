@@ -137,6 +137,17 @@ import QuizCard from '../../components/QuizCard.astro';
     <h2>✏️ 練習 Level 1：基礎換算</h2>
     <p class="section-desc">接頭語を数字に置き換えて計算しよう</p>
 
+    <div class="notation-box">
+      <strong>📐 解答の書き方</strong>
+      <p>物理では<strong>科学記数法（指数表記）</strong>を使います：</p>
+      <div class="notation-examples">
+        <span class="good">✅ 1.0 × 10³</span>
+        <span class="good">✅ 5.0 × 10⁻⁵</span>
+        <span class="ok">△ 1000（大きすぎ/小さすぎる数は避ける）</span>
+      </div>
+      <p class="notation-note">有効数字も意識！ 1.0 と 1 は精度が違う</p>
+    </div>
+
     <QuizCard 
       id="1"
       question="3.5 km"
@@ -198,6 +209,72 @@ import QuizCard from '../../components/QuizCard.astro';
         "= <strong>2 × 10⁻⁴ kg</strong>"
       ]}
       hint="mgからkgは「m(10⁻³)」を2回かける = 10⁻⁶"
+    />
+  </section>
+
+  <!-- ===== Section 3.5: 跨階換算 + 逆向換算 ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習 Level 1.5：接頭語どうしの換算</h2>
+    <p class="section-desc">基準単位を経由せず、接頭語間で直接変換！</p>
+
+    <div class="info-box">
+      <strong>💡 ポイント</strong>
+      <p>μm → nm のような「微小単位どうし」の変換では、指数の差を計算する：</p>
+      <p>μ = 10⁻⁶、n = 10⁻⁹ → 差は 10³（1000倍）</p>
+    </div>
+
+    <QuizCard 
+      id="5.1"
+      question="1.0 m"
+      answer="1.0 × 10³"
+      answerUnit="mm"
+      steps={[
+        "m → mm は「大→小」なので数字が大きくなる",
+        "1 m = 1000 mm = 10³ mm",
+        "= <strong>1.0 × 10³ mm</strong>"
+      ]}
+      hint="下りる時は ×（大きくなる）"
+    />
+
+    <QuizCard 
+      id="5.2"
+      question="1.0 × 10⁻¹ μm"
+      answer="1.0 × 10²"
+      answerUnit="nm"
+      steps={[
+        "μ = 10⁻⁶、n = 10⁻⁹",
+        "μm → nm は ×10³（1000倍大きくなる）",
+        "1.0 × 10⁻¹ × 10³ = 1.0 × 10⁻¹⁺³",
+        "= <strong>1.0 × 10² nm</strong>"
+      ]}
+      hint="μ(10⁻⁶) から n(10⁻⁹) へは ×10³"
+    />
+
+    <QuizCard 
+      id="5.3"
+      question="500 nm"
+      answer="0.5"
+      answerUnit="μm"
+      steps={[
+        "nm → μm は「小→大」なので数字が小さくなる",
+        "n = 10⁻⁹、μ = 10⁻⁶ → 差は 10⁻³（÷1000）",
+        "500 × 10⁻³ = 0.5 μm",
+        "= <strong>0.5 μm</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="5.4"
+      question="2.5 kg"
+      answer="2.5 × 10⁶"
+      answerUnit="mg"
+      steps={[
+        "kg → g: ×10³",
+        "g → mg: ×10³",
+        "合計: ×10⁶",
+        "2.5 × 10⁶ = <strong>2,500,000 mg</strong>"
+      ]}
+      hint="kg → mg は2段階下りる = ×10⁶"
     />
   </section>
 
@@ -429,6 +506,34 @@ import QuizCard from '../../components/QuizCard.astro';
         "g/cm³ → kg/m³ は × 1000",
         "13.6 × 1000 = <strong>13600 kg/m³</strong>"
       ]}
+    />
+
+    <QuizCard 
+      id="14.1"
+      question="1.0 × 10³ kg/m³（水の密度）"
+      answer="1.0"
+      answerUnit="g/cm³"
+      steps={[
+        "kg/m³ → g/cm³ は逆方向！",
+        "kg → g: ×10³",
+        "m³ → cm³: ×10⁶（分母なので÷10⁶）",
+        "10³ ÷ 10⁶ = 10⁻³ → つまり <strong>÷1000</strong>",
+        "1.0 × 10³ × 10⁻³ = <strong>1.0 g/cm³</strong>"
+      ]}
+      hint="逆方向は ÷1000！水の密度は覚えておこう"
+    />
+
+    <QuizCard 
+      id="14.2"
+      question="1時間30分"
+      answer="5400"
+      answerUnit="s"
+      steps={[
+        "1時間 = 60分 = 3600 s",
+        "30分 = 30 × 60 = 1800 s",
+        "合計：3600 + 1800 = <strong>5400 s</strong>"
+      ]}
+      hint="1 h = 3600 s、1 min = 60 s"
     />
   </section>
 
@@ -703,6 +808,49 @@ import QuizCard from '../../components/QuizCard.astro';
 
   .info-box li {
     margin: 4px 0;
+  }
+
+  /* ===== 科学記数法ボックス ===== */
+  .notation-box {
+    background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+    border: 2px solid #d946ef;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+
+  .notation-box p {
+    margin: 8px 0;
+  }
+
+  .notation-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .notation-examples span {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+  }
+
+  .notation-examples .good {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .notation-examples .ok {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .notation-note {
+    font-size: 0.9rem;
+    color: #7c3aed;
+    font-style: italic;
   }
 
   /* ===== 旧単位カード（使わない） ===== */
