@@ -1,140 +1,191 @@
 ---
-import FrictionForce from "../../components/FrictionForce.astro";
 import Layout from '../../layouts/Layout.astro';
+import QuizCard from '../../components/QuizCard.astro';
 ---
 
-<Layout title="Week 5: 抗力と摩擦力">
-  <h1>Week 5: 抗力と摩擦力</h1>
-  <p class="subtitle">なぜ箱を押すのは大変なの？</p>
+<Layout title="Week 5: 摩擦力">
+  <h1>Week 5: 摩擦力</h1>
 
-  <h2>🎯 今日の目標</h2>
-  <ul>
-    <li>垂直抗力を理解する</li>
-    <li>静止摩擦力と動摩擦力の違いを理解する</li>
-    <li>斜面での力の分解ができる</li>
-  </ul>
+  <section class="content-section">
+    <h2>🧊 静止摩擦力 vs 動摩擦力</h2>
+    
+    <div class="intro-box">
+      摩擦力には <strong>2種類</strong> ある！ 物体が動いているかどうかで決まります。
+    </div>
 
-  <h2>垂直抗力 N</h2>
+    <div class="incline-table">
+      <table>
+        <tr><th>種類</th><th>状態</th><th>特徴</th></tr>
+        <tr>
+          <td><strong>静止摩擦力</strong></td>
+          <td>止まっている時</td>
+          <td>引く力と同じ大きさで抵抗する（つり合い）</td>
+        </tr>
+        <tr>
+          <td><strong>最大静止摩擦力</strong></td>
+          <td>動き出す直前</td>
+          <td>これ以上耐えられない限界の摩擦力</td>
+        </tr>
+        <tr>
+          <td><strong>動摩擦力</strong></td>
+          <td>動いている時</td>
+          <td>常に一定の大きさ。最大静止摩擦力より少し小さい</td>
+        </tr>
+      </table>
+    </div>
 
-  <div class="highlight-box">
-    <strong>🤔 なぜ床の上に立っても沈まない？</strong><br/>
-    床があなたを <strong>押し返している</strong> から！
-  </div>
+    <div class="formula-box">
+      <h4>最大静止摩擦力</h4>
+      <span class="big-formula">f_max = μN</span>
+      <p>μ: 静止摩擦係数、N: 垂直抗力</p>
+    </div>
 
-  <h3>垂直抗力とは</h3>
-  <p>物体が面に接触しているとき、面から受ける <strong>垂直方向の力</strong></p>
+    <div class="formula-box">
+      <h4>動摩擦力</h4>
+      <span class="big-formula">f' = μ'N</span>
+      <p>μ': 動摩擦係数、N: 垂直抗力</p>
+    </div>
 
-  <div class="formula-box">
-    <span class="big-formula">N = mg</span>
-    <p>（水平面上で静止している場合）</p>
-  </div>
+    <div class="warning-box">
+      <strong>⚠️ ポイント：</strong><br/>
+      摩擦力は「面を押し付ける力（垂直抗力 N）」に比例します！重さ mg ではありません（斜面の場合は N = mg cosθ になるので注意）。
+    </div>
+  </section>
 
-  <h2>摩擦力</h2>
+  <!-- ===== 練習セクション ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習問題：摩擦力</h2>
 
-  <div class="highlight-box">
-    表面のデコボコが「かみ合って」動きを妨げる力
-  </div>
+    <QuizCard 
+      id="1"
+      question="質量 2.0 kg の物体が水平面上に静止している。垂直抗力 N は？ (g = 9.8)"
+      answer="19.6"
+      answerUnit="N"
+      steps={[
+        "N = mg",
+        "N = 2.0 × 9.8 = 19.6 N"
+      ]}
+    />
 
-  <h3>静止摩擦力 vs 動摩擦力</h3>
-  <table>
-    <tr><th></th><th>静止摩擦力</th><th>動摩擦力</th></tr>
-    <tr><td><strong>いつ？</strong></td><td>物体が止まっている</td><td>物体が動いている</td></tr>
-    <tr><td><strong>大きさ</strong></td><td>0 〜 μN（変化する）</td><td>μ'N（一定）</td></tr>
-    <tr><td><strong>特徴</strong></td><td>加えた力と同じ大きさ</td><td>速さによらず一定</td></tr>
-  </table>
+    <QuizCard 
+      id="2"
+      question="問1の物体を 5.0 N の力で水平に引いたが、動かなかった。このときの静止摩擦力は？"
+      answer="5.0"
+      answerUnit="N"
+      steps={[
+        "動かない＝力がつり合っている",
+        "静止摩擦力 = 引く力 = 5.0 N"
+      ]}
+    />
 
-  <h3>最大静止摩擦力</h3>
-  <div class="formula-box">
-    <span class="big-formula">f_max = μN</span>
-    <p>これを超えると物体が動き出す！</p>
-  </div>
+    <QuizCard 
+      id="3"
+      question="問1の物体に働く最大静止摩擦力 f_max は？ (静止摩擦係数 μ = 0.50)"
+      answer="9.8"
+      answerUnit="N"
+      steps={[
+        "f_max = μN",
+        "= 0.50 × 19.6 = 9.8 N"
+      ]}
+    />
 
-  <div class="highlight-box warning">
-    <strong>⚠️ 重要：</strong>μ（静止）> μ'（動摩擦）<br/>
-    動き出すのが一番大変！一度動けば少し楽になる
-  </div>
+    <QuizCard 
+      id="4"
+      question="問1の物体を 10 N の力で引いた。物体は動くか？ (ヒント: f_max は 9.8 N)"
+      answer="動く"
+      answerUnit=""
+      steps={[
+        "引く力 (10 N) > 最大静止摩擦力 (9.8 N)",
+        "限界を超えたので動く。"
+      ]}
+    />
 
-  <h3>🎮 摩擦力シミュレーター</h3>
-  <div class="animation-container">
-    <div id="friction-sim">
-      <div class="sim-row">
-        <div class="sim-display">
-          <div class="push-arrow" id="push-arrow">→</div>
-          <div class="box" id="sim-box">📦</div>
-          <div class="floor"></div>
-        </div>
-        <canvas id="frictionGraph" width="200" height="150"></canvas>
+    <QuizCard 
+      id="5"
+      question="動いている物体の動摩擦力 f' は？ (動摩擦係数 μ' = 0.40、垂直抗力 N = 19.6 N)"
+      answer="7.84"
+      answerUnit="N"
+      steps={[
+        "f' = μ'N",
+        "= 0.40 × 19.6 = 7.84 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="6"
+      question="質量 5.0 kg の物体を水平面上に置いた。垂直抗力 N は？ (g = 9.8)"
+      answer="49"
+      answerUnit="N"
+      steps={[
+        "N = mg = 5.0 × 9.8 = 49 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="7"
+      question="問6の物体が動き出す直前の引く力は何 N？ (μ = 0.60)"
+      answer="29.4"
+      answerUnit="N"
+      steps={[
+        "動き出す直前 ＝ 最大静止摩擦力",
+        "f_max = μN = 0.60 × 49 = 29.4 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="8"
+      question="問6の物体が動いているときの摩擦力は何 N？ (μ' = 0.50)"
+      answer="24.5"
+      answerUnit="N"
+      steps={[
+        "動摩擦力 f' = μ'N",
+        "= 0.50 × 49 = 24.5 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="9"
+      question="傾角 30° の斜面上にある質量 2.0 kg の物体の垂直抗力 N は？ (g = 9.8, cos30° ≈ 0.87)"
+      answer="17.05"
+      answerUnit="N"
+      steps={[
+        "N = mg cos30°",
+        "= 2.0 × 9.8 × 0.87",
+        "= 19.6 × 0.87 ≈ 17.05 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="10"
+      question="問9の物体に働く動摩擦力 f' は？ (μ' = 0.20)"
+      answer="3.41"
+      answerUnit="N"
+      steps={[
+        "f' = μ'N",
+        "= 0.20 × 17.05 = 3.41 N"
+      ]}
+    />
+
+  </section>
+
+  <!-- ===== まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">🛑</span>
+        <span>静止摩擦力：<strong>引く力と同じ</strong>（動かない間）</span>
       </div>
-      <div class="controls">
-        <label>
-          推力: <span id="force-value">0</span> N
-          <input type="range" id="force-slider" min="0" max="100" value="0" />
-        </label>
-        <label>
-          摩擦係数 μ: <span id="mu-value">0.3</span>
-          <input type="range" id="mu-slider" min="1" max="8" value="3" />
-        </label>
+      <div class="summary-item">
+        <span class="summary-icon">⚠️</span>
+        <span>最大静止摩擦力：<strong>f_max = μN</strong></span>
       </div>
-      <div class="sim-info">
-        <p>摩擦力: <span id="static-f">0</span> N</p>
-        <p>最大静止摩擦力: <span id="max-f">30</span> N</p>
-        <p>状態: <span id="state">静止</span></p>
+      <div class="summary-item">
+        <span class="summary-icon">🏃</span>
+        <span>動摩擦力：<strong>f' = μ'N</strong>（動いている時）</span>
       </div>
     </div>
-  </div>
-
-  <h2>動摩擦力</h2>
-  <div class="formula-box">
-    <span class="big-formula">f' = μ'N</span>
-    <p>動いている物体にはたらく摩擦力（一定）</p>
-  </div>
-
-  <h2>斜面上の摩擦</h2>
-
-  <p>角度 θ の斜面上では：</p>
-  <table>
-    <tr><th>力</th><th>公式</th></tr>
-    <tr><td>垂直抗力</td><td><strong>N = mg cos θ</strong></td></tr>
-    <tr><td>滑り落ちる力</td><td>mg sin θ</td></tr>
-    <tr><td>最大静止摩擦力</td><td>μ × mg cos θ</td></tr>
-  </table>
-
-  <div class="example">
-    <h4>例：斜面で静止できる条件</h4>
-    <p>静止できる ⇔ 滑り落ちる力 ≤ 最大静止摩擦力</p>
-    <p>mg sin θ ≤ μ mg cos θ</p>
-    <p>tan θ ≤ μ</p>
-  </div>
-
-  <h2>例題</h2>
-
-  <div class="example">
-    <h4>例題1：最大静止摩擦力</h4>
-    <p><strong>問題：</strong>質量 4 kg、μ = 0.5 の物体の最大静止摩擦力は？（g = 10）</p>
-    <p><strong>解答：</strong></p>
-    <p>N = mg = 4 × 10 = 40 N</p>
-    <p>f_max = μN = 0.5 × 40 = <strong>20 N</strong></p>
-  </div>
-
-  <div class="example">
-    <h4>例題2：斜面</h4>
-    <p><strong>問題：</strong>30° の斜面、質量 2 kg、μ = 0.6。静止できる？</p>
-    <p><strong>解答：</strong></p>
-    <p>滑り落ちる力 = 2 × 10 × sin30° = 20 × 0.5 = 10 N</p>
-    <p>N = 2 × 10 × cos30° = 20 × 0.87 = 17.3 N</p>
-    <p>最大静止摩擦力 = 0.6 × 17.3 = 10.4 N</p>
-    <p>10 < 10.4 なので、<strong>静止できる！</strong></p>
-  </div>
-
-  <h2>📝 今日のポイント</h2>
-  <div class="highlight-box">
-    <ul>
-      <li>✓ 垂直抗力：<strong>N = mg</strong>（水平面）、<strong>N = mg cos θ</strong>（斜面）</li>
-      <li>✓ 最大静止摩擦力：<strong>f_max = μN</strong></li>
-      <li>✓ 動摩擦力：<strong>f' = μ'N</strong>（一定）</li>
-      <li>✓ <strong>μ > μ'</strong>（静止摩擦 > 動摩擦）</li>
-    </ul>
-  </div>
+  </section>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week04/" class="nav-btn secondary">← Week 4</a>
@@ -143,233 +194,28 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .subtitle {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    margin-top: -0.5rem;
-  }
-  .formula-box {
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border: 2px solid var(--primary);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
-    margin: 1.5rem 0;
-  }
-  .big-formula {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-dark);
-    display: block;
-    margin: 0.5rem 0;
-  }
-  #friction-sim {
-    padding: 1rem;
-  }
-  .sim-row {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .sim-display {
-    position: relative;
-    height: 80px;
-    width: 200px;
-    margin-bottom: 1rem;
-  }
-  .push-arrow {
-    position: absolute;
-    left: 0;
-    bottom: 20px;
-    font-size: 1.5rem;
-    color: #ef4444;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .box {
-    position: absolute;
-    left: 30px;
-    bottom: 10px;
-    font-size: 2rem;
-    transition: left 0.3s;
-  }
-  .floor {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 10px;
-    background: linear-gradient(to right, #a3a3a3, #737373);
-    border-radius: 2px;
-  }
-  #frictionGraph {
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: white;
-  }
-  .controls {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .controls label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .controls input[type="range"] {
-    flex: 1;
-  }
-  .sim-info {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-  }
-  .sim-info p {
-    margin: 0;
-    padding: 0.25rem 0.5rem;
-    background: #f1f5f9;
-    border-radius: 4px;
-  }
-  details summary {
-    color: var(--primary);
-    font-weight: 600;
-    cursor: pointer;
-  }
+  /* Reuse styles from week04 */
+  .content-section { margin: 40px 0; padding: 24px; background: #ffffff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .content-section h2 { color: #1e293b; font-size: 1.5rem; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 3px solid #3b82f6; }
+  .intro-box { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px; padding: 20px; margin-bottom: 24px; font-size: 1.05rem; }
+  .formula-box { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 24px; text-align: center; margin: 24px 0; }
+  .formula-box h4 { margin: 0 0 12px; color: #1d4ed8; }
+  .big-formula { font-size: 1.5rem; font-weight: 700; color: #1d4ed8; display: block; margin: 8px 0; font-family: 'Courier New', monospace; }
+  .formula-box p { margin: 8px 0 0; color: #475569; }
+  .incline-table table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .incline-table th, .incline-table td { padding: 12px; border: 1px solid #e2e8f0; text-align: center; }
+  .incline-table th { background: #f1f5f9; }
+  .warning-box { background: #fef2f2; border: 2px solid #ef4444; border-radius: 12px; padding: 16px 20px; margin: 20px 0; color: #991b1b; }
+  .exercise-section { background: #fafbfc; }
+  .summary-section { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; }
+  .summary-section h2 { border-color: #10b981; color: #059669; }
+  .summary-grid { display: grid; gap: 12px; }
+  .summary-item { display: flex; align-items: center; gap: 12px; font-size: 1rem; }
+  .summary-icon { font-size: 1.3rem; }
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+  .nav-btn { flex: 1; display: inline-block; padding: 14px 24px; text-align: center; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.2s; }
+  .nav-btn:not(.secondary) { background: #3b82f6; color: white; }
+  .nav-btn:not(.secondary):hover { background: #2563eb; }
+  .nav-btn.secondary { background: #f1f5f9; color: #475569; }
+  .nav-btn.secondary:hover { background: #e2e8f0; }
 </style>
-
-<script>
-  const forceSlider = document.getElementById('force-slider') as HTMLInputElement;
-  const muSlider = document.getElementById('mu-slider') as HTMLInputElement;
-  const forceValue = document.getElementById('force-value');
-  const muValue = document.getElementById('mu-value');
-  const staticF = document.getElementById('static-f');
-  const maxF = document.getElementById('max-f');
-  const state = document.getElementById('state');
-  const box = document.getElementById('sim-box');
-  const pushArrow = document.getElementById('push-arrow');
-  const graphCanvas = document.getElementById('frictionGraph') as HTMLCanvasElement;
-  const ctx = graphCanvas?.getContext('2d');
-
-  const mass = 10; // kg
-  const g = 10;
-  const N = mass * g; // 100 N
-
-  function drawGraph(force: number, mu: number) {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, 200, 150);
-    
-    const maxFriction = mu * N;
-    const dynamicFriction = mu * 0.8 * N;
-    
-    // Axes
-    ctx.strokeStyle = '#64748b';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(30, 130);
-    ctx.lineTo(190, 130);
-    ctx.moveTo(30, 130);
-    ctx.lineTo(30, 10);
-    ctx.stroke();
-    
-    // Labels
-    ctx.fillStyle = '#64748b';
-    ctx.font = '10px sans-serif';
-    ctx.fillText('推力', 170, 145);
-    ctx.fillText('摩擦力', 5, 15);
-    
-    // Static region (diagonal line up to max)
-    ctx.strokeStyle = '#22c55e';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(30, 130);
-    const maxX = 30 + maxFriction * 1.5;
-    const maxY = 130 - maxFriction;
-    ctx.lineTo(maxX, maxY);
-    ctx.stroke();
-    
-    // Dynamic region (horizontal line after max)
-    ctx.strokeStyle = '#ef4444';
-    ctx.setLineDash([5, 3]);
-    ctx.beginPath();
-    ctx.moveTo(maxX, 130 - dynamicFriction);
-    ctx.lineTo(190, 130 - dynamicFriction);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    
-    // Drop line at transition
-    ctx.strokeStyle = '#f59e0b';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(maxX, maxY);
-    ctx.lineTo(maxX, 130 - dynamicFriction);
-    ctx.stroke();
-    
-    // Current point
-    let currentY;
-    if (force <= maxFriction) {
-      currentY = 130 - force;
-    } else {
-      currentY = 130 - dynamicFriction;
-    }
-    const currentX = 30 + force * 1.5;
-    
-    ctx.fillStyle = force <= maxFriction ? '#22c55e' : '#ef4444';
-    ctx.beginPath();
-    ctx.arc(Math.min(currentX, 185), currentY, 6, 0, Math.PI * 2);
-    ctx.fill();
-    
-    // Legend
-    ctx.font = '9px sans-serif';
-    ctx.fillStyle = '#22c55e';
-    ctx.fillText('静止', 140, 25);
-    ctx.fillStyle = '#ef4444';
-    ctx.fillText('動摩擦', 140, 40);
-  }
-
-  function update() {
-    const force = parseInt(forceSlider?.value || '0');
-    const mu = parseInt(muSlider?.value || '3') / 10;
-    const maxFriction = mu * N;
-    const dynamicFriction = mu * 0.8 * N;
-
-    if (forceValue) forceValue.textContent = force.toString();
-    if (muValue) muValue.textContent = mu.toFixed(1);
-    if (maxF) maxF.textContent = maxFriction.toFixed(0);
-    
-    // Push arrow visibility
-    if (pushArrow) {
-      pushArrow.style.opacity = force > 0 ? '1' : '0';
-      pushArrow.textContent = '→'.repeat(Math.min(3, Math.ceil(force / 30)));
-    }
-    
-    drawGraph(force, mu);
-
-    if (force <= maxFriction) {
-      // Static
-      if (staticF) staticF.textContent = force.toString();
-      if (state) {
-        state.textContent = force === 0 ? '静止' : '静止（踏ん張り中）';
-        state.style.color = '#22c55e';
-      }
-      if (box) box.style.left = '30px';
-    } else {
-      // Moving
-      const dynamicF = mu * 0.8 * N; // μ' ≈ 0.8μ
-      if (staticF) staticF.textContent = dynamicF.toFixed(0) + '（動摩擦）';
-      if (state) {
-        state.textContent = '滑り出した！';
-        state.style.color = '#ef4444';
-      }
-      if (box) box.style.left = (20 + (force - maxFriction) * 2) + 'px';
-    }
-  }
-
-  forceSlider?.addEventListener('input', update);
-  muSlider?.addEventListener('input', update);
-  update();
-</script>

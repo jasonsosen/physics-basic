@@ -1,124 +1,174 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import QuizCard from '../../components/QuizCard.astro';
 ---
 
 <Layout title="Week 7: 剛体と重心">
   <h1>Week 7: 剛体と重心</h1>
-  <p class="subtitle">バランスの魔法：重心を探せ！</p>
 
-  <h2>🎯 今日の目標</h2>
-  <ul>
-    <li>質点・剛体・弾性体の違いを理解する</li>
-    <li>重心の計算ができる</li>
-    <li>複合図形の重心を求められる</li>
-  </ul>
+  <section class="content-section">
+    <h2>🧱 剛体（ごうたい）とは？</h2>
+    <div class="intro-box">
+      力を加えても<strong>変形しない（形や大きさが変わらない）</strong>理想的な物体のこと。質点（大きさのない点）とは違い、「回転」を考える必要があります。
+    </div>
+  </section>
 
-  <h2>3つの物体モデル</h2>
+  <section class="content-section">
+    <h2>📍 重心（じゅうしん）</h2>
 
-  <table>
-    <tr><th>モデル</th><th>定義</th><th>いつ使う？</th></tr>
-    <tr><td><strong>質点</strong></td><td>大きさを無視した点</td><td>物体の大きさが無視できる場合</td></tr>
-    <tr><td><strong>剛体</strong></td><td>変形しない物体</td><td>回転や力のモーメントを考える時</td></tr>
-    <tr><td><strong>弾性体</strong></td><td>変形する物体</td><td>ばねなど変形を扱う時</td></tr>
-  </table>
+    <div class="intro-box">
+      物体の「重さのド真ん中」。指1本で支えたときに、釣り合う点のことです。
+    </div>
 
-  <h2>重心とは</h2>
+    <div class="formula-box">
+      <h4>2質点系の重心の公式（x座標）</h4>
+      <span class="big-formula">x_G = (m₁x₁ + m₂x₂) / (m₁ + m₂)</span>
+      <p>m: 質量、x: 位置（座標）</p>
+    </div>
 
-  <div class="highlight-box">
-    物体の質量が <strong>1点に集中している</strong> とみなせる点<br/>
-    → ここで支えればバランスが取れる！
-  </div>
+    <div class="example-box">
+      <h4>💡 重心の位置の直感的な理解</h4>
+      <ul>
+        <li><strong>m₁ = m₂ のとき（同じ質量）</strong><br/>重心はちょうど「中点」になります。（1:1の内分点）</li>
+        <li><strong>m₁ = 3m₂ のとき（重さが違う）</strong><br/>重い方に近づきます。重さの比が 3:1 なら、距離の比は <strong>1:3（逆比）</strong> になります。</li>
+      </ul>
+    </div>
+  </section>
 
-  <h3>2質点系の重心</h3>
-  <div class="formula-box">
-    <span class="big-formula">xG = (m₁x₁ + m₂x₂) / (m₁ + m₂)</span>
-    <p>重い方に近い位置！</p>
-  </div>
+  <!-- ===== 練習セクション ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習問題：重心の計算</h2>
 
-  <div class="example">
-    <h4>💡 イメージ</h4>
-    <p>🐘 ゾウ と 🐭 ネズミ がシーソーに乗ったら...</p>
-    <p>バランスを取る支点（重心）は <strong>ゾウに近い位置</strong> になる！</p>
-  </div>
+    <QuizCard 
+      id="1"
+      question="質量 2 kg の物体A が x = 0 に、質量 2 kg の物体B が x = 10 にある。重心の x 座標は？"
+      answer="5"
+      answerUnit=""
+      steps={[
+        "質量が同じ(2kgと2kg)なので、中点になる。",
+        "(0 + 10) / 2 = 5",
+        "公式: (2×0 + 2×10) / (2+2) = 20 / 4 = 5"
+      ]}
+    />
 
-  <h3>n質点系の重心</h3>
-  <div class="formula-box">
-    <span class="big-formula">xG = Σ(mᵢxᵢ) / Σmᵢ</span>
-  </div>
+    <QuizCard 
+      id="2"
+      question="質量 3 kg の物体A が x = 0 に、質量 1 kg の物体B が x = 8 にある。重心の x 座標は？"
+      answer="2"
+      answerUnit=""
+      steps={[
+        "公式: x_G = (m₁x₁ + m₂x₂) / (m₁ + m₂)",
+        "= (3×0 + 1×8) / (3 + 1)",
+        "= 8 / 4 = 2",
+        "※重さの比が 3:1 なので、距離の比は 1:3。重い方(x=0)に近い！"
+      ]}
+    />
 
-  <h2>一様な物体の重心</h2>
+    <QuizCard 
+      id="3"
+      question="質量 1 kg の物体A が x = 2 に、質量 4 kg の物体B が x = 12 にある。重心の x 座標は？"
+      answer="10"
+      answerUnit=""
+      steps={[
+        "公式: x_G = (1×2 + 4×12) / (1 + 4)",
+        "= (2 + 48) / 5",
+        "= 50 / 5 = 10"
+      ]}
+    />
 
-  <div class="highlight-box">
-    密度が一様なら、<strong>重心 ＝ 図形の中心（幾何学的中心）</strong>
-  </div>
+    <QuizCard 
+      id="4"
+      question="質量 m₁ = 5 kg (x₁ = 0)、質量 m₂ = 5 kg (x₂ = 6)。重心は？"
+      answer="3"
+      answerUnit=""
+      steps={[
+        "質量が同じなので中点。 6 / 2 = 3"
+      ]}
+    />
 
-  <table>
-    <tr><th>形状</th><th>重心の位置</th></tr>
-    <tr><td>棒（一様）</td><td>中点</td></tr>
-    <tr><td>円板・球</td><td>中心</td></tr>
-    <tr><td>三角形</td><td>重心（中線の交点）</td></tr>
-    <tr><td>長方形</td><td>対角線の交点</td></tr>
-  </table>
+    <QuizCard 
+      id="5"
+      question="質量 m₁ = 4 kg (x₁ = 0)、質量 m₂ = 2 kg (x₂ = 9)。重心は？"
+      answer="3"
+      answerUnit=""
+      steps={[
+        "x_G = (4×0 + 2×9) / (4 + 2) = 18 / 6 = 3"
+      ]}
+    />
 
-  <h2>L字型物体の重心</h2>
+    <QuizCard 
+      id="6"
+      question="均質な長さ 10 m の棒の重心は、端から何 m の位置にある？"
+      answer="5"
+      answerUnit="m"
+      steps={[
+        "均質な物体の重心は、その図形的な中心にある。",
+        "10 m の半分で 5 m。"
+      ]}
+    />
 
-  <div class="highlight-box">
-    <strong>分割法：</strong>複雑な図形を単純な図形に分けて、それぞれの重心を質点とみなす！
-  </div>
+    <QuizCard 
+      id="7"
+      question="質量 2m の物体が x = 0 に、質量 m の物体が x = L にある。重心の位置は x = 何 L？"
+      answer="1/3"
+      answerUnit="L"
+      steps={[
+        "x_G = (2m×0 + m×L) / (2m + m)",
+        "= mL / 3m = 1/3 L"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例：L字型の棒</h4>
-    <p>横棒（3m、質量m）+ 縦棒（2m、質量m）</p>
-    <p>横棒の重心：(1.5, 0)</p>
-    <p>縦棒の重心：(0, 1)</p>
-    <p>全体の重心：</p>
-    <p>xG = (m×1.5 + m×0) / 2m = <strong>0.75 m</strong></p>
-    <p>yG = (m×0 + m×1) / 2m = <strong>0.5 m</strong></p>
-  </div>
+    <QuizCard 
+      id="8"
+      question="重心を求める際、質量の比が 2:3 だった場合、重心からそれぞれの物体までの距離の比は？ (m₁から:m₂から)"
+      answer="3:2"
+      answerUnit=""
+      steps={[
+        "質量の比の「逆比」になるので 3:2"
+      ]}
+    />
 
-  <h2>例題</h2>
+    <QuizCard 
+      id="9"
+      question="y座標についても同様。質量 1 kg が y=0, 質量 3 kg が y=4 にある。重心の y 座標は？"
+      answer="3"
+      answerUnit=""
+      steps={[
+        "y_G = (1×0 + 3×4) / (1 + 3) = 12 / 4 = 3"
+      ]}
+    />
 
-  <div class="example">
-    <h4>例題1：一直線上の2質点</h4>
-    <p><strong>問題：</strong>x = 0 に 2 kg、x = 5 m に 3 kg。重心は？</p>
-    <p><strong>解答：</strong></p>
-    <p>xG = (2×0 + 3×5) / (2+3) = 15/5 = <strong>3 m</strong></p>
-  </div>
+    <QuizCard 
+      id="10"
+      question="(x, y) 座標で考える。質量 2 kg が (0,0)、質量 2 kg が (4, 6) にある。重心の座標 (x, y) は？ (半角カンマ区切り、括弧なしで答えてね 例: 2, 3)"
+      answer="2, 3"
+      answerUnit=""
+      steps={[
+        "質量が同じなので、それぞれの座標の中点。",
+        "x: (0+4)/2 = 2",
+        "y: (0+6)/2 = 3"
+      ]}
+    />
+  </section>
 
-  <div class="example">
-    <h4>例題2：三角形配置</h4>
-    <p><strong>問題：</strong>(0,0)に1kg、(3,0)に2kg、(0,4)に1kg。重心は？</p>
-    <p><strong>解答：</strong></p>
-    <p>xG = (1×0 + 2×3 + 1×0) / 4 = 6/4 = <strong>1.5 m</strong></p>
-    <p>yG = (1×0 + 2×0 + 1×4) / 4 = 4/4 = <strong>1 m</strong></p>
-  </div>
-
-  <h2>練習問題</h2>
-  <table>
-    <tr><th>問題</th><th>解答</th></tr>
-    <tr>
-      <td>① x=0 に 1kg、x=6 に 2kg の重心は？</td>
-      <td><details><summary>答え</summary>xG = (0+12)/3 = 4 m</details></td>
-    </tr>
-    <tr>
-      <td>② 一様な棒（長さ10m）の重心は端から何m？</td>
-      <td><details><summary>答え</summary>5 m（中点）</details></td>
-    </tr>
-    <tr>
-      <td>③ 同じ質量の物体が x=2 と x=8 にある。重心は？</td>
-      <td><details><summary>答え</summary>5 m（中点、質量が同じなので）</details></td>
-    </tr>
-  </table>
-
-  <h2>📝 今日のポイント</h2>
-  <div class="highlight-box">
-    <ul>
-      <li>✓ 重心：質量の中心（ここで支えるとバランス）</li>
-      <li>✓ 公式：<strong>xG = Σ(mᵢxᵢ) / Σmᵢ</strong></li>
-      <li>✓ 一様な物体：重心 ＝ 幾何学的中心</li>
-      <li>✓ 複合図形：分割して各部分を質点とみなす</li>
-    </ul>
-  </div>
+  <!-- ===== まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">🧱</span>
+        <span>剛体：<strong>変形しない物体</strong>（回転を考える）</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">📍</span>
+        <span>重心の公式：<strong>x_G = (m₁x₁ + m₂x₂) / (m₁ + m₂)</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">⚖️</span>
+        <span>直感：<strong>重い方に近づく！（逆比）</strong></span>
+      </div>
+    </div>
+  </section>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week06/" class="nav-btn secondary">← Week 6</a>
@@ -127,29 +177,26 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .subtitle {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    margin-top: -0.5rem;
-  }
-  .formula-box {
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border: 2px solid var(--primary);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-align: center;
-    margin: 1.5rem 0;
-  }
-  .big-formula {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-dark);
-    display: block;
-    margin: 0.5rem 0;
-  }
-  details summary {
-    color: var(--primary);
-    font-weight: 600;
-    cursor: pointer;
-  }
+  /* Reuse standard styles */
+  .content-section { margin: 40px 0; padding: 24px; background: #ffffff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .content-section h2 { color: #1e293b; font-size: 1.5rem; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 3px solid #3b82f6; }
+  .intro-box { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px; padding: 20px; margin-bottom: 24px; font-size: 1.05rem; }
+  .formula-box { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 24px; text-align: center; margin: 24px 0; }
+  .formula-box h4 { margin: 0 0 12px; color: #1d4ed8; }
+  .big-formula { font-size: 1.5rem; font-weight: 700; color: #1d4ed8; display: block; margin: 8px 0; font-family: 'Courier New', monospace; }
+  .formula-box p { margin: 8px 0 0; color: #475569; }
+  .example-box { background: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; padding: 20px; margin: 20px 0; }
+  .example-box h4 { color: #15803d; margin: 0 0 12px; }
+  .exercise-section { background: #fafbfc; }
+  .summary-section { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; }
+  .summary-section h2 { border-color: #10b981; color: #059669; }
+  .summary-grid { display: grid; gap: 12px; }
+  .summary-item { display: flex; align-items: center; gap: 12px; font-size: 1rem; }
+  .summary-icon { font-size: 1.3rem; }
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+  .nav-btn { flex: 1; display: inline-block; padding: 14px 24px; text-align: center; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.2s; }
+  .nav-btn:not(.secondary) { background: #3b82f6; color: white; }
+  .nav-btn:not(.secondary):hover { background: #2563eb; }
+  .nav-btn.secondary { background: #f1f5f9; color: #475569; }
+  .nav-btn.secondary:hover { background: #e2e8f0; }
 </style>

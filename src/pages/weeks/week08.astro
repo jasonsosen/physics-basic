@@ -1,143 +1,192 @@
 ---
-import MomentCalculator from "../../components/MomentCalculator.astro";
 import Layout from '../../layouts/Layout.astro';
+import QuizCard from '../../components/QuizCard.astro';
 ---
 
 <Layout title="Week 8: 力のモーメント">
   <h1>Week 8: 力のモーメント</h1>
-  <p class="subtitle">回転させる力の正体！</p>
 
-  <h2>🎯 今日の目標</h2>
-  <ul>
-    <li>力のモーメント（トルク）を計算できる</li>
-    <li>うでの長さを正しく求められる</li>
-    <li>モーメントのつり合い条件を使える</li>
-  </ul>
+  <section class="content-section">
+    <h2>🔄 力のモーメント（回転させる働き）</h2>
+    
+    <div class="intro-box">
+      ドアを開けるとき、蝶番（支点）から<strong>遠いところ</strong>を、<strong>垂直に</strong>押すほど簡単に回りますね。この「物体を回転させる能力」を<strong>力のモーメント</strong>と呼びます。
+    </div>
 
-  <h2>力のモーメントとは</h2>
+    <div class="formula-box">
+      <h4>力のモーメントの公式</h4>
+      <span class="big-formula">M = F × d</span>
+      <p>F: 力 (N)、d: 腕の長さ（支点から力の作用線までの垂直距離）(m)</p>
+      <p>単位: <strong>N・m（ニュートンメートル）</strong></p>
+    </div>
 
-  <div class="highlight-box">
-    <strong>🚪 なぜドアは取っ手を押すと開きやすい？</strong><br/>
-    蝶番（支点）から遠いほど、小さい力で回転させられる！
-  </div>
+    <div class="warning-box">
+      <strong>⚠️ ポイント：</strong> 回転の向き（反時計回り or 時計回り）を意識しましょう。<br/>
+      通常、反時計回りを「正 (+)」時計回りを「負 (-)」とします。
+    </div>
+  </section>
 
-  <div class="formula-box">
-    <span class="big-formula">M = F × d</span>
-    <p>モーメント = 力 × うでの長さ</p>
-  </div>
+  <section class="content-section">
+    <h2>⚖️ 剛体のつり合い（棒の平衡問題）</h2>
 
-  <table>
-    <tr><th>記号</th><th>意味</th><th>単位</th></tr>
-    <tr><td>M</td><td>力のモーメント</td><td>N·m</td></tr>
-    <tr><td>F</td><td>力の大きさ</td><td>N</td></tr>
-    <tr><td>d</td><td>うでの長さ</td><td>m</td></tr>
-  </table>
+    <div class="intro-box">
+      剛体が完全に静止している（動かないし、回転もしない）ための条件は <strong>2つ</strong> あります。
+    </div>
 
-  <h3>うでの長さとは</h3>
-  <div class="highlight-box">
-    回転軸（支点）から力の <strong>作用線</strong> までの <strong>垂直距離</strong>
-  </div>
+    <div class="formula-box">
+      <h4>剛体のつり合い条件</h4>
+      <span class="big-formula">① 力のつり合い： ΣF = 0</span>
+      <p>（上向きの力 ＝ 下向きの力）</p>
+      <span class="big-formula">② モーメントのつり合い： ΣM = 0</span>
+      <p>（反時計回りのモーメント ＝ 時計回りのモーメント）</p>
+    </div>
 
-  <h3>モーメントの符号</h3>
-  <ul>
-    <li><strong>反時計回り：＋（正）</strong></li>
-    <li><strong>時計回り：−（負）</strong></li>
-  </ul>
+    <div class="example-box">
+      <h4>💡 棒の平衡を解くコツ</h4>
+      <p>1. 重力は「棒の重心（真ん中）」に働くとする。</p>
+      <p>2. 支点をどこかに決める（未知の力が働いている点を支点にすると、その力の腕の長さが0になり計算が消えてラク！）。</p>
+      <p>3. ①と②の式を立てて解く。</p>
+    </div>
+  </section>
 
-  <h2>🎮 シーソーバランス</h2>
-  <div class="animation-container">
-    <div id="seesaw-sim">
-      <div class="seesaw-display">
-        <div class="seesaw-board" id="seesaw-board">
-          <div class="weight left-weight">🏋️ <span id="left-w">20</span>kg</div>
-          <div class="fulcrum">△</div>
-          <div class="weight right-weight">🏋️ <span id="right-w">10</span>kg</div>
-        </div>
-        <div class="scale">
-          <span>-5</span><span>-4</span><span>-3</span><span>-2</span><span>-1</span>
-          <span>0</span>
-          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-        </div>
+  <!-- ===== 練習セクション ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習問題：力のモーメント</h2>
+
+    <QuizCard 
+      id="1"
+      question="支点から 2.0 m 離れた点に、棒に垂直に 5.0 N の力を加えた。力のモーメントの大きさは？"
+      answer="10"
+      answerUnit="N・m"
+      steps={[
+        "M = F × d",
+        "= 5.0 × 2.0 = 10 N・m"
+      ]}
+    />
+
+    <QuizCard 
+      id="2"
+      question="支点から 0.5 m 離れた点に、棒に垂直に 20 N の力を加えた。力のモーメントの大きさは？"
+      answer="10"
+      answerUnit="N・m"
+      steps={[
+        "M = F × d",
+        "= 20 × 0.5 = 10 N・m"
+      ]}
+    />
+
+    <QuizCard 
+      id="3"
+      question="シーソーの左側、支点から 2.0 m の位置に 300 N の子供が乗っている。反時計回りのモーメントは？"
+      answer="600"
+      answerUnit="N・m"
+      steps={[
+        "左側が下がる＝反時計回り",
+        "M = 300 × 2.0 = 600 N・m"
+      ]}
+    />
+
+    <QuizCard 
+      id="4"
+      question="問3のシーソーをつり合わせるために、右側で支点から 1.5 m の位置に大人が乗る。大人の重さは何 N 必要？"
+      answer="400"
+      answerUnit="N"
+      steps={[
+        "モーメントのつり合い：反時計回り ＝ 時計回り",
+        "600 = W × 1.5",
+        "W = 600 / 1.5 = 400 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="5"
+      question="長さ 4.0 m、重さ 100 N の一様な棒がある。棒の重力によるモーメントを計算するとき、力(100N)が働くのは端から何 m の位置か？"
+      answer="2.0"
+      answerUnit="m"
+      steps={[
+        "一様な棒の重力は「中心（重心）」に働く。",
+        "長さ 4.0 m の半分なので 2.0 m"
+      ]}
+    />
+
+    <QuizCard 
+      id="6"
+      question="ある点を支点としたとき、力 F₁ が腕の長さ 3.0 m で反時計回りに働き、力 F₂=15 N が腕の長さ 2.0 m で時計回りに働く。つり合っているとき F₁ は？"
+      answer="10"
+      answerUnit="N"
+      steps={[
+        "F₁ × 3.0 = 15 × 2.0",
+        "3.0 F₁ = 30",
+        "F₁ = 10 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="7"
+      question="長さ 2.0 m で重さ無視できる棒の両端を下から支え、左端から 0.5 m の位置に 40 N のおもりを置いた。左端の支持力が棒を押し上げる力は何 N？（右端を支点と考えて解いてみよう）"
+      answer="30"
+      answerUnit="N"
+      steps={[
+        "右端を支点とする。",
+        "おもりの力(40N)は支点から 1.5m で反時計回り：40 × 1.5 = 60",
+        "左端の支持力(N_L)は支点から 2.0m で時計回り：N_L × 2.0",
+        "つり合い：N_L × 2.0 = 60  =>  N_L = 30 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="8"
+      question="問7で、右端の支持力は何 N？（力のつり合い ΣF = 0 を使おう）"
+      answer="10"
+      answerUnit="N"
+      steps={[
+        "上向きの力 ＝ 下向きの力",
+        "左端の力(30N) + 右端の力(N_R) = おもりの力(40N)",
+        "N_R = 40 - 30 = 10 N"
+      ]}
+    />
+
+    <QuizCard 
+      id="9"
+      question="力 F が棒に対して 30° の角度で加わっている場合、モーメントの計算で使う「垂直な成分」は F sin30° か F cos30° か？ (sin か cos で答えてね)"
+      answer="sin"
+      answerUnit=""
+      steps={[
+        "棒に対して垂直な成分は F sinθ になります。",
+        "平行な成分(F cosθ)は棒を引っ張るだけで回転させません。"
+      ]}
+    />
+
+    <QuizCard 
+      id="10"
+      question="支点から 4.0 m 離れた点に、棒に対して 30° の角度で斜めに 10 N の力を加えた。力のモーメントは？ (sin30° = 0.5)"
+      answer="20"
+      answerUnit="N・m"
+      steps={[
+        "垂直な力 = 10 × sin30° = 10 × 0.5 = 5.0 N",
+        "M = 5.0 × 4.0 = 20 N・m"
+      ]}
+    />
+  </section>
+
+  <!-- ===== まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">🔄</span>
+        <span>モーメントの公式：<strong>M = F × d</strong> （力 × 腕の長さ）</span>
       </div>
-      <div class="seesaw-controls">
-        <div>
-          <label>左の重さ: <input type="number" id="left-mass" value="20" min="1" max="50" /> kg</label>
-          <label>左の位置: <input type="number" id="left-pos" value="-3" min="-5" max="-1" /> m</label>
-        </div>
-        <div>
-          <label>右の重さ: <input type="number" id="right-mass" value="10" min="1" max="50" /> kg</label>
-          <label>右の位置: <input type="number" id="right-pos" value="3" min="1" max="5" /> m</label>
-        </div>
+      <div class="summary-item">
+        <span class="summary-icon">⚖️</span>
+        <span>棒の平衡：<strong>力のつり合い ＆ モーメントのつり合い</strong></span>
       </div>
-      <div class="seesaw-calc">
-        <p>左のモーメント: <span id="left-m">60</span> N·m（反時計回り）</p>
-        <p>右のモーメント: <span id="right-m">30</span> N·m（時計回り）</p>
-        <p id="balance-status">⚠️ 左に傾く！</p>
+      <div class="summary-item">
+        <span class="summary-icon">🎯</span>
+        <span>コツ：<strong>未知の力がある場所を支点にする</strong>と計算がラク！</span>
       </div>
     </div>
-  </div>
-
-  <h2>剛体のつり合い条件</h2>
-
-  <div class="highlight-box">
-    剛体が静止するには、<strong>2つの条件</strong> が必要！
-  </div>
-
-  <div class="formula-box">
-    <p><strong>条件1：力のつり合い</strong></p>
-    <span class="big-formula">ΣFx = 0, ΣFy = 0</span>
-    <p><strong>条件2：モーメントのつり合い</strong></p>
-    <span class="big-formula">ΣM = 0</span>
-  </div>
-
-  <h2>例題</h2>
-
-  <div class="example">
-    <h4>例題1：てこ</h4>
-    <p><strong>問題：</strong>支点から左2mに30N、右xmに20N。つり合うxは？</p>
-    <p><strong>解答：</strong></p>
-    <p>左のモーメント（反時計）= 右のモーメント（時計）</p>
-    <p>30 × 2 = 20 × x</p>
-    <p>x = 60 / 20 = <strong>3 m</strong></p>
-  </div>
-
-  <div class="example">
-    <h4>例題2：棒を支える</h4>
-    <p><strong>問題：</strong>長さ10m、重さ8Nの一様な棒。端Aから3mに4Nの力。両端A,Bの反力は？</p>
-    <p><strong>解答：</strong></p>
-    <p>Aまわりのモーメント：</p>
-    <p>RB × 10 = 8 × 5 + 4 × 3 = 40 + 12 = 52</p>
-    <p>RB = <strong>5.2 N</strong></p>
-    <p>力のつり合い：RA + RB = 8 + 4 = 12</p>
-    <p>RA = 12 - 5.2 = <strong>6.8 N</strong></p>
-  </div>
-
-  <h2>🎮 インタラクティブ練習</h2>
-
-<MomentCalculator />
-
-<h2>練習問題</h2>
-  <table>
-    <tr><th>問題</th><th>解答</th></tr>
-    <tr>
-      <td>① 支点から2mで50Nの力を加える。モーメントは？</td>
-      <td><details><summary>答え</summary>M = 50 × 2 = 100 N·m</details></td>
-    </tr>
-    <tr>
-      <td>② 左3mに40N、右にxmに60N。つり合うxは？</td>
-      <td><details><summary>答え</summary>40×3 = 60×x → x = 2 m</details></td>
-    </tr>
-  </table>
-
-  <h2>📝 今日のポイント</h2>
-  <div class="highlight-box">
-    <ul>
-      <li>✓ モーメント：<strong>M = Fd</strong>（回転させる能力）</li>
-      <li>✓ うでの長さ：支点から作用線への垂直距離</li>
-      <li>✓ つり合い：<strong>ΣM = 0</strong></li>
-      <li>✓ 支点の選び方で計算が楽になる！</li>
-    </ul>
-  </div>
+  </section>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week07/" class="nav-btn secondary">← Week 7</a>
@@ -146,69 +195,27 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; }
-  .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
-  .big-formula { font-size: 1.5rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
-  #seesaw-sim { padding: 1rem; }
-  .seesaw-display { text-align: center; margin-bottom: 1rem; }
-  .seesaw-board { display: flex; justify-content: space-between; align-items: flex-end; padding: 0 2rem; height: 60px; background: linear-gradient(to right, #fef3c7, #fde68a); border-radius: 4px; transition: transform 0.3s; position: relative; }
-  .weight { font-size: 1.2rem; }
-  .fulcrum { position: absolute; left: 50%; bottom: -20px; transform: translateX(-50%); font-size: 1.5rem; }
-  .scale { display: flex; justify-content: space-between; padding: 0 1rem; margin-top: 1.5rem; font-size: 0.8rem; color: #64748b; }
-  .seesaw-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
-  .seesaw-controls label { display: block; margin: 0.25rem 0; }
-  .seesaw-controls input { width: 60px; padding: 0.25rem; }
-  .seesaw-calc { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
-  .seesaw-calc p { margin: 0; padding: 0.5rem 1rem; background: #f1f5f9; border-radius: 4px; }
-  #balance-status { font-weight: bold; }
-  details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
+  /* Reuse standard styles */
+  .content-section { margin: 40px 0; padding: 24px; background: #ffffff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .content-section h2 { color: #1e293b; font-size: 1.5rem; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 3px solid #3b82f6; }
+  .intro-box { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px; padding: 20px; margin-bottom: 24px; font-size: 1.05rem; }
+  .formula-box { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 12px; padding: 24px; text-align: center; margin: 24px 0; }
+  .formula-box h4 { margin: 0 0 12px; color: #1d4ed8; }
+  .big-formula { font-size: 1.5rem; font-weight: 700; color: #1d4ed8; display: block; margin: 8px 0; font-family: 'Courier New', monospace; }
+  .formula-box p { margin: 8px 0 0; color: #475569; }
+  .example-box { background: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; padding: 20px; margin: 20px 0; }
+  .example-box h4 { color: #15803d; margin: 0 0 12px; }
+  .warning-box { background: #fef2f2; border: 2px solid #ef4444; border-radius: 12px; padding: 16px 20px; margin: 20px 0; color: #991b1b; }
+  .exercise-section { background: #fafbfc; }
+  .summary-section { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; }
+  .summary-section h2 { border-color: #10b981; color: #059669; }
+  .summary-grid { display: grid; gap: 12px; }
+  .summary-item { display: flex; align-items: center; gap: 12px; font-size: 1rem; }
+  .summary-icon { font-size: 1.3rem; }
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 16px; }
+  .nav-btn { flex: 1; display: inline-block; padding: 14px 24px; text-align: center; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.2s; }
+  .nav-btn:not(.secondary) { background: #3b82f6; color: white; }
+  .nav-btn:not(.secondary):hover { background: #2563eb; }
+  .nav-btn.secondary { background: #f1f5f9; color: #475569; }
+  .nav-btn.secondary:hover { background: #e2e8f0; }
 </style>
-
-<script>
-  const leftMass = document.getElementById('left-mass') as HTMLInputElement;
-  const leftPos = document.getElementById('left-pos') as HTMLInputElement;
-  const rightMass = document.getElementById('right-mass') as HTMLInputElement;
-  const rightPos = document.getElementById('right-pos') as HTMLInputElement;
-  const leftW = document.getElementById('left-w');
-  const rightW = document.getElementById('right-w');
-  const leftM = document.getElementById('left-m');
-  const rightM = document.getElementById('right-m');
-  const status = document.getElementById('balance-status');
-  const board = document.getElementById('seesaw-board');
-
-  function update() {
-    const mL = parseInt(leftMass?.value || '20');
-    const pL = Math.abs(parseInt(leftPos?.value || '3'));
-    const mR = parseInt(rightMass?.value || '10');
-    const pR = parseInt(rightPos?.value || '3');
-
-    const momentL = mL * 10 * pL;
-    const momentR = mR * 10 * pR;
-
-    if (leftW) leftW.textContent = mL.toString();
-    if (rightW) rightW.textContent = mR.toString();
-    if (leftM) leftM.textContent = momentL.toString();
-    if (rightM) rightM.textContent = momentR.toString();
-
-    const diff = momentL - momentR;
-    const angle = Math.max(-15, Math.min(15, diff / 20));
-    
-    if (board) board.style.transform = `rotate(${-angle}deg)`;
-    
-    if (status) {
-      if (Math.abs(diff) < 5) {
-        status.textContent = '✅ バランス！Perfect!';
-        status.style.color = '#22c55e';
-      } else if (diff > 0) {
-        status.textContent = '⚠️ 左に傾く！';
-        status.style.color = '#f59e0b';
-      } else {
-        status.textContent = '⚠️ 右に傾く！';
-        status.style.color = '#f59e0b';
-      }
-    }
-  }
-
-  [leftMass, leftPos, rightMass, rightPos].forEach(el => el?.addEventListener('input', update));
-  update();
-</script>
