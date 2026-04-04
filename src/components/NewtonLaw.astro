@@ -1,0 +1,413 @@
+---
+// Week 10: F = ma 計算器
+---
+
+<div class="newton-trainer">
+  <div class="trainer-header">
+    <h3>⚡ 運動方程式 F = ma</h3>
+  </div>
+
+  <!-- 公式視覺化 -->
+  <div class="formula-visual">
+    <div class="formula-box" id="boxF" data-var="F">
+      <span class="var-symbol">F</span>
+      <span class="var-name">力 (N)</span>
+      <input type="number" id="inputF" placeholder="?" step="any">
+    </div>
+    <div class="equals">=</div>
+    <div class="formula-box" id="boxM" data-var="m">
+      <span class="var-symbol">m</span>
+      <span class="var-name">質量 (kg)</span>
+      <input type="number" id="inputM" placeholder="?" step="any">
+    </div>
+    <div class="times">×</div>
+    <div class="formula-box" id="boxA" data-var="a">
+      <span class="var-symbol">a</span>
+      <span class="var-name">加速度 (m/s²)</span>
+      <input type="number" id="inputA" placeholder="?" step="any">
+    </div>
+  </div>
+
+  <div class="calc-controls">
+    <button class="calc-btn" id="calcBtn">計算！</button>
+    <button class="reset-btn" id="resetBtn">リセット</button>
+  </div>
+
+  <div class="result-display" id="resultDisplay"></div>
+
+  <!-- 練習問題 -->
+  <div class="practice-section">
+    <h4>📝 小テストの問題</h4>
+    <div class="problems-grid">
+      <div class="problem-card">
+        <div class="problem-num">①</div>
+        <div class="problem-text">m = 2.0 kg, a = 3.0 m/s² のとき、F は？</div>
+        <div class="problem-answer">
+          <input type="number" placeholder="F = ?" id="p1">
+          <span>N</span>
+          <button onclick="checkP(1, 6)">確認</button>
+        </div>
+        <div class="problem-fb" id="fb1"></div>
+      </div>
+      
+      <div class="problem-card">
+        <div class="problem-num">②</div>
+        <div class="problem-text">m = 2.0 kg, F = -4.0 N のとき、a は？</div>
+        <div class="problem-answer">
+          <input type="number" placeholder="a = ?" id="p2" step="any">
+          <span>m/s²</span>
+          <button onclick="checkP(2, -2)">確認</button>
+        </div>
+        <div class="problem-fb" id="fb2"></div>
+      </div>
+      
+      <div class="problem-card">
+        <div class="problem-num">③</div>
+        <div class="problem-text">a = 1.0 m/s², F = 3.0 N のとき、m は？</div>
+        <div class="problem-answer">
+          <input type="number" placeholder="m = ?" id="p3">
+          <span>kg</span>
+          <button onclick="checkP(3, 3)">確認</button>
+        </div>
+        <div class="problem-fb" id="fb3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 概念說明 -->
+  <div class="concept-box">
+    <h5>💡 覚えておこう</h5>
+    <ul>
+      <li><strong>F = ma</strong>：力 = 質量 × 加速度</li>
+      <li><strong>a = F/m</strong>：力が同じなら、軽いほど加速しやすい</li>
+      <li><strong>m = F/a</strong>：同じ加速度を得るには、重いほど大きな力が必要</li>
+      <li>F が負 → 加速度も負（減速）</li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .newton-trainer {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .trainer-header h3 {
+    color: #0f172a;
+    margin: 0 0 24px 0;
+    text-align: center;
+  }
+
+  .formula-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .formula-box {
+    background: #fff;
+    border: 3px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    min-width: 100px;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .formula-box:hover {
+    border-color: #f59e0b;
+    transform: translateY(-2px);
+  }
+
+  .formula-box.highlight {
+    border-color: #f59e0b;
+    background: #fef3c7;
+  }
+
+  .var-symbol {
+    display: block;
+    font-size: 2em;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .var-name {
+    display: block;
+    font-size: 0.8em;
+    color: #64748b;
+    margin: 4px 0 8px;
+  }
+
+  .formula-box input {
+    width: 80px;
+    padding: 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1em;
+  }
+
+  .formula-box input:focus {
+    outline: none;
+    border-color: #f59e0b;
+  }
+
+  .equals, .times {
+    font-size: 2em;
+    color: #64748b;
+    font-weight: 700;
+  }
+
+  .calc-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .calc-btn {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+    transition: all 0.2s;
+  }
+
+  .calc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  }
+
+  .reset-btn {
+    background: #e2e8f0;
+    color: #64748b;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .result-display {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 24px;
+    min-height: 60px;
+    font-size: 1.2em;
+    color: #0f172a;
+  }
+
+  .result-display.success {
+    background: #d1fae5;
+    border-color: #10b981;
+    color: #065f46;
+  }
+
+  .result-display.error {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #991b1b;
+  }
+
+  .practice-section {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .practice-section h4 {
+    color: #0f172a;
+    margin: 0 0 16px 0;
+  }
+
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .problem-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .problem-num {
+    display: inline-block;
+    background: #f59e0b;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .problem-text {
+    color: #0f172a;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .problem-answer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .problem-answer input {
+    width: 80px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+  }
+
+  .problem-answer button {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    min-height: 36px;
+  }
+
+  .problem-fb {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    display: none;
+  }
+
+  .problem-fb.show { display: block; }
+  .problem-fb.correct { background: #d1fae5; color: #065f46; }
+  .problem-fb.wrong { background: #fee2e2; color: #991b1b; }
+
+  .concept-box {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .concept-box h5 {
+    color: #92400e;
+    margin: 0 0 12px 0;
+  }
+
+  .concept-box ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #78350f;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 640px) {
+    .formula-visual {
+      flex-direction: column;
+    }
+    .equals, .times {
+      transform: rotate(90deg);
+    }
+  }
+</style>
+
+<script>
+  const inputF = document.getElementById('inputF');
+  const inputM = document.getElementById('inputM');
+  const inputA = document.getElementById('inputA');
+  const result = document.getElementById('resultDisplay');
+
+  document.getElementById('calcBtn')?.addEventListener('click', () => {
+    const F = parseFloat(inputF.value);
+    const m = parseFloat(inputM.value);
+    const a = parseFloat(inputA.value);
+    
+    const filled = [!isNaN(F), !isNaN(m), !isNaN(a)];
+    const count = filled.filter(Boolean).length;
+    
+    if (count < 2) {
+      result.className = 'result-display error';
+      result.textContent = '⚠️ 2つの値を入力してください';
+      return;
+    }
+    
+    if (count === 3) {
+      // 檢查是否正確
+      const calc = m * a;
+      if (Math.abs(calc - F) < 0.01) {
+        result.className = 'result-display success';
+        result.textContent = `✅ 正しい！ F = ${m} × ${a} = ${calc.toFixed(1)} N`;
+      } else {
+        result.className = 'result-display error';
+        result.textContent = `❌ 合ってない！ ${m} × ${a} = ${calc.toFixed(1)} ≠ ${F}`;
+      }
+      return;
+    }
+    
+    // 計算缺失的值
+    let calculated;
+    let formula;
+    
+    if (isNaN(F)) {
+      calculated = m * a;
+      inputF.value = calculated.toFixed(2);
+      formula = `F = m × a = ${m} × ${a} = ${calculated.toFixed(1)} N`;
+      document.getElementById('boxF').classList.add('highlight');
+    } else if (isNaN(m)) {
+      calculated = F / a;
+      inputM.value = calculated.toFixed(2);
+      formula = `m = F / a = ${F} / ${a} = ${calculated.toFixed(1)} kg`;
+      document.getElementById('boxM').classList.add('highlight');
+    } else {
+      calculated = F / m;
+      inputA.value = calculated.toFixed(2);
+      formula = `a = F / m = ${F} / ${m} = ${calculated.toFixed(1)} m/s²`;
+      document.getElementById('boxA').classList.add('highlight');
+    }
+    
+    result.className = 'result-display success';
+    result.innerHTML = `✨ ${formula}`;
+  });
+
+  document.getElementById('resetBtn')?.addEventListener('click', () => {
+    inputF.value = '';
+    inputM.value = '';
+    inputA.value = '';
+    result.className = 'result-display';
+    result.textContent = '2つの値を入力して計算！';
+    document.querySelectorAll('.formula-box').forEach(b => b.classList.remove('highlight'));
+  });
+
+  window.checkP = function(num, ans) {
+    const input = document.getElementById(`p${num}`);
+    const fb = document.getElementById(`fb${num}`);
+    const user = parseFloat(input.value);
+    
+    if (Math.abs(user - ans) < 0.1) {
+      fb.className = 'problem-fb show correct';
+      fb.textContent = '✅ 正解！';
+    } else {
+      fb.className = 'problem-fb show wrong';
+      fb.textContent = `❌ 正解は ${ans}`;
+    }
+  };
+</script>

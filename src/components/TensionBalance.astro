@@ -1,0 +1,378 @@
+---
+// Week 06: 張力とつりあい
+---
+
+<div class="tension-trainer">
+  <div class="trainer-header">
+    <h3>🎈 張力のつりあい</h3>
+  </div>
+
+  <!-- 視覺化區 -->
+  <div class="visual-section">
+    <div class="scenario-card">
+      <canvas id="tensionCanvas" width="300" height="280"></canvas>
+      <div class="controls">
+        <div class="slider-group">
+          <label>重さ W: <span id="wValue">3.0</span> N</label>
+          <input type="range" id="wSlider" min="1" max="10" value="3" step="0.5">
+        </div>
+        <div class="slider-group">
+          <label>水平力 F: <span id="fValue">4.0</span> N</label>
+          <input type="range" id="fSlider" min="0" max="10" value="4" step="0.5">
+        </div>
+      </div>
+    </div>
+
+    <div class="result-panel">
+      <h4>つりあいの式</h4>
+      <div class="equation-box">
+        <div class="eq-row">
+          <span class="eq-label">鉛直方向:</span>
+          <span class="eq-text" id="eqV">T·sinθ = W</span>
+        </div>
+        <div class="eq-row">
+          <span class="eq-label">水平方向:</span>
+          <span class="eq-text" id="eqH">T·cosθ = F</span>
+        </div>
+      </div>
+      
+      <div class="calc-result">
+        <div class="result-row">
+          <span>張力 T =</span>
+          <span class="result-value" id="resultT">5.0 N</span>
+        </div>
+        <div class="result-row">
+          <span>角度 θ =</span>
+          <span class="result-value" id="resultTheta">36.9°</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 練習問題 -->
+  <div class="practice-section">
+    <h4>📝 小テストの問題</h4>
+    <div class="problem-card">
+      <p>重さ 3.0 N の球を糸で吊るし、水平に 4.0 N で引いた</p>
+      
+      <div class="problem-items">
+        <div class="problem-item">
+          <span>① 張力の鉛直成分は？</span>
+          <input type="number" id="a1" placeholder="?">
+          <span>N</span>
+          <button onclick="checkT(1, 3)">確認</button>
+          <span class="fb" id="t1"></span>
+        </div>
+        
+        <div class="problem-item">
+          <span>② 張力の水平成分は？</span>
+          <input type="number" id="a2" placeholder="?">
+          <span>N</span>
+          <button onclick="checkT(2, 4)">確認</button>
+          <span class="fb" id="t2"></span>
+        </div>
+        
+        <div class="problem-item">
+          <span>③ 張力の大きさは？</span>
+          <input type="number" id="a3" placeholder="?">
+          <span>N</span>
+          <button onclick="checkT(3, 5)">確認</button>
+          <span class="fb" id="t3"></span>
+        </div>
+      </div>
+      
+      <div class="hint-box">
+        💡 T² = Tx² + Ty² → T = √(3² + 4²) = 5
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tension-trainer {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .trainer-header h3 {
+    color: #0f172a;
+    margin: 0 0 24px 0;
+    text-align: center;
+  }
+
+  .visual-section {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .scenario-card {
+    flex: 1;
+    min-width: 280px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  #tensionCanvas {
+    display: block;
+    margin: 0 auto 16px;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .slider-group {
+    text-align: left;
+  }
+
+  .slider-group label {
+    display: block;
+    color: #64748b;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+  }
+
+  .slider-group input {
+    width: 100%;
+  }
+
+  .result-panel {
+    flex: 1;
+    min-width: 250px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .result-panel h4 {
+    color: #0f172a;
+    margin: 0 0 16px 0;
+  }
+
+  .equation-box {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .eq-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .eq-label {
+    color: #64748b;
+    min-width: 80px;
+  }
+
+  .eq-text {
+    font-family: 'Times New Roman', serif;
+    color: #0f172a;
+  }
+
+  .calc-result {
+    background: #dbeafe;
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+  }
+
+  .result-value {
+    font-weight: 700;
+    color: #1d4ed8;
+  }
+
+  .practice-section {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .practice-section h4 {
+    color: #0f172a;
+    margin: 0 0 16px 0;
+  }
+
+  .problem-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .problem-card p {
+    margin-bottom: 16px;
+    color: #0f172a;
+  }
+
+  .problem-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .problem-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .problem-item span:first-child {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .problem-item input {
+    width: 60px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .problem-item button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .fb.correct { color: #10b981; }
+  .fb.wrong { color: #ef4444; }
+
+  .hint-box {
+    margin-top: 16px;
+    padding: 12px;
+    background: #fef3c7;
+    border-radius: 8px;
+    color: #92400e;
+  }
+
+  @media (max-width: 640px) {
+    .visual-section { flex-direction: column; }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('tensionCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  function draw() {
+    const W = parseFloat(document.getElementById('wSlider').value);
+    const F = parseFloat(document.getElementById('fSlider').value);
+    
+    document.getElementById('wValue').textContent = W.toFixed(1);
+    document.getElementById('fValue').textContent = F.toFixed(1);
+    
+    const T = Math.sqrt(W*W + F*F);
+    const theta = Math.atan2(W, F) * 180 / Math.PI;
+    
+    document.getElementById('resultT').textContent = T.toFixed(1) + ' N';
+    document.getElementById('resultTheta').textContent = theta.toFixed(1) + '°';
+    
+    // 清除
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // 支點
+    ctx.fillStyle = '#64748b';
+    ctx.beginPath();
+    ctx.arc(150, 30, 8, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // 計算球的位置
+    const stringLen = 120;
+    const angle = Math.atan2(F, W);
+    const ballX = 150 + stringLen * Math.sin(angle);
+    const ballY = 30 + stringLen * Math.cos(angle);
+    
+    // 繩子
+    ctx.strokeStyle = '#64748b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(150, 30);
+    ctx.lineTo(ballX, ballY);
+    ctx.stroke();
+    
+    // 球
+    ctx.fillStyle = '#3b82f6';
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, 20, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // 重力箭頭 (下)
+    drawArrow(ballX, ballY, ballX, ballY + W * 15, '#ef4444', 'W');
+    
+    // 水平力箭頭 (右)
+    if (F > 0) {
+      drawArrow(ballX, ballY, ballX + F * 15, ballY, '#10b981', 'F');
+    }
+    
+    // 張力箭頭 (沿繩子向上)
+    const tLen = T * 8;
+    const tx = ballX - tLen * Math.sin(angle);
+    const ty = ballY - tLen * Math.cos(angle);
+    drawArrow(ballX, ballY, tx, ty, '#8b5cf6', 'T');
+  }
+  
+  function drawArrow(x1, y1, x2, y2, color, label) {
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 3;
+    
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    
+    // 箭頭頭部
+    const angle = Math.atan2(y2 - y1, x2 - x1);
+    const headLen = 10;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI/6), y2 - headLen * Math.sin(angle - Math.PI/6));
+    ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI/6), y2 - headLen * Math.sin(angle + Math.PI/6));
+    ctx.closePath();
+    ctx.fill();
+    
+    // 標籤
+    ctx.font = 'bold 14px sans-serif';
+    ctx.fillText(label, x2 + 8, y2);
+  }
+
+  document.getElementById('wSlider')?.addEventListener('input', draw);
+  document.getElementById('fSlider')?.addEventListener('input', draw);
+
+  window.checkT = function(n, ans) {
+    const input = document.getElementById(`a${n}`);
+    const fb = document.getElementById(`t${n}`);
+    if (Math.abs(parseFloat(input.value) - ans) < 0.1) {
+      fb.className = 'fb correct';
+      fb.textContent = '✅';
+    } else {
+      fb.className = 'fb wrong';
+      fb.textContent = `❌ ${ans}`;
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', draw);
+</script>

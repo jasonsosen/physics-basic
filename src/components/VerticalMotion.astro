@@ -1,0 +1,462 @@
+---
+// Week 12: 鉛直運動シミュレータ
+---
+
+<div class="vertical-trainer">
+  <div class="trainer-header">
+    <h3>🚀 鉛直投げ上げシミュレータ</h3>
+  </div>
+
+  <div class="simulator-container">
+    <!-- 動畫區 -->
+    <div class="sim-visual">
+      <div class="ground-line"></div>
+      <div class="height-markers">
+        <span class="marker" style="bottom: 80%">20m</span>
+        <span class="marker" style="bottom: 60%">15m</span>
+        <span class="marker" style="bottom: 40%">10m</span>
+        <span class="marker" style="bottom: 20%">5m</span>
+        <span class="marker" style="bottom: 0%">0m</span>
+      </div>
+      <div class="ball" id="ball">⚽</div>
+      <div class="peak-marker" id="peakMarker">
+        <span>最高点</span>
+      </div>
+    </div>
+
+    <!-- 控制面板 -->
+    <div class="control-panel">
+      <div class="input-group">
+        <label>初速度 v₀</label>
+        <div class="input-row">
+          <input type="number" id="v0" value="10" min="1" max="30">
+          <span>m/s</span>
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label>重力加速度 g</label>
+        <div class="input-row">
+          <input type="number" id="g" value="10" min="1" max="20">
+          <span>m/s²</span>
+        </div>
+      </div>
+
+      <button class="launch-btn" id="launchBtn">🚀 発射！</button>
+      <button class="reset-btn" id="resetBtn">リセット</button>
+
+      <div class="live-data" id="liveData">
+        <div class="data-row">
+          <span>時間 t:</span>
+          <span id="dataT">0 s</span>
+        </div>
+        <div class="data-row">
+          <span>高さ h:</span>
+          <span id="dataH">0 m</span>
+        </div>
+        <div class="data-row">
+          <span>速度 v:</span>
+          <span id="dataV">10 m/s ↑</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 公式卡片 -->
+  <div class="formula-cards">
+    <div class="formula-card">
+      <div class="formula-title">速度</div>
+      <div class="formula-eq">v = v₀ - gt</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-title">高さ</div>
+      <div class="formula-eq">h = v₀t - ½gt²</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-title">最高点</div>
+      <div class="formula-eq">t = v₀/g, h = v₀²/2g</div>
+    </div>
+  </div>
+
+  <!-- 練習問題 -->
+  <div class="practice-section">
+    <h4>📝 小テストの問題</h4>
+    <p class="problem-setup">初速度 10 m/s で投げ上げ（g = 10 m/s²）</p>
+    
+    <div class="problems-list">
+      <div class="problem-row">
+        <span>① 最高点までの時間は？</span>
+        <input type="number" id="ans1" placeholder="?">
+        <span>s</span>
+        <button onclick="check(1, 1)">確認</button>
+        <span class="fb" id="fb1"></span>
+      </div>
+      
+      <div class="problem-row">
+        <span>② 最高点の高さは？</span>
+        <input type="number" id="ans2" placeholder="?">
+        <span>m</span>
+        <button onclick="check(2, 5)">確認</button>
+        <span class="fb" id="fb2"></span>
+      </div>
+      
+      <div class="problem-row">
+        <span>③ 地面に戻るまでの時間は？</span>
+        <input type="number" id="ans3" placeholder="?">
+        <span>s</span>
+        <button onclick="check(3, 2)">確認</button>
+        <span class="fb" id="fb3"></span>
+      </div>
+      
+      <div class="problem-row">
+        <span>④ 地面に戻る直前の速さは？</span>
+        <input type="number" id="ans4" placeholder="?">
+        <span>m/s</span>
+        <button onclick="check(4, 10)">確認</button>
+        <span class="fb" id="fb4"></span>
+      </div>
+    </div>
+
+    <div class="key-insight">
+      💡 <strong>対称性</strong>：上昇時間 = 下降時間、初速度 = 着地速度
+    </div>
+  </div>
+</div>
+
+<style>
+  .vertical-trainer {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .trainer-header h3 {
+    color: #0f172a;
+    margin: 0 0 24px 0;
+    text-align: center;
+  }
+
+  .simulator-container {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .sim-visual {
+    flex: 1;
+    min-width: 200px;
+    height: 300px;
+    background: linear-gradient(180deg, #bfdbfe 0%, #93c5fd 50%, #60a5fa 100%);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ground-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(135deg, #84cc16, #65a30d);
+  }
+
+  .height-markers {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 30px;
+  }
+
+  .marker {
+    position: absolute;
+    font-size: 0.75em;
+    color: rgba(255,255,255,0.8);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  .ball {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 2em;
+    transition: bottom 0.05s linear;
+    z-index: 10;
+  }
+
+  .peak-marker {
+    position: absolute;
+    left: 70%;
+    background: rgba(255,255,255,0.9);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: #0f172a;
+    display: none;
+  }
+
+  .peak-marker.show {
+    display: block;
+  }
+
+  .control-panel {
+    flex: 1;
+    min-width: 220px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .input-group {
+    margin-bottom: 16px;
+  }
+
+  .input-group label {
+    display: block;
+    color: #64748b;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .input-row input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1.1em;
+  }
+
+  .input-row input:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  .launch-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 8px;
+    min-height: 44px;
+  }
+
+  .launch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  }
+
+  .reset-btn {
+    width: 100%;
+    background: #e2e8f0;
+    color: #64748b;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+
+  .live-data {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .data-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-family: 'Courier New', monospace;
+  }
+
+  .formula-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .formula-card {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .formula-title {
+    color: #64748b;
+    font-size: 0.85em;
+    margin-bottom: 4px;
+  }
+
+  .formula-eq {
+    color: #0f172a;
+    font-size: 1.1em;
+    font-weight: 600;
+    font-family: 'Times New Roman', serif;
+  }
+
+  .practice-section {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .practice-section h4 {
+    color: #0f172a;
+    margin: 0 0 8px 0;
+  }
+
+  .problem-setup {
+    color: #64748b;
+    margin-bottom: 16px;
+  }
+
+  .problem-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .problem-row span:first-child {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .problem-row input {
+    width: 60px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .problem-row button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .fb { font-size: 0.9em; }
+  .fb.correct { color: #10b981; }
+  .fb.wrong { color: #ef4444; }
+
+  .key-insight {
+    background: #dbeafe;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 16px;
+    color: #1e40af;
+  }
+
+  @media (max-width: 640px) {
+    .simulator-container { flex-direction: column; }
+    .problem-row span:first-child { width: 100%; }
+  }
+</style>
+
+<script>
+  let animationId = null;
+  let startTime = null;
+  
+  const ball = document.getElementById('ball');
+  const peakMarker = document.getElementById('peakMarker');
+  const dataT = document.getElementById('dataT');
+  const dataH = document.getElementById('dataH');
+  const dataV = document.getElementById('dataV');
+
+  function simulate() {
+    const v0 = parseFloat(document.getElementById('v0').value) || 10;
+    const g = parseFloat(document.getElementById('g').value) || 10;
+    
+    const maxHeight = (v0 * v0) / (2 * g);
+    const totalTime = (2 * v0) / g;
+    const visualHeight = 270; // px
+    const scale = visualHeight / (maxHeight + 2);
+    
+    // 顯示最高點標記
+    peakMarker.style.bottom = `${30 + maxHeight * scale}px`;
+    peakMarker.classList.add('show');
+    peakMarker.innerHTML = `<span>最高点 ${maxHeight.toFixed(1)}m</span>`;
+    
+    startTime = performance.now();
+    
+    function animate(currentTime) {
+      const elapsed = (currentTime - startTime) / 1000;
+      
+      if (elapsed > totalTime) {
+        // 結束
+        ball.style.bottom = '30px';
+        dataT.textContent = `${totalTime.toFixed(2)} s`;
+        dataH.textContent = '0 m';
+        dataV.textContent = `${v0.toFixed(1)} m/s ↓`;
+        return;
+      }
+      
+      const h = v0 * elapsed - 0.5 * g * elapsed * elapsed;
+      const v = v0 - g * elapsed;
+      
+      ball.style.bottom = `${30 + h * scale}px`;
+      dataT.textContent = `${elapsed.toFixed(2)} s`;
+      dataH.textContent = `${h.toFixed(1)} m`;
+      dataV.textContent = `${Math.abs(v).toFixed(1)} m/s ${v >= 0 ? '↑' : '↓'}`;
+      
+      animationId = requestAnimationFrame(animate);
+    }
+    
+    animationId = requestAnimationFrame(animate);
+  }
+
+  document.getElementById('launchBtn')?.addEventListener('click', () => {
+    if (animationId) cancelAnimationFrame(animationId);
+    simulate();
+  });
+
+  document.getElementById('resetBtn')?.addEventListener('click', () => {
+    if (animationId) cancelAnimationFrame(animationId);
+    ball.style.bottom = '30px';
+    peakMarker.classList.remove('show');
+    dataT.textContent = '0 s';
+    dataH.textContent = '0 m';
+    dataV.textContent = `${document.getElementById('v0').value} m/s ↑`;
+  });
+
+  window.check = function(num, ans) {
+    const input = document.getElementById(`ans${num}`);
+    const fb = document.getElementById(`fb${num}`);
+    const user = parseFloat(input.value);
+    
+    if (Math.abs(user - ans) < 0.1) {
+      fb.className = 'fb correct';
+      fb.textContent = '✅ 正解！';
+    } else {
+      fb.className = 'fb wrong';
+      fb.textContent = `❌ 正解: ${ans}`;
+    }
+  };
+</script>

@@ -1,0 +1,389 @@
+---
+// Week 04: 向量合成・分解
+---
+
+<div class="vector-trainer">
+  <div class="trainer-header">
+    <h3>🎯 ベクトルの合成・分解</h3>
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="compose">合成</button>
+      <button class="mode-btn" data-mode="decompose">分解</button>
+    </div>
+  </div>
+
+  <!-- 向量畫布 -->
+  <div class="canvas-card">
+    <canvas id="vectorCanvas" width="400" height="300"></canvas>
+    <div class="canvas-controls">
+      <div class="vector-inputs" id="vectorInputs">
+        <!-- 動態生成 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 計算結果 -->
+  <div class="result-card" id="resultCard">
+    <div class="result-title">計算結果</div>
+    <div class="result-content" id="resultContent">
+      ベクトルを入力してね
+    </div>
+  </div>
+
+  <!-- 練習問題 -->
+  <div class="practice-card">
+    <h4>📝 小テストの問題</h4>
+    <div class="problem-box">
+      <p><strong>問題：</strong>F₁ = (5.0, 0.0) N、F₂ = (-2.0, 4.0) N の合力を求めよ</p>
+      <div class="inline-inputs">
+        <span>F = (</span>
+        <input type="number" id="ansX" placeholder="x">
+        <span>,</span>
+        <input type="number" id="ansY" placeholder="y">
+        <span>) N</span>
+        <button class="check-btn" id="checkBtn">確認</button>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .vector-trainer {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .trainer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .trainer-header h3 {
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .mode-toggle {
+    display: flex;
+    gap: 8px;
+  }
+
+  .mode-btn {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+  }
+
+  .mode-btn.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+  }
+
+  .canvas-card {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  #vectorCanvas {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin: 0 auto 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fafafa;
+  }
+
+  .canvas-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .vector-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .vector-input-group label {
+    font-weight: 600;
+    min-width: 30px;
+  }
+
+  .vector-input-group input {
+    width: 60px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .vector-input-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  .result-card {
+    background: #dbeafe;
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .result-title {
+    font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 8px;
+  }
+
+  .result-content {
+    font-size: 1.2em;
+    color: #0f172a;
+    font-family: 'Courier New', monospace;
+  }
+
+  .practice-card {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .practice-card h4 {
+    color: #0f172a;
+    margin: 0 0 16px 0;
+  }
+
+  .problem-box {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .problem-box p {
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .inline-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .inline-inputs input {
+    width: 70px;
+    padding: 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1em;
+  }
+
+  .inline-inputs input:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+
+  .check-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    min-height: 44px;
+  }
+
+  .check-btn:hover {
+    background: #2563eb;
+  }
+
+  .feedback {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    display: none;
+  }
+
+  .feedback.show { display: block; }
+  .feedback.correct { background: #d1fae5; color: #065f46; }
+  .feedback.wrong { background: #fee2e2; color: #991b1b; }
+
+  @media (max-width: 640px) {
+    .canvas-controls { flex-direction: column; }
+    .inline-inputs { justify-content: center; }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('vectorCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  let vectors = [
+    { x: 5, y: 0, color: '#ef4444', label: 'F₁' },
+    { x: -2, y: 4, color: '#3b82f6', label: 'F₂' }
+  ];
+
+  function drawGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const scale = 25;
+    
+    // 網格
+    for (let i = -10; i <= 10; i++) {
+      ctx.beginPath();
+      ctx.moveTo(cx + i * scale, 0);
+      ctx.lineTo(cx + i * scale, canvas.height);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(0, cy + i * scale);
+      ctx.lineTo(canvas.width, cy + i * scale);
+      ctx.stroke();
+    }
+    
+    // 坐標軸
+    ctx.strokeStyle = '#64748b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, cy);
+    ctx.lineTo(canvas.width, cy);
+    ctx.moveTo(cx, 0);
+    ctx.lineTo(cx, canvas.height);
+    ctx.stroke();
+    
+    // 軸標籤
+    ctx.fillStyle = '#64748b';
+    ctx.font = '14px sans-serif';
+    ctx.fillText('x', canvas.width - 15, cy - 8);
+    ctx.fillText('y', cx + 8, 15);
+  }
+
+  function drawVector(v, startX = 0, startY = 0) {
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    const scale = 25;
+    
+    const x1 = cx + startX * scale;
+    const y1 = cy - startY * scale;
+    const x2 = cx + (startX + v.x) * scale;
+    const y2 = cy - (startY + v.y) * scale;
+    
+    // 箭頭
+    ctx.strokeStyle = v.color;
+    ctx.fillStyle = v.color;
+    ctx.lineWidth = 3;
+    
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    
+    // 箭頭頭部
+    const angle = Math.atan2(y1 - y2, x2 - x1);
+    const headLen = 12;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI/6), y2 + headLen * Math.sin(angle - Math.PI/6));
+    ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI/6), y2 + headLen * Math.sin(angle + Math.PI/6));
+    ctx.closePath();
+    ctx.fill();
+    
+    // 標籤
+    ctx.font = 'bold 14px sans-serif';
+    ctx.fillText(v.label, x2 + 8, y2 - 8);
+  }
+
+  function drawAll() {
+    drawGrid();
+    vectors.forEach(v => drawVector(v));
+    
+    // 合力
+    const sum = { 
+      x: vectors.reduce((a, v) => a + v.x, 0),
+      y: vectors.reduce((a, v) => a + v.y, 0),
+      color: '#10b981',
+      label: 'F'
+    };
+    drawVector(sum);
+    
+    // 更新結果
+    const mag = Math.sqrt(sum.x * sum.x + sum.y * sum.y);
+    document.getElementById('resultContent').innerHTML = `
+      <strong>F</strong> = (${sum.x.toFixed(1)}, ${sum.y.toFixed(1)}) N<br>
+      |F| = √(${sum.x.toFixed(1)}² + ${sum.y.toFixed(1)}²) = <strong>${mag.toFixed(1)} N</strong>
+    `;
+  }
+
+  function renderInputs() {
+    const container = document.getElementById('vectorInputs');
+    container.innerHTML = vectors.map((v, i) => `
+      <div class="vector-input-group">
+        <label style="color:${v.color}">${v.label}</label>
+        <span>(</span>
+        <input type="number" value="${v.x}" data-idx="${i}" data-axis="x">
+        <span>,</span>
+        <input type="number" value="${v.y}" data-idx="${i}" data-axis="y">
+        <span>)</span>
+      </div>
+    `).join('');
+    
+    container.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('input', (e) => {
+        const idx = parseInt(e.target.dataset.idx);
+        const axis = e.target.dataset.axis;
+        vectors[idx][axis] = parseFloat(e.target.value) || 0;
+        drawAll();
+      });
+    });
+  }
+
+  // 檢查答案
+  document.getElementById('checkBtn')?.addEventListener('click', () => {
+    const x = parseFloat(document.getElementById('ansX').value);
+    const y = parseFloat(document.getElementById('ansY').value);
+    const feedback = document.getElementById('feedback');
+    
+    if (Math.abs(x - 3) < 0.1 && Math.abs(y - 4) < 0.1) {
+      feedback.className = 'feedback show correct';
+      feedback.innerHTML = '✅ 正解！ F = F₁ + F₂ = (5-2, 0+4) = (3, 4) N<br>|F| = √(9+16) = 5 N';
+    } else {
+      feedback.className = 'feedback show wrong';
+      feedback.innerHTML = '❌ 不正解。ベクトルの成分ごとに足し算！';
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderInputs();
+    drawAll();
+  });
+</script>
