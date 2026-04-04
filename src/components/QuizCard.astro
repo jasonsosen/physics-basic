@@ -3,17 +3,25 @@
 // 简洁的填空 + 答案展开设计，移动端友好
 export interface Props {
   id: string;
-  question: string;        // 例如: "3.5 km"
-  answer: string;          // 例如: "3500" 或 "3.5 × 10³"
-  answerUnit: string;      // 例如: "m"
-  steps: string[];         // 解题步骤数组
-  hint?: string;           // 可选提示
+  question: string;
+  answer: string;
+  answerUnit: string;
+  steps: string[];
+  hint?: string;
 }
 
 const { id, question, answer, answerUnit, steps, hint } = Astro.props;
+
+// 标准化答案用于比较
+const normalizedAnswer = answer
+  .replace(/\s/g, '')
+  .replace(/×/g, '*')
+  .replace(/⁻/g, '-')
+  .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (m) => '⁰¹²³⁴⁵⁶⁷⁸⁹'.indexOf(m).toString())
+  .toLowerCase();
 ---
 
-<div class="quiz-card" data-quiz-id={id} data-correct={answer.replace(/\s/g, '').replace(/×/g, '*').replace(/⁻/g, '-').replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (m) => '⁰¹²³⁴⁵⁶⁷⁸⁹'.indexOf(m).toString())}>
+<div class="quiz-card" data-quiz-id={id} data-correct={normalizedAnswer} data-display-answer={answer}>
   <div class="quiz-question">
     <span class="quiz-num">{id}</span>
     <span class="quiz-text">{question} = </span>
@@ -30,8 +38,12 @@ const { id, question, answer, answerUnit, steps, hint } = Astro.props;
   <button class="quiz-btn show-btn">答えを見る</button>
 
   <div class="quiz-solution hidden">
+    <div class="solution-result">
+      <!-- 动态填充 -->
+    </div>
+    
     <div class="solution-answer">
-      <span class="answer-label">✅ 正解：</span>
+      <span class="answer-label">正解：</span>
       <span class="answer-value">{answer} {answerUnit}</span>
     </div>
     
@@ -66,14 +78,14 @@ const { id, question, answer, answerUnit, steps, hint } = Astro.props;
     border-color: #cbd5e1;
   }
 
-  .quiz-card.answered {
+  .quiz-card.correct {
     border-color: #10b981;
     background: #f0fdf4;
   }
 
-  .quiz-card.wrong {
-    border-color: #f59e0b;
-    background: #fffbeb;
+  .quiz-card.incorrect {
+    border-color: #ef4444;
+    background: #fef2f2;
   }
 
   .quiz-question {
@@ -131,9 +143,9 @@ const { id, question, answer, answerUnit, steps, hint } = Astro.props;
   }
 
   .quiz-input.incorrect {
-    border-color: #f59e0b;
-    background: #fffbeb;
-    color: #d97706;
+    border-color: #ef4444;
+    background: #fef2f2;
+    color: #dc2626;
   }
 
   .quiz-input:disabled {
@@ -186,18 +198,36 @@ const { id, question, answer, answerUnit, steps, hint } = Astro.props;
     to { opacity: 1; transform: translateY(0); }
   }
 
+  .solution-result {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+  }
+
+  .solution-result.correct {
+    background: #dcfce7;
+    color: #15803d;
+  }
+
+  .solution-result.incorrect {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
   .solution-answer {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 16px;
   }
 
   .answer-label {
-    color: #10b981;
+    color: #475569;
     font-weight: 600;
   }
 
   .answer-value {
-    color: #059669;
+    color: #1d4ed8;
     font-weight: 700;
     font-family: 'Courier New', monospace;
   }
@@ -234,14 +264,75 @@ const { id, question, answer, answerUnit, steps, hint } = Astro.props;
     font-size: 0.95rem;
   }
 
-  /* 移动端 */
   @media (max-width: 480px) {
     .quiz-question {
       font-size: 1.1rem;
     }
-    
     .quiz-input {
       width: 100px;
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.quiz-card');
+    
+    cards.forEach(card => {
+      const input = card.querySelector('.quiz-input') as HTMLInputElement;
+      const btn = card.querySelector('.quiz-btn') as HTMLButtonElement;
+      const solution = card.querySelector('.quiz-solution') as HTMLDivElement;
+      const resultDiv = card.querySelector('.solution-result') as HTMLDivElement;
+      const correctAnswer = card.getAttribute('data-correct') || '';
+      const displayAnswer = card.getAttribute('data-display-answer') || '';
+      
+      const checkAnswer = () => {
+        const userInput = input.value
+          .trim()
+          .replace(/\s/g, '')
+          .replace(/×/g, '*')
+          .replace(/⁻/g, '-')
+          .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (m) => '⁰¹²³⁴⁵⁶⁷⁸⁹'.indexOf(m).toString())
+          .toLowerCase();
+        
+        // 允许多种正确答案格式
+        const isCorrect = userInput === correctAnswer || 
+          userInput === correctAnswer.replace(/[^0-9.-]/g, '') ||
+          parseFloat(userInput) === parseFloat(correctAnswer);
+        
+        // 显示结果
+        solution.classList.remove('hidden');
+        input.disabled = true;
+        btn.disabled = true;
+        btn.textContent = '回答済み';
+        
+        if (userInput === '') {
+          // 没有输入，只显示答案
+          resultDiv.textContent = '📖 答えを確認しましょう';
+          resultDiv.className = 'solution-result';
+          card.classList.add('answered');
+        } else if (isCorrect) {
+          resultDiv.textContent = '✅ 正解！';
+          resultDiv.className = 'solution-result correct';
+          input.classList.add('correct');
+          card.classList.add('correct');
+        } else {
+          resultDiv.textContent = '❌ 不正解...';
+          resultDiv.className = 'solution-result incorrect';
+          input.classList.add('incorrect');
+          card.classList.add('incorrect');
+        }
+        
+        solution.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      };
+
+      btn.addEventListener('click', checkAnswer);
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          checkAnswer();
+        }
+      });
+    });
+  });
+</script>
