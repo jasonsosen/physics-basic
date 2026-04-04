@@ -1,42 +1,71 @@
 ---
-// 密度公式三角形 - Week 03
-// ρ = m/V の三変形を視覚的に学ぶ
+// 密度公式三角形 v2 - Week 03
+// 淺色主題、卡片式、更清晰的交互
 ---
 
 <div class="density-trainer">
-  <h3>🔺 密度の公式トレーナー</h3>
-  
-  <div class="triangle-container">
-    <div class="formula-triangle">
-      <div class="tri-top" id="triM" data-var="m">
-        <span class="var-label">m</span>
-        <span class="var-name">質量</span>
+  <div class="trainer-header">
+    <h3>🔺 密度の公式マスター</h3>
+    <div class="score-badge" id="scoreBadge">正解: 0/4</div>
+  </div>
+
+  <!-- 公式三角形 -->
+  <div class="formula-section">
+    <div class="triangle-wrapper">
+      <div class="triangle-visual">
+        <div class="tri-top" id="triM" data-var="m" tabindex="0" role="button" aria-label="質量を求める">
+          <span class="var-symbol">m</span>
+          <span class="var-name">質量</span>
+        </div>
+        <div class="tri-line"></div>
+        <div class="tri-bottom">
+          <div class="tri-left" id="triRho" data-var="ρ" tabindex="0" role="button" aria-label="密度を求める">
+            <span class="var-symbol">ρ</span>
+            <span class="var-name">密度</span>
+          </div>
+          <div class="tri-operator">×</div>
+          <div class="tri-right" id="triV" data-var="V" tabindex="0" role="button" aria-label="体積を求める">
+            <span class="var-symbol">V</span>
+            <span class="var-name">体積</span>
+          </div>
+        </div>
       </div>
-      <div class="tri-bottom">
-        <div class="tri-left" id="triRho" data-var="ρ">
-          <span class="var-label">ρ</span>
-          <span class="var-name">密度</span>
-        </div>
-        <div class="tri-right" id="triV" data-var="V">
-          <span class="var-label">V</span>
-          <span class="var-name">体積</span>
-        </div>
+      
+      <div class="formula-output" id="formulaOutput">
+        <div class="output-hint">👆 求めたい量をクリック！</div>
       </div>
     </div>
-    
-    <div class="formula-display" id="formulaDisplay">
-      クリックして求めたい量を選択
+
+    <div class="formula-cards">
+      <div class="formula-card">
+        <span class="card-emoji">📐</span>
+        <div class="card-formula">ρ = m ÷ V</div>
+        <div class="card-desc">密度を求める</div>
+      </div>
+      <div class="formula-card">
+        <span class="card-emoji">⚖️</span>
+        <div class="card-formula">m = ρ × V</div>
+        <div class="card-desc">質量を求める</div>
+      </div>
+      <div class="formula-card">
+        <span class="card-emoji">📦</span>
+        <div class="card-formula">V = m ÷ ρ</div>
+        <div class="card-desc">体積を求める</div>
+      </div>
     </div>
   </div>
 
-  <div class="problem-area">
-    <h4>📝 練習問題</h4>
-    <div class="problem-tabs">
-      <button class="tab-btn active" data-tab="basic">基本</button>
-      <button class="tab-btn" data-tab="trap">⚠️ 陷阱題</button>
+  <!-- 練習問題 -->
+  <div class="practice-section">
+    <div class="section-header">
+      <h4>📝 練習問題</h4>
+      <div class="tab-group">
+        <button class="tab-btn active" data-tab="basic">基本問題</button>
+        <button class="tab-btn warning-tab" data-tab="trap">⚠️ ひっかけ問題</button>
+      </div>
     </div>
     
-    <div class="problem-content" id="problemContent">
+    <div class="problems-container" id="problemsContainer">
       <!-- 動態載入 -->
     </div>
   </div>
@@ -44,382 +73,580 @@
 
 <style>
   .density-trainer {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-card: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --accent-pink: #ec4899;
+    --accent-pink-light: #fce7f3;
+    --accent-blue: #3b82f6;
+    --accent-yellow: #fbbf24;
+    --accent-green: #10b981;
+    --success: #10b981;
+    --success-light: #d1fae5;
+    --error: #ef4444;
+    --error-light: #fee2e2;
+    --warning: #f59e0b;
+    --warning-light: #fef3c7;
+    
+    background: var(--bg-secondary);
     border-radius: 16px;
     padding: 24px;
-    margin: 20px 0;
+    margin: 24px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  .density-trainer h3 {
-    color: #f472b6;
+  .trainer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
   }
 
-  .triangle-container {
+  .trainer-header h3 {
+    color: var(--text-primary);
+    font-size: 1.4em;
+    margin: 0;
+  }
+
+  .score-badge {
+    background: var(--accent-pink);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+
+  /* ===== 公式區 ===== */
+  .formula-section {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .triangle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .triangle-visual {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
-  }
-
-  .formula-triangle {
-    position: relative;
-    width: 200px;
-    height: 180px;
+    gap: 8px;
   }
 
   .tri-top, .tri-left, .tri-right {
-    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
     border-radius: 50%;
     width: 80px;
     height: 80px;
+    border: 3px solid;
   }
 
   .tri-top {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-    border: 3px solid #fcd34d;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border-color: var(--accent-yellow);
   }
 
   .tri-left {
-    bottom: 0;
-    left: 10px;
-    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-    border: 3px solid #93c5fd;
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-color: var(--accent-blue);
   }
 
   .tri-right {
-    bottom: 0;
-    right: 10px;
-    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-    border: 3px solid #6ee7b7;
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    border-color: var(--accent-green);
   }
 
-  .tri-top:hover, .tri-left:hover, .tri-right:hover {
+  .tri-top:hover, .tri-left:hover, .tri-right:hover,
+  .tri-top:focus, .tri-left:focus, .tri-right:focus {
     transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    outline: none;
   }
 
-  .tri-top.selected { transform: translateX(-50%) scale(1.15); }
-  .tri-left.selected, .tri-right.selected { transform: scale(1.15); }
-
-  .tri-top.selected, .tri-left.selected, .tri-right.selected {
-    box-shadow: 0 0 30px rgba(255,255,255,0.5);
+  .tri-top.selected {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px var(--accent-yellow), 0 8px 20px rgba(0,0,0,0.2);
   }
 
-  .var-label {
+  .tri-left.selected {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px var(--accent-blue), 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  .tri-right.selected {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px var(--accent-green), 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  .var-symbol {
     font-size: 1.8em;
-    font-weight: bold;
-    color: #1a1a2e;
+    font-weight: 700;
+    color: var(--text-primary);
   }
 
   .var-name {
     font-size: 0.7em;
-    color: rgba(0,0,0,0.7);
+    color: var(--text-secondary);
   }
 
-  /* 連接線 */
-  .formula-triangle::before {
-    content: '';
-    position: absolute;
-    top: 70px;
-    left: 50%;
-    width: 2px;
-    height: 40px;
-    background: rgba(255,255,255,0.3);
-    transform: translateX(-50%);
+  .tri-line {
+    width: 120px;
+    height: 3px;
+    background: var(--border-color);
+    margin: 4px 0;
   }
 
-  .formula-triangle::after {
-    content: '×';
-    position: absolute;
-    bottom: 35px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255,255,255,0.5);
+  .tri-bottom {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .tri-operator {
     font-size: 1.5em;
+    color: var(--text-muted);
   }
 
-  .formula-display {
-    margin-top: 20px;
-    padding: 20px 40px;
-    background: rgba(0,0,0,0.3);
+  .formula-output {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
     border-radius: 12px;
-    font-size: 1.5em;
-    color: #fff;
-    font-family: 'Times New Roman', serif;
+    padding: 20px 32px;
     min-width: 200px;
     text-align: center;
   }
 
-  .formula-display .highlight {
-    color: #fbbf24;
-    font-weight: bold;
+  .output-hint {
+    color: var(--text-muted);
+    font-size: 0.95em;
   }
 
-  .problem-area {
-    background: rgba(0,0,0,0.2);
+  .output-formula {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: 'Times New Roman', serif;
+  }
+
+  .output-formula .highlight {
+    color: var(--accent-pink);
+  }
+
+  /* 公式卡片 */
+  .formula-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .formula-card {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
     border-radius: 12px;
-    padding: 20px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s ease;
   }
 
-  .problem-area h4 {
-    color: #a78bfa;
-    margin-bottom: 16px;
+  .formula-card:hover {
+    border-color: var(--accent-pink);
+    transform: translateY(-2px);
   }
 
-  .problem-tabs {
+  .card-emoji {
+    font-size: 1.5em;
+  }
+
+  .card-formula {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 8px 0;
+    font-family: 'Courier New', monospace;
+  }
+
+  .card-desc {
+    font-size: 0.8em;
+    color: var(--text-muted);
+  }
+
+  /* ===== 練習區 ===== */
+  .practice-section {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .section-header h4 {
+    color: var(--text-primary);
+    font-size: 1.2em;
+    margin: 0;
+  }
+
+  .tab-group {
     display: flex;
     gap: 8px;
-    margin-bottom: 16px;
   }
 
   .tab-btn {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #ccc;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    color: var(--text-secondary);
     padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+    min-height: 44px;
   }
 
   .tab-btn:hover {
-    background: rgba(167,139,250,0.2);
+    border-color: var(--accent-pink);
   }
 
   .tab-btn.active {
-    background: #a78bfa;
-    color: #000;
-    font-weight: bold;
+    background: var(--accent-pink);
+    border-color: var(--accent-pink);
+    color: white;
+    font-weight: 600;
   }
 
-  .problem-content {
-    min-height: 200px;
+  .warning-tab {
+    border-color: var(--warning);
+    color: var(--warning);
   }
 
+  .warning-tab.active {
+    background: var(--warning);
+    border-color: var(--warning);
+    color: white;
+  }
+
+  /* 問題卡片 */
   .problem-card {
-    background: rgba(255,255,255,0.05);
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 12px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
   }
 
   .problem-text {
-    color: #e2e8f0;
-    margin-bottom: 12px;
+    color: var(--text-primary);
+    font-size: 1.05em;
     line-height: 1.6;
+    margin-bottom: 16px;
   }
 
-  .problem-input {
+  .problem-input-group {
     display: flex;
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
   }
 
-  .problem-input input {
-    background: rgba(0,0,0,0.3);
-    border: 2px solid #6366f1;
+  .problem-input {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
     border-radius: 8px;
-    padding: 10px 16px;
-    color: #fff;
+    padding: 12px 16px;
     font-size: 1.1em;
+    color: var(--text-primary);
     width: 120px;
+    min-height: 44px;
+    transition: all 0.2s ease;
   }
 
-  .problem-input input:focus {
+  .problem-input:focus {
     outline: none;
-    border-color: #818cf8;
-    box-shadow: 0 0 10px rgba(129,140,248,0.3);
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
   }
 
   .unit-label {
-    color: #94a3b8;
+    color: var(--text-secondary);
+    font-size: 1em;
   }
 
   .check-btn {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    border: none;
+    background: linear-gradient(135deg, var(--accent-pink), #f472b6);
     color: white;
-    padding: 10px 20px;
+    border: none;
+    padding: 12px 24px;
     border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
     cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s;
+    min-height: 44px;
+    transition: all 0.2s ease;
   }
 
   .check-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
   }
 
   .problem-feedback {
-    margin-top: 12px;
-    padding: 12px;
-    border-radius: 8px;
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    line-height: 1.6;
     display: none;
   }
 
   .problem-feedback.show {
     display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .problem-feedback.correct {
-    background: rgba(52,211,153,0.2);
-    border: 1px solid #34d399;
-    color: #34d399;
+    background: var(--success-light);
+    border: 2px solid var(--success);
+    color: #065f46;
   }
 
   .problem-feedback.wrong {
-    background: rgba(248,113,113,0.2);
-    border: 1px solid #f87171;
-    color: #f87171;
+    background: var(--error-light);
+    border: 2px solid var(--error);
+    color: #991b1b;
   }
 
+  /* ひっかけ問題說明 */
   .trap-warning {
-    background: rgba(251,191,36,0.15);
-    border: 1px solid #fbbf24;
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 16px;
-    color: #fbbf24;
-    font-size: 0.9em;
+    background: var(--warning-light);
+    border: 2px solid var(--warning);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    color: #92400e;
   }
 
   .trap-explanation {
-    background: rgba(96,165,250,0.15);
-    border-radius: 8px;
-    padding: 16px;
-    margin-top: 16px;
+    background: linear-gradient(135deg, #dbeafe, #ede9fe);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 24px;
   }
 
   .trap-explanation h5 {
-    color: #60a5fa;
+    color: var(--text-primary);
+    font-size: 1.1em;
+    margin-bottom: 16px;
+  }
+
+  .visual-comparison {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .planet-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    min-width: 140px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  .planet-emoji {
+    font-size: 3em;
+    display: block;
     margin-bottom: 8px;
   }
 
-  .trap-explanation p {
-    color: #cbd5e1;
-    line-height: 1.6;
+  .planet-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
   }
 
-  .emoji-visual {
-    font-size: 2em;
-    text-align: center;
-    margin: 12px 0;
+  .planet-mass, .planet-weight {
+    font-size: 0.9em;
+    margin: 4px 0;
+  }
+
+  .planet-mass {
+    color: var(--accent-blue);
+  }
+
+  .planet-weight {
+    color: var(--accent-green);
+  }
+
+  .key-point {
+    background: var(--warning-light);
+    border-left: 4px solid var(--warning);
+    padding: 12px 16px;
+    margin-top: 16px;
+    border-radius: 0 8px 8px 0;
+    color: #92400e;
+    font-weight: 500;
+  }
+
+  /* 響應式 */
+  @media (max-width: 640px) {
+    .density-trainer {
+      padding: 16px;
+    }
+    
+    .triangle-wrapper {
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .tab-group {
+      width: 100%;
+    }
+    
+    .tab-btn {
+      flex: 1;
+      text-align: center;
+    }
   }
 </style>
 
 <script>
-  // 基本問題 - 基於實際小測驗
+  // 基本問題
   const basicProblems = [
     {
       id: 1,
       text: '物体Aの体積が 40 cm³、質量が 200 g である。密度は？',
-      given: { m: 200, V: 40 },
-      find: 'ρ',
       answer: 5.0,
       unit: 'g/cm³',
-      formula: 'ρ = m/V = 200/40 = 5.0'
+      formula: 'ρ = m/V = 200 ÷ 40 = 5.0 g/cm³'
     },
     {
       id: 2,
       text: '物体Aの密度が 4.0 g/cm³、質量が 200 g である。体積は？',
-      given: { ρ: 4.0, m: 200 },
-      find: 'V',
       answer: 50,
       unit: 'cm³',
-      formula: 'V = m/ρ = 200/4.0 = 50'
+      formula: 'V = m/ρ = 200 ÷ 4.0 = 50 cm³'
     },
     {
       id: 3,
-      text: '物体Bの密度が 3.0 g/cm³、質量が 300 g である。体積は？',
-      given: { ρ: 3.0, m: 300 },
-      find: 'V',
-      answer: 100,
-      unit: 'cm³',
-      formula: 'V = m/ρ = 300/3.0 = 100'
+      text: '物体Bの密度が 3.0 g/cm³、体積が 20 cm³ である。質量は？',
+      answer: 60,
+      unit: 'g',
+      formula: 'm = ρ × V = 3.0 × 20 = 60 g'
     },
     {
       id: 4,
-      text: '物体Bの密度が 3.0 g/cm³、体積が 20 cm³ である。質量は？',
-      given: { ρ: 3.0, V: 20 },
-      find: 'm',
-      answer: 60,
-      unit: 'g',
-      formula: 'm = ρV = 3.0 × 20 = 60'
+      text: '物体Bの質量が 300 g、密度が 3.0 g/cm³ である。体積は？',
+      answer: 100,
+      unit: 'cm³',
+      formula: 'V = m/ρ = 300 ÷ 3.0 = 100 cm³'
     }
   ];
 
-  // 陷阱題 - 質量vs重量
+  // ひっかけ問題
   const trapProblems = [
     {
       id: 't1',
-      text: '地球上でばねに物体Aを吊るすと 0.24 m 伸びた。ばね定数は 20 N/m。物体Aの質量は？（g = 10 m/s²）',
+      text: '地球でばねに物体Aを吊るすと 0.24 m 伸びた。ばね定数は 20 N/m。物体Aの質量は？（g = 10 m/s²）',
       answer: 0.48,
       unit: 'kg',
-      steps: [
-        'ばねの力: F = kx = 20 × 0.24 = 4.8 N',
-        '重力と釣り合い: W = F = 4.8 N',
-        '質量: m = W/g = 4.8/10 = 0.48 kg'
-      ]
+      formula: 'F = kx = 20 × 0.24 = 4.8 N → m = F/g = 4.8/10 = 0.48 kg'
     },
     {
       id: 't2',
-      text: '⚠️ 陷阱題：月面上における物体Aの質量は？（月面の g = 地球の 1/6）',
+      text: '⚠️ 月面における物体Aの質量は？（月の g = 地球の 1/6）',
       answer: 0.48,
       unit: 'kg',
       isTrap: true,
       wrongAnswer: 0.08,
-      explanation: '質量は場所によって変わらない！重量（重力）だけが変わる。'
+      trapMessage: '🎣 ひっかかった！質量は場所で変わらない！'
     }
   ];
 
   let currentTab = 'basic';
+  let correctCount = 0;
+  let totalAnswered = 0;
 
-  // 三角形互動
+  // 三角形交互
   function setupTriangle() {
-    const vars = ['triM', 'triRho', 'triV'];
-    const display = document.getElementById('formulaDisplay');
-    
-    vars.forEach(id => {
-      document.getElementById(id).addEventListener('click', function() {
-        // 移除其他選中狀態
-        vars.forEach(v => document.getElementById(v).classList.remove('selected'));
-        this.classList.add('selected');
-        
-        const v = this.dataset.var;
-        let formula = '';
-        
-        switch(v) {
-          case 'm':
-            formula = '<span class="highlight">m</span> = ρ × V';
-            break;
-          case 'ρ':
-            formula = '<span class="highlight">ρ</span> = m ÷ V';
-            break;
-          case 'V':
-            formula = '<span class="highlight">V</span> = m ÷ ρ';
-            break;
+    ['triM', 'triRho', 'triV'].forEach(id => {
+      const el = document.getElementById(id);
+      el?.addEventListener('click', () => selectVar(el.dataset.var));
+      el?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectVar(el.dataset.var);
         }
-        
-        display.innerHTML = formula;
       });
     });
   }
 
+  function selectVar(varName) {
+    // 移除選中狀態
+    ['triM', 'triRho', 'triV'].forEach(id => {
+      document.getElementById(id)?.classList.remove('selected');
+    });
+    
+    // 添加選中狀態
+    const varMap = { m: 'triM', ρ: 'triRho', V: 'triV' };
+    document.getElementById(varMap[varName])?.classList.add('selected');
+    
+    // 顯示公式
+    const output = document.getElementById('formulaOutput');
+    let formula = '';
+    switch(varName) {
+      case 'm':
+        formula = '<span class="highlight">m</span> = ρ × V';
+        break;
+      case 'ρ':
+        formula = '<span class="highlight">ρ</span> = m ÷ V';
+        break;
+      case 'V':
+        formula = '<span class="highlight">V</span> = m ÷ ρ';
+        break;
+    }
+    output.innerHTML = `<div class="output-formula">${formula}</div>`;
+  }
+
   // 渲染問題
   function renderProblems(tab) {
-    const content = document.getElementById('problemContent');
+    const container = document.getElementById('problemsContainer');
     const problems = tab === 'basic' ? basicProblems : trapProblems;
     
     let html = '';
@@ -427,19 +654,19 @@
     if (tab === 'trap') {
       html += `
         <div class="trap-warning">
-          ⚠️ 注意：這裡有常見的陷阱題！很多學生會答錯。
+          ⚠️ <strong>注意！</strong> 多くの学生がひっかかる問題です。よく考えて！
         </div>
       `;
     }
     
-    problems.forEach((p, i) => {
+    problems.forEach(p => {
       html += `
-        <div class="problem-card" data-id="${p.id}">
+        <div class="problem-card">
           <div class="problem-text">${p.text}</div>
-          <div class="problem-input">
-            <input type="number" step="any" id="input-${p.id}" placeholder="答え">
+          <div class="problem-input-group">
+            <input type="number" step="any" class="problem-input" id="input-${p.id}" placeholder="答え">
             <span class="unit-label">${p.unit}</span>
-            <button class="check-btn" onclick="checkProblem('${p.id}', ${tab === 'trap'})">確認</button>
+            <button class="check-btn" onclick="checkAnswer('${p.id}', ${tab === 'trap'})">確認</button>
           </div>
           <div class="problem-feedback" id="feedback-${p.id}"></div>
         </div>
@@ -449,59 +676,74 @@
     if (tab === 'trap') {
       html += `
         <div class="trap-explanation">
-          <h5>💡 質量と重量の違い</h5>
-          <div class="emoji-visual">
-            🌍 地球: 60kg → ⚖️ 60kg<br>
-            🌙 月面: 60kg → ⚖️ 10kg (表示)
+          <h5>💡 質量と重さ（重力）の違い</h5>
+          <div class="visual-comparison">
+            <div class="planet-card">
+              <span class="planet-emoji">🌍</span>
+              <div class="planet-name">地球</div>
+              <div class="planet-mass">質量: <strong>60 kg</strong></div>
+              <div class="planet-weight">重さ: <strong>600 N</strong></div>
+            </div>
+            <div class="planet-card">
+              <span class="planet-emoji">🌙</span>
+              <div class="planet-name">月</div>
+              <div class="planet-mass">質量: <strong>60 kg</strong> ✓同じ！</div>
+              <div class="planet-weight">重さ: <strong>100 N</strong> ↓減る</div>
+            </div>
           </div>
-          <p><strong>質量 (mass)</strong>：物体に含まれる物質の量。場所によって変わらない。「肉の量」</p>
-          <p><strong>重量 (weight)</strong>：重力による力。場所によって変わる。「引っ張られる力」</p>
-          <p style="color:#fbbf24;margin-top:12px">⚠️ 月面でも質量は同じ！体重計の表示が変わるだけ！</p>
+          <div class="key-point">
+            📌 <strong>質量</strong>＝物体の中身の量（どこでも同じ）<br>
+            📌 <strong>重さ</strong>＝星に引っ張られる力（場所で変わる）
+          </div>
         </div>
       `;
     }
     
-    content.innerHTML = html;
+    container.innerHTML = html;
   }
 
-  // 檢查答案
-  window.checkProblem = function(id, isTrapTab) {
+  // 答案檢查
+  window.checkAnswer = function(id, isTrapTab) {
     const input = document.getElementById(`input-${id}`);
     const feedback = document.getElementById(`feedback-${id}`);
     const userAnswer = parseFloat(input.value);
     
     const problems = isTrapTab ? trapProblems : basicProblems;
-    const problem = problems.find(p => p.id === id || p.id === parseInt(id));
+    const problem = problems.find(p => String(p.id) === String(id));
     
-    if (!problem) return;
+    if (!problem || isNaN(userAnswer)) return;
     
+    totalAnswered++;
     feedback.classList.add('show');
     
-    // 檢查是否是陷阱題的錯誤答案
+    // 檢查陷阱題的錯誤答案
     if (problem.isTrap && Math.abs(userAnswer - problem.wrongAnswer) < 0.01) {
       feedback.className = 'problem-feedback show wrong';
       feedback.innerHTML = `
-        ❌ 陷阱にかかった！<br>
-        ${problem.explanation}<br>
-        <strong>正解: ${problem.answer} ${problem.unit}</strong>
+        ${problem.trapMessage}<br>
+        正解は <strong>${problem.answer} ${problem.unit}</strong>
       `;
+      updateScore();
       return;
     }
     
     if (Math.abs(userAnswer - problem.answer) < 0.01) {
+      correctCount++;
       feedback.className = 'problem-feedback show correct';
-      if (problem.formula) {
-        feedback.innerHTML = `✅ 正解！<br>計算: ${problem.formula}`;
-      } else if (problem.steps) {
-        feedback.innerHTML = `✅ 正解！<br>${problem.steps.join('<br>')}`;
-      } else {
-        feedback.innerHTML = '✅ 正解！';
-      }
+      feedback.innerHTML = `✅ 正解！<br>計算: ${problem.formula}`;
+      input.disabled = true;
     } else {
       feedback.className = 'problem-feedback show wrong';
       feedback.innerHTML = `❌ 不正解。正解は ${problem.answer} ${problem.unit}`;
     }
+    
+    updateScore();
   };
+
+  function updateScore() {
+    const badge = document.getElementById('scoreBadge');
+    badge.textContent = `正解: ${correctCount}/${totalAnswered}`;
+  }
 
   // 初始化
   document.addEventListener('DOMContentLoaded', () => {
