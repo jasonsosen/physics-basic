@@ -1,34 +1,209 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const weekData = {
-  '03': { title: '力と質量、密度', prev: '02', next: '04' },
-  '04': { title: '力の合成と分解', prev: '03', next: '05' },
-  '05': { title: '抗力と摩擦力', prev: '04', next: '06' },
-  '06': { title: '張力と弾性力', prev: '05', next: '07' },
-  '07': { title: '剛体と重心', prev: '06', next: '08' },
-  '08': { title: '力のモーメント', prev: '07', next: '09' },
-  '09': { title: '運動の表し方', prev: '08', next: '10' },
-  '10': { title: '運動方程式', prev: '09', next: '11' },
-  '11': { title: '等速度・等加速度運動', prev: '10', next: '12' },
-  '12': { title: '落下運動と放物運動', prev: '11', next: null },
-};
-
-const weekNum = '08';
-const data = weekData[weekNum];
 ---
 
-<Layout title={`Week ${weekNum}: ${data.title}`}>
-  <h1>Week {weekNum}: {data.title}</h1>
-  
+<Layout title="Week 8: 力のモーメント">
+  <h1>Week 8: 力のモーメント</h1>
+  <p class="subtitle">回転させる力の正体！</p>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>力のモーメント（トルク）を計算できる</li>
+    <li>うでの長さを正しく求められる</li>
+    <li>モーメントのつり合い条件を使える</li>
+  </ul>
+
+  <h2>力のモーメントとは</h2>
+
   <div class="highlight-box">
-    <p>🚧 このページは準備中です...</p>
+    <strong>🚪 なぜドアは取っ手を押すと開きやすい？</strong><br/>
+    蝶番（支点）から遠いほど、小さい力で回転させられる！
+  </div>
+
+  <div class="formula-box">
+    <span class="big-formula">M = F × d</span>
+    <p>モーメント = 力 × うでの長さ</p>
+  </div>
+
+  <table>
+    <tr><th>記号</th><th>意味</th><th>単位</th></tr>
+    <tr><td>M</td><td>力のモーメント</td><td>N·m</td></tr>
+    <tr><td>F</td><td>力の大きさ</td><td>N</td></tr>
+    <tr><td>d</td><td>うでの長さ</td><td>m</td></tr>
+  </table>
+
+  <h3>うでの長さとは</h3>
+  <div class="highlight-box">
+    回転軸（支点）から力の <strong>作用線</strong> までの <strong>垂直距離</strong>
+  </div>
+
+  <h3>モーメントの符号</h3>
+  <ul>
+    <li><strong>反時計回り：＋（正）</strong></li>
+    <li><strong>時計回り：−（負）</strong></li>
+  </ul>
+
+  <h2>🎮 シーソーバランス</h2>
+  <div class="animation-container">
+    <div id="seesaw-sim">
+      <div class="seesaw-display">
+        <div class="seesaw-board" id="seesaw-board">
+          <div class="weight left-weight">🏋️ <span id="left-w">20</span>kg</div>
+          <div class="fulcrum">△</div>
+          <div class="weight right-weight">🏋️ <span id="right-w">10</span>kg</div>
+        </div>
+        <div class="scale">
+          <span>-5</span><span>-4</span><span>-3</span><span>-2</span><span>-1</span>
+          <span>0</span>
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+        </div>
+      </div>
+      <div class="seesaw-controls">
+        <div>
+          <label>左の重さ: <input type="number" id="left-mass" value="20" min="1" max="50" /> kg</label>
+          <label>左の位置: <input type="number" id="left-pos" value="-3" min="-5" max="-1" /> m</label>
+        </div>
+        <div>
+          <label>右の重さ: <input type="number" id="right-mass" value="10" min="1" max="50" /> kg</label>
+          <label>右の位置: <input type="number" id="right-pos" value="3" min="1" max="5" /> m</label>
+        </div>
+      </div>
+      <div class="seesaw-calc">
+        <p>左のモーメント: <span id="left-m">60</span> N·m（反時計回り）</p>
+        <p>右のモーメント: <span id="right-m">30</span> N·m（時計回り）</p>
+        <p id="balance-status">⚠️ 左に傾く！</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>剛体のつり合い条件</h2>
+
+  <div class="highlight-box">
+    剛体が静止するには、<strong>2つの条件</strong> が必要！
+  </div>
+
+  <div class="formula-box">
+    <p><strong>条件1：力のつり合い</strong></p>
+    <span class="big-formula">ΣFx = 0, ΣFy = 0</span>
+    <p><strong>条件2：モーメントのつり合い</strong></p>
+    <span class="big-formula">ΣM = 0</span>
+  </div>
+
+  <h2>例題</h2>
+
+  <div class="example">
+    <h4>例題1：てこ</h4>
+    <p><strong>問題：</strong>支点から左2mに30N、右xmに20N。つり合うxは？</p>
+    <p><strong>解答：</strong></p>
+    <p>左のモーメント（反時計）= 右のモーメント（時計）</p>
+    <p>30 × 2 = 20 × x</p>
+    <p>x = 60 / 20 = <strong>3 m</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題2：棒を支える</h4>
+    <p><strong>問題：</strong>長さ10m、重さ8Nの一様な棒。端Aから3mに4Nの力。両端A,Bの反力は？</p>
+    <p><strong>解答：</strong></p>
+    <p>Aまわりのモーメント：</p>
+    <p>RB × 10 = 8 × 5 + 4 × 3 = 40 + 12 = 52</p>
+    <p>RB = <strong>5.2 N</strong></p>
+    <p>力のつり合い：RA + RB = 8 + 4 = 12</p>
+    <p>RA = 12 - 5.2 = <strong>6.8 N</strong></p>
+  </div>
+
+  <h2>練習問題</h2>
+  <table>
+    <tr><th>問題</th><th>解答</th></tr>
+    <tr>
+      <td>① 支点から2mで50Nの力を加える。モーメントは？</td>
+      <td><details><summary>答え</summary>M = 50 × 2 = 100 N·m</details></td>
+    </tr>
+    <tr>
+      <td>② 左3mに40N、右にxmに60N。つり合うxは？</td>
+      <td><details><summary>答え</summary>40×3 = 60×x → x = 2 m</details></td>
+    </tr>
+  </table>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ モーメント：<strong>M = Fd</strong>（回転させる能力）</li>
+      <li>✓ うでの長さ：支点から作用線への垂直距離</li>
+      <li>✓ つり合い：<strong>ΣM = 0</strong></li>
+      <li>✓ 支点の選び方で計算が楽になる！</li>
+    </ul>
   </div>
 
   <div class="nav-buttons">
-    <a href={`/physics-basic/weeks/week${data.prev}/`} class="nav-btn secondary">← 前へ</a>
-    {data.next && (
-      <a href={`/physics-basic/weeks/week${data.next}/`} class="nav-btn">次へ →</a>
-    )}
+    <a href="/physics-basic/weeks/week07/" class="nav-btn secondary">← Week 7</a>
+    <a href="/physics-basic/weeks/week09/" class="nav-btn">Week 9 へ →</a>
   </div>
 </Layout>
+
+<style>
+  .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; }
+  .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
+  .big-formula { font-size: 1.5rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
+  #seesaw-sim { padding: 1rem; }
+  .seesaw-display { text-align: center; margin-bottom: 1rem; }
+  .seesaw-board { display: flex; justify-content: space-between; align-items: flex-end; padding: 0 2rem; height: 60px; background: linear-gradient(to right, #fef3c7, #fde68a); border-radius: 4px; transition: transform 0.3s; position: relative; }
+  .weight { font-size: 1.2rem; }
+  .fulcrum { position: absolute; left: 50%; bottom: -20px; transform: translateX(-50%); font-size: 1.5rem; }
+  .scale { display: flex; justify-content: space-between; padding: 0 1rem; margin-top: 1.5rem; font-size: 0.8rem; color: #64748b; }
+  .seesaw-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  .seesaw-controls label { display: block; margin: 0.25rem 0; }
+  .seesaw-controls input { width: 60px; padding: 0.25rem; }
+  .seesaw-calc { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .seesaw-calc p { margin: 0; padding: 0.5rem 1rem; background: #f1f5f9; border-radius: 4px; }
+  #balance-status { font-weight: bold; }
+  details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
+</style>
+
+<script>
+  const leftMass = document.getElementById('left-mass') as HTMLInputElement;
+  const leftPos = document.getElementById('left-pos') as HTMLInputElement;
+  const rightMass = document.getElementById('right-mass') as HTMLInputElement;
+  const rightPos = document.getElementById('right-pos') as HTMLInputElement;
+  const leftW = document.getElementById('left-w');
+  const rightW = document.getElementById('right-w');
+  const leftM = document.getElementById('left-m');
+  const rightM = document.getElementById('right-m');
+  const status = document.getElementById('balance-status');
+  const board = document.getElementById('seesaw-board');
+
+  function update() {
+    const mL = parseInt(leftMass?.value || '20');
+    const pL = Math.abs(parseInt(leftPos?.value || '3'));
+    const mR = parseInt(rightMass?.value || '10');
+    const pR = parseInt(rightPos?.value || '3');
+
+    const momentL = mL * 10 * pL;
+    const momentR = mR * 10 * pR;
+
+    if (leftW) leftW.textContent = mL.toString();
+    if (rightW) rightW.textContent = mR.toString();
+    if (leftM) leftM.textContent = momentL.toString();
+    if (rightM) rightM.textContent = momentR.toString();
+
+    const diff = momentL - momentR;
+    const angle = Math.max(-15, Math.min(15, diff / 20));
+    
+    if (board) board.style.transform = `rotate(${-angle}deg)`;
+    
+    if (status) {
+      if (Math.abs(diff) < 5) {
+        status.textContent = '✅ バランス！Perfect!';
+        status.style.color = '#22c55e';
+      } else if (diff > 0) {
+        status.textContent = '⚠️ 左に傾く！';
+        status.style.color = '#f59e0b';
+      } else {
+        status.textContent = '⚠️ 右に傾く！';
+        status.style.color = '#f59e0b';
+      }
+    }
+  }
+
+  [leftMass, leftPos, rightMass, rightPos].forEach(el => el?.addEventListener('input', update));
+  update();
+</script>

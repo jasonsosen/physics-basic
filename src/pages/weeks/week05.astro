@@ -1,34 +1,264 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const weekData = {
-  '03': { title: '力と質量、密度', prev: '02', next: '04' },
-  '04': { title: '力の合成と分解', prev: '03', next: '05' },
-  '05': { title: '抗力と摩擦力', prev: '04', next: '06' },
-  '06': { title: '張力と弾性力', prev: '05', next: '07' },
-  '07': { title: '剛体と重心', prev: '06', next: '08' },
-  '08': { title: '力のモーメント', prev: '07', next: '09' },
-  '09': { title: '運動の表し方', prev: '08', next: '10' },
-  '10': { title: '運動方程式', prev: '09', next: '11' },
-  '11': { title: '等速度・等加速度運動', prev: '10', next: '12' },
-  '12': { title: '落下運動と放物運動', prev: '11', next: null },
-};
-
-const weekNum = '05';
-const data = weekData[weekNum];
 ---
 
-<Layout title={`Week ${weekNum}: ${data.title}`}>
-  <h1>Week {weekNum}: {data.title}</h1>
-  
+<Layout title="Week 5: 抗力と摩擦力">
+  <h1>Week 5: 抗力と摩擦力</h1>
+  <p class="subtitle">なぜ箱を押すのは大変なの？</p>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>垂直抗力を理解する</li>
+    <li>静止摩擦力と動摩擦力の違いを理解する</li>
+    <li>斜面での力の分解ができる</li>
+  </ul>
+
+  <h2>垂直抗力 N</h2>
+
   <div class="highlight-box">
-    <p>🚧 このページは準備中です...</p>
+    <strong>🤔 なぜ床の上に立っても沈まない？</strong><br/>
+    床があなたを <strong>押し返している</strong> から！
+  </div>
+
+  <h3>垂直抗力とは</h3>
+  <p>物体が面に接触しているとき、面から受ける <strong>垂直方向の力</strong></p>
+
+  <div class="formula-box">
+    <span class="big-formula">N = mg</span>
+    <p>（水平面上で静止している場合）</p>
+  </div>
+
+  <h2>摩擦力</h2>
+
+  <div class="highlight-box">
+    表面のデコボコが「かみ合って」動きを妨げる力
+  </div>
+
+  <h3>静止摩擦力 vs 動摩擦力</h3>
+  <table>
+    <tr><th></th><th>静止摩擦力</th><th>動摩擦力</th></tr>
+    <tr><td><strong>いつ？</strong></td><td>物体が止まっている</td><td>物体が動いている</td></tr>
+    <tr><td><strong>大きさ</strong></td><td>0 〜 μN（変化する）</td><td>μ'N（一定）</td></tr>
+    <tr><td><strong>特徴</strong></td><td>加えた力と同じ大きさ</td><td>速さによらず一定</td></tr>
+  </table>
+
+  <h3>最大静止摩擦力</h3>
+  <div class="formula-box">
+    <span class="big-formula">f_max = μN</span>
+    <p>これを超えると物体が動き出す！</p>
+  </div>
+
+  <div class="highlight-box warning">
+    <strong>⚠️ 重要：</strong>μ（静止）> μ'（動摩擦）<br/>
+    動き出すのが一番大変！一度動けば少し楽になる
+  </div>
+
+  <h3>🎮 摩擦力シミュレーター</h3>
+  <div class="animation-container">
+    <div id="friction-sim">
+      <div class="sim-display">
+        <div class="box" id="sim-box">📦</div>
+        <div class="floor"></div>
+      </div>
+      <div class="controls">
+        <label>
+          推力: <span id="force-value">0</span> N
+          <input type="range" id="force-slider" min="0" max="100" value="0" />
+        </label>
+        <label>
+          摩擦係数 μ: <span id="mu-value">0.3</span>
+          <input type="range" id="mu-slider" min="1" max="8" value="3" />
+        </label>
+      </div>
+      <div class="sim-info">
+        <p>静止摩擦力: <span id="static-f">0</span> N</p>
+        <p>最大静止摩擦力: <span id="max-f">30</span> N</p>
+        <p>状態: <span id="state">静止</span></p>
+      </div>
+    </div>
+  </div>
+
+  <h2>動摩擦力</h2>
+  <div class="formula-box">
+    <span class="big-formula">f' = μ'N</span>
+    <p>動いている物体にはたらく摩擦力（一定）</p>
+  </div>
+
+  <h2>斜面上の摩擦</h2>
+
+  <p>角度 θ の斜面上では：</p>
+  <table>
+    <tr><th>力</th><th>公式</th></tr>
+    <tr><td>垂直抗力</td><td><strong>N = mg cos θ</strong></td></tr>
+    <tr><td>滑り落ちる力</td><td>mg sin θ</td></tr>
+    <tr><td>最大静止摩擦力</td><td>μ × mg cos θ</td></tr>
+  </table>
+
+  <div class="example">
+    <h4>例：斜面で静止できる条件</h4>
+    <p>静止できる ⇔ 滑り落ちる力 ≤ 最大静止摩擦力</p>
+    <p>mg sin θ ≤ μ mg cos θ</p>
+    <p>tan θ ≤ μ</p>
+  </div>
+
+  <h2>例題</h2>
+
+  <div class="example">
+    <h4>例題1：最大静止摩擦力</h4>
+    <p><strong>問題：</strong>質量 4 kg、μ = 0.5 の物体の最大静止摩擦力は？（g = 10）</p>
+    <p><strong>解答：</strong></p>
+    <p>N = mg = 4 × 10 = 40 N</p>
+    <p>f_max = μN = 0.5 × 40 = <strong>20 N</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題2：斜面</h4>
+    <p><strong>問題：</strong>30° の斜面、質量 2 kg、μ = 0.6。静止できる？</p>
+    <p><strong>解答：</strong></p>
+    <p>滑り落ちる力 = 2 × 10 × sin30° = 20 × 0.5 = 10 N</p>
+    <p>N = 2 × 10 × cos30° = 20 × 0.87 = 17.3 N</p>
+    <p>最大静止摩擦力 = 0.6 × 17.3 = 10.4 N</p>
+    <p>10 < 10.4 なので、<strong>静止できる！</strong></p>
+  </div>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ 垂直抗力：<strong>N = mg</strong>（水平面）、<strong>N = mg cos θ</strong>（斜面）</li>
+      <li>✓ 最大静止摩擦力：<strong>f_max = μN</strong></li>
+      <li>✓ 動摩擦力：<strong>f' = μ'N</strong>（一定）</li>
+      <li>✓ <strong>μ > μ'</strong>（静止摩擦 > 動摩擦）</li>
+    </ul>
   </div>
 
   <div class="nav-buttons">
-    <a href={`/physics-basic/weeks/week${data.prev}/`} class="nav-btn secondary">← 前へ</a>
-    {data.next && (
-      <a href={`/physics-basic/weeks/week${data.next}/`} class="nav-btn">次へ →</a>
-    )}
+    <a href="/physics-basic/weeks/week04/" class="nav-btn secondary">← Week 4</a>
+    <a href="/physics-basic/weeks/week06/" class="nav-btn">Week 6 へ →</a>
   </div>
 </Layout>
+
+<style>
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: -0.5rem;
+  }
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .big-formula {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+    display: block;
+    margin: 0.5rem 0;
+  }
+  #friction-sim {
+    padding: 1rem;
+  }
+  .sim-display {
+    position: relative;
+    height: 80px;
+    margin-bottom: 1rem;
+  }
+  .box {
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+    font-size: 2rem;
+    transition: left 0.3s;
+  }
+  .floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(to right, #a3a3a3, #737373);
+    border-radius: 2px;
+  }
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .controls label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .controls input[type="range"] {
+    flex: 1;
+  }
+  .sim-info {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .sim-info p {
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+  details summary {
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  const forceSlider = document.getElementById('force-slider') as HTMLInputElement;
+  const muSlider = document.getElementById('mu-slider') as HTMLInputElement;
+  const forceValue = document.getElementById('force-value');
+  const muValue = document.getElementById('mu-value');
+  const staticF = document.getElementById('static-f');
+  const maxF = document.getElementById('max-f');
+  const state = document.getElementById('state');
+  const box = document.getElementById('sim-box');
+
+  const mass = 10; // kg
+  const g = 10;
+  const N = mass * g; // 100 N
+
+  function update() {
+    const force = parseInt(forceSlider?.value || '0');
+    const mu = parseInt(muSlider?.value || '3') / 10;
+    const maxFriction = mu * N;
+
+    if (forceValue) forceValue.textContent = force.toString();
+    if (muValue) muValue.textContent = mu.toFixed(1);
+    if (maxF) maxF.textContent = maxFriction.toFixed(0);
+
+    if (force <= maxFriction) {
+      // Static
+      if (staticF) staticF.textContent = force.toString();
+      if (state) {
+        state.textContent = force === 0 ? '静止' : '静止（踏ん張り中）';
+        state.style.color = '#22c55e';
+      }
+      if (box) box.style.left = '20px';
+    } else {
+      // Moving
+      const dynamicF = mu * 0.8 * N; // μ' ≈ 0.8μ
+      if (staticF) staticF.textContent = dynamicF.toFixed(0) + '（動摩擦）';
+      if (state) {
+        state.textContent = '滑り出した！';
+        state.style.color = '#ef4444';
+      }
+      if (box) box.style.left = (20 + (force - maxFriction) * 2) + 'px';
+    }
+  }
+
+  forceSlider?.addEventListener('input', update);
+  muSlider?.addEventListener('input', update);
+  update();
+</script>

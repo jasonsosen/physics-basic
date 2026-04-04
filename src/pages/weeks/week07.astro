@@ -1,34 +1,155 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const weekData = {
-  '03': { title: '力と質量、密度', prev: '02', next: '04' },
-  '04': { title: '力の合成と分解', prev: '03', next: '05' },
-  '05': { title: '抗力と摩擦力', prev: '04', next: '06' },
-  '06': { title: '張力と弾性力', prev: '05', next: '07' },
-  '07': { title: '剛体と重心', prev: '06', next: '08' },
-  '08': { title: '力のモーメント', prev: '07', next: '09' },
-  '09': { title: '運動の表し方', prev: '08', next: '10' },
-  '10': { title: '運動方程式', prev: '09', next: '11' },
-  '11': { title: '等速度・等加速度運動', prev: '10', next: '12' },
-  '12': { title: '落下運動と放物運動', prev: '11', next: null },
-};
-
-const weekNum = '07';
-const data = weekData[weekNum];
 ---
 
-<Layout title={`Week ${weekNum}: ${data.title}`}>
-  <h1>Week {weekNum}: {data.title}</h1>
-  
+<Layout title="Week 7: 剛体と重心">
+  <h1>Week 7: 剛体と重心</h1>
+  <p class="subtitle">バランスの魔法：重心を探せ！</p>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>質点・剛体・弾性体の違いを理解する</li>
+    <li>重心の計算ができる</li>
+    <li>複合図形の重心を求められる</li>
+  </ul>
+
+  <h2>3つの物体モデル</h2>
+
+  <table>
+    <tr><th>モデル</th><th>定義</th><th>いつ使う？</th></tr>
+    <tr><td><strong>質点</strong></td><td>大きさを無視した点</td><td>物体の大きさが無視できる場合</td></tr>
+    <tr><td><strong>剛体</strong></td><td>変形しない物体</td><td>回転や力のモーメントを考える時</td></tr>
+    <tr><td><strong>弾性体</strong></td><td>変形する物体</td><td>ばねなど変形を扱う時</td></tr>
+  </table>
+
+  <h2>重心とは</h2>
+
   <div class="highlight-box">
-    <p>🚧 このページは準備中です...</p>
+    物体の質量が <strong>1点に集中している</strong> とみなせる点<br/>
+    → ここで支えればバランスが取れる！
+  </div>
+
+  <h3>2質点系の重心</h3>
+  <div class="formula-box">
+    <span class="big-formula">xG = (m₁x₁ + m₂x₂) / (m₁ + m₂)</span>
+    <p>重い方に近い位置！</p>
+  </div>
+
+  <div class="example">
+    <h4>💡 イメージ</h4>
+    <p>🐘 ゾウ と 🐭 ネズミ がシーソーに乗ったら...</p>
+    <p>バランスを取る支点（重心）は <strong>ゾウに近い位置</strong> になる！</p>
+  </div>
+
+  <h3>n質点系の重心</h3>
+  <div class="formula-box">
+    <span class="big-formula">xG = Σ(mᵢxᵢ) / Σmᵢ</span>
+  </div>
+
+  <h2>一様な物体の重心</h2>
+
+  <div class="highlight-box">
+    密度が一様なら、<strong>重心 ＝ 図形の中心（幾何学的中心）</strong>
+  </div>
+
+  <table>
+    <tr><th>形状</th><th>重心の位置</th></tr>
+    <tr><td>棒（一様）</td><td>中点</td></tr>
+    <tr><td>円板・球</td><td>中心</td></tr>
+    <tr><td>三角形</td><td>重心（中線の交点）</td></tr>
+    <tr><td>長方形</td><td>対角線の交点</td></tr>
+  </table>
+
+  <h2>L字型物体の重心</h2>
+
+  <div class="highlight-box">
+    <strong>分割法：</strong>複雑な図形を単純な図形に分けて、それぞれの重心を質点とみなす！
+  </div>
+
+  <div class="example">
+    <h4>例：L字型の棒</h4>
+    <p>横棒（3m、質量m）+ 縦棒（2m、質量m）</p>
+    <p>横棒の重心：(1.5, 0)</p>
+    <p>縦棒の重心：(0, 1)</p>
+    <p>全体の重心：</p>
+    <p>xG = (m×1.5 + m×0) / 2m = <strong>0.75 m</strong></p>
+    <p>yG = (m×0 + m×1) / 2m = <strong>0.5 m</strong></p>
+  </div>
+
+  <h2>例題</h2>
+
+  <div class="example">
+    <h4>例題1：一直線上の2質点</h4>
+    <p><strong>問題：</strong>x = 0 に 2 kg、x = 5 m に 3 kg。重心は？</p>
+    <p><strong>解答：</strong></p>
+    <p>xG = (2×0 + 3×5) / (2+3) = 15/5 = <strong>3 m</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題2：三角形配置</h4>
+    <p><strong>問題：</strong>(0,0)に1kg、(3,0)に2kg、(0,4)に1kg。重心は？</p>
+    <p><strong>解答：</strong></p>
+    <p>xG = (1×0 + 2×3 + 1×0) / 4 = 6/4 = <strong>1.5 m</strong></p>
+    <p>yG = (1×0 + 2×0 + 1×4) / 4 = 4/4 = <strong>1 m</strong></p>
+  </div>
+
+  <h2>練習問題</h2>
+  <table>
+    <tr><th>問題</th><th>解答</th></tr>
+    <tr>
+      <td>① x=0 に 1kg、x=6 に 2kg の重心は？</td>
+      <td><details><summary>答え</summary>xG = (0+12)/3 = 4 m</details></td>
+    </tr>
+    <tr>
+      <td>② 一様な棒（長さ10m）の重心は端から何m？</td>
+      <td><details><summary>答え</summary>5 m（中点）</details></td>
+    </tr>
+    <tr>
+      <td>③ 同じ質量の物体が x=2 と x=8 にある。重心は？</td>
+      <td><details><summary>答え</summary>5 m（中点、質量が同じなので）</details></td>
+    </tr>
+  </table>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ 重心：質量の中心（ここで支えるとバランス）</li>
+      <li>✓ 公式：<strong>xG = Σ(mᵢxᵢ) / Σmᵢ</strong></li>
+      <li>✓ 一様な物体：重心 ＝ 幾何学的中心</li>
+      <li>✓ 複合図形：分割して各部分を質点とみなす</li>
+    </ul>
   </div>
 
   <div class="nav-buttons">
-    <a href={`/physics-basic/weeks/week${data.prev}/`} class="nav-btn secondary">← 前へ</a>
-    {data.next && (
-      <a href={`/physics-basic/weeks/week${data.next}/`} class="nav-btn">次へ →</a>
-    )}
+    <a href="/physics-basic/weeks/week06/" class="nav-btn secondary">← Week 6</a>
+    <a href="/physics-basic/weeks/week08/" class="nav-btn">Week 8 へ →</a>
   </div>
 </Layout>
+
+<style>
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: -0.5rem;
+  }
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .big-formula {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+    display: block;
+    margin: 0.5rem 0;
+  }
+  details summary {
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>

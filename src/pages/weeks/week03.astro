@@ -1,34 +1,202 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const weekData = {
-  '03': { title: '力と質量、密度', prev: '02', next: '04' },
-  '04': { title: '力の合成と分解', prev: '03', next: '05' },
-  '05': { title: '抗力と摩擦力', prev: '04', next: '06' },
-  '06': { title: '張力と弾性力', prev: '05', next: '07' },
-  '07': { title: '剛体と重心', prev: '06', next: '08' },
-  '08': { title: '力のモーメント', prev: '07', next: '09' },
-  '09': { title: '運動の表し方', prev: '08', next: '10' },
-  '10': { title: '運動方程式', prev: '09', next: '11' },
-  '11': { title: '等速度・等加速度運動', prev: '10', next: '12' },
-  '12': { title: '落下運動と放物運動', prev: '11', next: null },
-};
-
-const weekNum = '03';
-const data = weekData[weekNum];
 ---
 
-<Layout title={`Week ${weekNum}: ${data.title}`}>
-  <h1>Week {weekNum}: {data.title}</h1>
+<Layout title="Week 3: 力と質量、密度">
+  <h1>Week 3: 力と質量、密度</h1>
+  <p class="subtitle">重さのヒミツを探ろう！</p>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>密度の意味と計算を理解する</li>
+    <li>質量と重さの違いを区別できる</li>
+    <li>重力の公式 W = mg を使える</li>
+  </ul>
+
+  <h2>密度ってなんだろう？</h2>
   
   <div class="highlight-box">
-    <p>🚧 このページは準備中です...</p>
+    <strong>🤔 なぜ鉄は重く、綿は軽い？</strong><br/>
+    同じ大きさ（体積）で比べたときの「ぎっしり度」が違うから！
+  </div>
+
+  <h3>密度の公式</h3>
+  <div class="formula-box">
+    <span class="big-formula">ρ = m / V</span>
+    <p>密度 ＝ 質量 ÷ 体積</p>
+  </div>
+
+  <table>
+    <tr><th>記号</th><th>意味</th><th>単位</th></tr>
+    <tr><td>ρ（ロー）</td><td>密度</td><td>g/cm³ または kg/m³</td></tr>
+    <tr><td>m</td><td>質量</td><td>g または kg</td></tr>
+    <tr><td>V</td><td>体積</td><td>cm³ または m³</td></tr>
+  </table>
+
+  <div class="example">
+    <h4>💡 覚え方</h4>
+    <p>「密度＝体重 ÷ お部屋の広さ」</p>
+    <p>同じ部屋に何人詰め込めるか？→ ぎっしり度！</p>
+  </div>
+
+  <h3>代表的な物質の密度</h3>
+  <table>
+    <tr><th>物質</th><th>密度 (g/cm³)</th><th>水に入れると...</th></tr>
+    <tr><td>水</td><td>1.00</td><td>（基準）</td></tr>
+    <tr><td>木</td><td>約 0.5</td><td>🔼 浮く</td></tr>
+    <tr><td>アルミニウム</td><td>2.70</td><td>🔽 沈む</td></tr>
+    <tr><td>鉄</td><td>7.87</td><td>🔽 沈む</td></tr>
+    <tr><td>金</td><td>19.32</td><td>🔽 沈む</td></tr>
+  </table>
+
+  <div class="highlight-box">
+    <strong>📌 ポイント：</strong>密度が 1.0 より小さい → 水に浮く！
+  </div>
+
+  <h2>質量と重さは違う！</h2>
+
+  <div class="highlight-box warning">
+    <strong>⚠️ 最重要ポイント！</strong><br/>
+    「質量」と「重さ（重力）」は全く別のもの！
+  </div>
+
+  <table>
+    <tr><th></th><th>質量 (m)</th><th>重さ・重力 (W)</th></tr>
+    <tr><td><strong>意味</strong></td><td>物体の「中身の量」</td><td>星に引っ張られる力</td></tr>
+    <tr><td><strong>単位</strong></td><td>kg</td><td>N（ニュートン）</td></tr>
+    <tr><td><strong>場所による変化</strong></td><td>❌ 変わらない</td><td>⭕ 変わる</td></tr>
+    <tr><td><strong>月に行くと？</strong></td><td>同じ</td><td>約 1/6 になる</td></tr>
+  </table>
+
+  <h3>重力の公式</h3>
+  <div class="formula-box">
+    <span class="big-formula">W = mg</span>
+    <p>重力 ＝ 質量 × 重力加速度</p>
+  </div>
+
+  <table>
+    <tr><th>場所</th><th>重力加速度 g</th></tr>
+    <tr><td>地球（地表）</td><td>約 9.8 m/s²（≒ 10）</td></tr>
+    <tr><td>月</td><td>約 1.6 m/s²（地球の 1/6）</td></tr>
+  </table>
+
+  <h2>🌙 月への旅行で考えよう</h2>
+
+  <div class="example">
+    <h4>質量 60 kg の宇宙飛行士</h4>
+    
+    <p><strong>地球では：</strong></p>
+    <div class="step">
+      <span class="step-number">→</span>
+      <span>質量：60 kg（変わらない）</span>
+    </div>
+    <div class="step">
+      <span class="step-number">→</span>
+      <span>重さ：W = 60 × 10 = <strong>600 N</strong></span>
+    </div>
+
+    <p><strong>月では：</strong></p>
+    <div class="step">
+      <span class="step-number">→</span>
+      <span>質量：60 kg（同じ！）</span>
+    </div>
+    <div class="step">
+      <span class="step-number">→</span>
+      <span>重さ：W = 60 × 1.6 = <strong>約 100 N</strong></span>
+    </div>
+  </div>
+
+  <h3>測定器具の違い</h3>
+  <table>
+    <tr><th>器具</th><th>測っているもの</th><th>月では？</th></tr>
+    <tr><td>バネばかり</td><td>重さ（重力）</td><td>値が小さくなる</td></tr>
+    <tr><td>上皿天秤</td><td>質量</td><td>値は同じ</td></tr>
+  </table>
+
+  <h2>例題</h2>
+
+  <div class="example">
+    <h4>例題1：密度の計算</h4>
+    <p><strong>問題：</strong>質量 200 g、体積 40 cm³ の物体の密度は？</p>
+    <p><strong>解答：</strong></p>
+    <p class="formula">ρ = m/V = 200 ÷ 40 = <strong>5.0 g/cm³</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題2：重力の計算</h4>
+    <p><strong>問題：</strong>質量 3 kg の物体にはたらく重力は？（g = 10 m/s²）</p>
+    <p><strong>解答：</strong></p>
+    <p class="formula">W = mg = 3 × 10 = <strong>30 N</strong></p>
+  </div>
+
+  <h2>練習問題</h2>
+  <table>
+    <tr><th>問題</th><th>解答（クリックで表示）</th></tr>
+    <tr>
+      <td>① 質量 500 g、体積 100 cm³ の物体の密度は？</td>
+      <td><details><summary>答え</summary>5.0 g/cm³</details></td>
+    </tr>
+    <tr>
+      <td>② 密度 2.5 g/cm³、体積 20 cm³ の物体の質量は？</td>
+      <td><details><summary>答え</summary>50 g（m = ρV）</details></td>
+    </tr>
+    <tr>
+      <td>③ 質量 5 kg の物体の重力は？（g = 10）</td>
+      <td><details><summary>答え</summary>50 N</details></td>
+    </tr>
+    <tr>
+      <td>④ 月で重さが 10 N の物体、地球での重さは？</td>
+      <td><details><summary>答え</summary>約 60 N（6倍）</details></td>
+    </tr>
+  </table>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ 密度：<strong>ρ = m/V</strong>（ぎっしり度）</li>
+      <li>✓ 重力：<strong>W = mg</strong></li>
+      <li>✓ <strong>質量は場所で変わらない、重さは変わる</strong></li>
+      <li>✓ 密度 < 1.0 → 水に浮く</li>
+    </ul>
   </div>
 
   <div class="nav-buttons">
-    <a href={`/physics-basic/weeks/week${data.prev}/`} class="nav-btn secondary">← 前へ</a>
-    {data.next && (
-      <a href={`/physics-basic/weeks/week${data.next}/`} class="nav-btn">次へ →</a>
-    )}
+    <a href="/physics-basic/weeks/week02/" class="nav-btn secondary">← Week 2</a>
+    <a href="/physics-basic/weeks/week04/" class="nav-btn">Week 4 へ →</a>
   </div>
 </Layout>
+
+<style>
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: -0.5rem;
+  }
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .big-formula {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+  }
+  .formula {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    background: #f1f5f9;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+  }
+  details {
+    cursor: pointer;
+  }
+  details summary {
+    color: var(--primary);
+    font-weight: 600;
+  }
+</style>

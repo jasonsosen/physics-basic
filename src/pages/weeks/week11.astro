@@ -1,34 +1,147 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const weekData = {
-  '03': { title: '力と質量、密度', prev: '02', next: '04' },
-  '04': { title: '力の合成と分解', prev: '03', next: '05' },
-  '05': { title: '抗力と摩擦力', prev: '04', next: '06' },
-  '06': { title: '張力と弾性力', prev: '05', next: '07' },
-  '07': { title: '剛体と重心', prev: '06', next: '08' },
-  '08': { title: '力のモーメント', prev: '07', next: '09' },
-  '09': { title: '運動の表し方', prev: '08', next: '10' },
-  '10': { title: '運動方程式', prev: '09', next: '11' },
-  '11': { title: '等速度・等加速度運動', prev: '10', next: '12' },
-  '12': { title: '落下運動と放物運動', prev: '11', next: null },
-};
-
-const weekNum = '11';
-const data = weekData[weekNum];
 ---
 
-<Layout title={`Week ${weekNum}: ${data.title}`}>
-  <h1>Week {weekNum}: {data.title}</h1>
-  
+<Layout title="Week 11: 等速度・等加速度運動">
+  <h1>Week 11: 等速度・等加速度運動</h1>
+  <p class="subtitle">3つの魔法公式をマスター！</p>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>等速度運動の計算ができる</li>
+    <li>等加速度運動の3公式を使い分けられる</li>
+    <li>問題に応じて適切な公式を選べる</li>
+  </ul>
+
+  <h2>等速度運動</h2>
+
   <div class="highlight-box">
-    <p>🚧 このページは準備中です...</p>
+    速度が一定の運動（加速度 = 0）
+  </div>
+
+  <div class="formula-box">
+    <span class="big-formula">x = x₀ + vt</span>
+    <p>位置 = 初期位置 + 速度 × 時間</p>
+  </div>
+
+  <div class="example">
+    <h4>例</h4>
+    <p>速さ 5 m/s で 8 秒間移動 → 変位 = 5 × 8 = <strong>40 m</strong></p>
+  </div>
+
+  <h2>等加速度運動</h2>
+
+  <div class="highlight-box">
+    加速度が一定の運動
+  </div>
+
+  <h3>3つの基本公式</h3>
+
+  <div class="formula-box">
+    <p><strong>公式1：速度を求める</strong></p>
+    <span class="big-formula">v = v₀ + at</span>
+  </div>
+
+  <div class="formula-box">
+    <p><strong>公式2：位置を求める</strong></p>
+    <span class="big-formula">x = x₀ + v₀t + ½at²</span>
+  </div>
+
+  <div class="formula-box">
+    <p><strong>公式3：時間なしで計算</strong></p>
+    <span class="big-formula">v² = v₀² + 2a(x − x₀)</span>
+  </div>
+
+  <h3>🎯 公式の使い分け</h3>
+
+  <div class="highlight-box">
+    <strong>公式選びのコツ</strong>
+    <ul>
+      <li>時間 t がわかっている → <strong>公式1 or 2</strong></li>
+      <li>時間 t がわからない → <strong>公式3</strong></li>
+      <li>速度 v を求める → <strong>公式1 or 3</strong></li>
+      <li>位置 x を求める → <strong>公式2 or 3</strong></li>
+    </ul>
+  </div>
+
+  <h3>初速度 0 の場合（よく出る！）</h3>
+  <div class="example">
+    <p>v₀ = 0 のとき、公式はシンプルに：</p>
+    <ul>
+      <li>v = at</li>
+      <li>x = ½at²</li>
+      <li>v² = 2ax</li>
+    </ul>
+  </div>
+
+  <h2>例題</h2>
+
+  <div class="example">
+    <h4>例題1：速度を求める</h4>
+    <p><strong>問題：</strong>初速度 2 m/s、加速度 3 m/s²。4秒後の速度は？</p>
+    <p><strong>解答：</strong></p>
+    <p>v = v₀ + at = 2 + 3×4 = <strong>14 m/s</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題2：位置を求める</h4>
+    <p><strong>問題：</strong>上記の条件で、4秒後の位置は？（初期位置0）</p>
+    <p><strong>解答：</strong></p>
+    <p>x = v₀t + ½at² = 2×4 + ½×3×16 = 8 + 24 = <strong>32 m</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題3：時間がわからない</h4>
+    <p><strong>問題：</strong>初速度 0、加速度 2 m/s² で 100 m 進んだときの速度は？</p>
+    <p><strong>解答：</strong></p>
+    <p>v² = v₀² + 2aΔx = 0 + 2×2×100 = 400</p>
+    <p>v = <strong>20 m/s</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題4：止まるまで</h4>
+    <p><strong>問題：</strong>初速度 10 m/s、加速度 −2 m/s²。止まるまでの時間と距離は？</p>
+    <p><strong>解答：</strong></p>
+    <p>時間：0 = 10 + (−2)t → t = <strong>5 s</strong></p>
+    <p>距離：x = 10×5 + ½×(−2)×25 = 50 − 25 = <strong>25 m</strong></p>
+  </div>
+
+  <h2>練習問題</h2>
+  <table>
+    <tr><th>問題</th><th>解答</th></tr>
+    <tr>
+      <td>① 初速度 0、加速度 5 m/s²。3秒後の速度は？</td>
+      <td><details><summary>答え</summary>v = 0 + 5×3 = 15 m/s</details></td>
+    </tr>
+    <tr>
+      <td>② 初速度 4 m/s、加速度 2 m/s²。2秒間の変位は？</td>
+      <td><details><summary>答え</summary>x = 4×2 + ½×2×4 = 8 + 4 = 12 m</details></td>
+    </tr>
+    <tr>
+      <td>③ 初速度 6 m/s、加速度 −3 m/s²。止まるまでの距離は？</td>
+      <td><details><summary>答え</summary>v² = v₀² + 2ax → 0 = 36 + 2×(−3)×x → x = 6 m</details></td>
+    </tr>
+  </table>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ 等速度運動：<strong>x = x₀ + vt</strong></li>
+      <li>✓ 公式1：<strong>v = v₀ + at</strong></li>
+      <li>✓ 公式2：<strong>x = x₀ + v₀t + ½at²</strong></li>
+      <li>✓ 公式3：<strong>v² = v₀² + 2aΔx</strong>（時間なし）</li>
+    </ul>
   </div>
 
   <div class="nav-buttons">
-    <a href={`/physics-basic/weeks/week${data.prev}/`} class="nav-btn secondary">← 前へ</a>
-    {data.next && (
-      <a href={`/physics-basic/weeks/week${data.next}/`} class="nav-btn">次へ →</a>
-    )}
+    <a href="/physics-basic/weeks/week10/" class="nav-btn secondary">← Week 10</a>
+    <a href="/physics-basic/weeks/week12/" class="nav-btn">Week 12 へ →</a>
   </div>
 </Layout>
+
+<style>
+  .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; }
+  .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
+  .big-formula { font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
+  details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
+</style>

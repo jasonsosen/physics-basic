@@ -1,34 +1,332 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const weekData = {
-  '03': { title: '力と質量、密度', prev: '02', next: '04' },
-  '04': { title: '力の合成と分解', prev: '03', next: '05' },
-  '05': { title: '抗力と摩擦力', prev: '04', next: '06' },
-  '06': { title: '張力と弾性力', prev: '05', next: '07' },
-  '07': { title: '剛体と重心', prev: '06', next: '08' },
-  '08': { title: '力のモーメント', prev: '07', next: '09' },
-  '09': { title: '運動の表し方', prev: '08', next: '10' },
-  '10': { title: '運動方程式', prev: '09', next: '11' },
-  '11': { title: '等速度・等加速度運動', prev: '10', next: '12' },
-  '12': { title: '落下運動と放物運動', prev: '11', next: null },
-};
-
-const weekNum = '06';
-const data = weekData[weekNum];
 ---
 
-<Layout title={`Week ${weekNum}: ${data.title}`}>
-  <h1>Week {weekNum}: {data.title}</h1>
-  
+<Layout title="Week 6: 張力と弾性力">
+  <h1>Week 6: 張力と弾性力</h1>
+  <p class="subtitle">ばねの「倔強（頑固さ）」を測ろう！</p>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>糸の張力を理解する</li>
+    <li>フックの法則（F = kx）を使える</li>
+    <li>ばねの直列・並列を計算できる</li>
+  </ul>
+
+  <h2>張力 T</h2>
+
   <div class="highlight-box">
-    <p>🚧 このページは準備中です...</p>
+    糸やロープが物体を <strong>引っ張る力</strong>
+  </div>
+
+  <h3>張力の特徴</h3>
+  <ul>
+    <li>糸に沿った方向にはたらく</li>
+    <li>軽くて伸びない糸では、糸全体で張力は <strong>同じ</strong></li>
+    <li>滑車を通しても大きさは変わらない</li>
+  </ul>
+
+  <div class="example">
+    <h4>例：鉛直につるす</h4>
+    <p>重さ W の物体を糸でつるす → 張力 T = W = mg</p>
+  </div>
+
+  <h2>弾性力（フックの法則）</h2>
+
+  <div class="highlight-box">
+    ばねが変形したとき、<strong>元に戻ろうとする力</strong>
+  </div>
+
+  <div class="formula-box">
+    <span class="big-formula">F = kx</span>
+    <p>弾性力 = ばね定数 × 伸び（縮み）</p>
+  </div>
+
+  <table>
+    <tr><th>記号</th><th>意味</th><th>単位</th></tr>
+    <tr><td>F</td><td>弾性力</td><td>N</td></tr>
+    <tr><td>k</td><td>ばね定数（硬さ）</td><td>N/m</td></tr>
+    <tr><td>x</td><td>伸び（または縮み）</td><td>m</td></tr>
+  </table>
+
+  <div class="highlight-box warning">
+    <strong>⚠️ 注意：</strong>x は「伸びた長さ」であって「全体の長さ」ではない！
+  </div>
+
+  <h3>ばね定数 k の意味</h3>
+  <ul>
+    <li><strong>k が大きい</strong> → 硬いばね（伸ばすのに大きな力が必要）</li>
+    <li><strong>k が小さい</strong> → 柔らかいばね</li>
+  </ul>
+
+  <h3>🎮 ばねシミュレーター</h3>
+  <div class="animation-container">
+    <div id="spring-sim">
+      <div class="spring-area">
+        <div class="spring-mount">🔩</div>
+        <div class="spring" id="spring-visual">〰️〰️〰️</div>
+        <div class="weight-area">
+          <select id="weight-select">
+            <option value="0">なし</option>
+            <option value="1">1 kg</option>
+            <option value="2">2 kg</option>
+            <option value="3">3 kg</option>
+            <option value="4">4 kg</option>
+          </select>
+        </div>
+      </div>
+      <div class="spring-graph">
+        <canvas id="springCanvas" width="200" height="150"></canvas>
+      </div>
+      <div class="spring-info">
+        <p>ばね定数 k = <strong>20 N/m</strong></p>
+        <p>伸び x = <span id="spring-x">0</span> m</p>
+        <p>弾性力 F = <span id="spring-f">0</span> N</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>ばねの直列・並列</h2>
+
+  <h3>直列接続（縦につなぐ）</h3>
+  <div class="formula-box">
+    <span class="big-formula">1/k合 = 1/k₁ + 1/k₂</span>
+    <p>合成ばね定数が <strong>小さく</strong> なる（柔らかくなる）</p>
+  </div>
+
+  <h3>並列接続（横につなぐ）</h3>
+  <div class="formula-box">
+    <span class="big-formula">k合 = k₁ + k₂</span>
+    <p>合成ばね定数が <strong>大きく</strong> なる（硬くなる）</p>
+  </div>
+
+  <div class="example">
+    <h4>💡 覚え方</h4>
+    <p><strong>直列</strong>（手をつなぐ）→ お互い助け合って伸びやすい → <strong>柔らかく</strong></p>
+    <p><strong>並列</strong>（肩を組む）→ 力を合わせて踏ん張る → <strong>硬く</strong></p>
+  </div>
+
+  <h2>例題</h2>
+
+  <div class="example">
+    <h4>例題1：ばね定数を求める</h4>
+    <p><strong>問題：</strong>1.0 N の力でばねを引くと 0.05 m 伸びた。ばね定数は？</p>
+    <p><strong>解答：</strong></p>
+    <p>k = F/x = 1.0 ÷ 0.05 = <strong>20 N/m</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題2：伸びを求める</h4>
+    <p><strong>問題：</strong>k = 20 N/m のばねに 2.0 N の力を加えると？</p>
+    <p><strong>解答：</strong></p>
+    <p>x = F/k = 2.0 ÷ 20 = <strong>0.10 m</strong>（10 cm）</p>
+  </div>
+
+  <div class="example">
+    <h4>例題3：直列ばね</h4>
+    <p><strong>問題：</strong>k₁ = 20 N/m、k₂ = 30 N/m を直列につなぐと？</p>
+    <p><strong>解答：</strong></p>
+    <p>1/k合 = 1/20 + 1/30 = 3/60 + 2/60 = 5/60 = 1/12</p>
+    <p>k合 = <strong>12 N/m</strong>（元より柔らかい！）</p>
+  </div>
+
+  <h2>練習問題</h2>
+  <table>
+    <tr><th>問題</th><th>解答</th></tr>
+    <tr>
+      <td>① k = 50 N/m のばねを 0.2 m 伸ばす力は？</td>
+      <td><details><summary>答え</summary>F = 50 × 0.2 = 10 N</details></td>
+    </tr>
+    <tr>
+      <td>② 3 N で 0.1 m 伸びるばねの k は？</td>
+      <td><details><summary>答え</summary>k = 3 ÷ 0.1 = 30 N/m</details></td>
+    </tr>
+    <tr>
+      <td>③ k = 10 と k = 10 を並列にすると？</td>
+      <td><details><summary>答え</summary>k合 = 10 + 10 = 20 N/m</details></td>
+    </tr>
+  </table>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ 張力：糸が引っ張る力（糸に沿う方向）</li>
+      <li>✓ フックの法則：<strong>F = kx</strong></li>
+      <li>✓ 直列：1/k合 = 1/k₁ + 1/k₂（柔らかくなる）</li>
+      <li>✓ 並列：k合 = k₁ + k₂（硬くなる）</li>
+    </ul>
   </div>
 
   <div class="nav-buttons">
-    <a href={`/physics-basic/weeks/week${data.prev}/`} class="nav-btn secondary">← 前へ</a>
-    {data.next && (
-      <a href={`/physics-basic/weeks/week${data.next}/`} class="nav-btn">次へ →</a>
-    )}
+    <a href="/physics-basic/weeks/week05/" class="nav-btn secondary">← Week 5</a>
+    <a href="/physics-basic/weeks/week07/" class="nav-btn">Week 7 へ →</a>
   </div>
 </Layout>
+
+<style>
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: -0.5rem;
+  }
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .big-formula {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+    display: block;
+    margin: 0.5rem 0;
+  }
+  #spring-sim {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .spring-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .spring-mount {
+    font-size: 1.5rem;
+  }
+  .spring {
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+  }
+  .weight-area select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+  }
+  .spring-graph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #springCanvas {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: white;
+  }
+  .spring-info {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .spring-info p {
+    margin: 0;
+    padding: 0.25rem 0.75rem;
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
+  details summary {
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  @media (max-width: 500px) {
+    #spring-sim {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const select = document.getElementById('weight-select') as HTMLSelectElement;
+  const spring = document.getElementById('spring-visual');
+  const springX = document.getElementById('spring-x');
+  const springF = document.getElementById('spring-f');
+  const canvas = document.getElementById('springCanvas') as HTMLCanvasElement;
+  const ctx = canvas?.getContext('2d');
+
+  const k = 20; // N/m
+  const g = 10;
+  const points: {x: number, f: number}[] = [];
+
+  function updateSpring() {
+    const mass = parseInt(select?.value || '0');
+    const force = mass * g;
+    const x = force / k;
+
+    if (springX) springX.textContent = x.toFixed(2);
+    if (springF) springF.textContent = force.toString();
+
+    // Animate spring stretch
+    if (spring) {
+      const stretch = 1 + x * 2;
+      spring.style.transform = `scaleY(${stretch})`;
+    }
+
+    // Add point to graph
+    if (mass > 0) {
+      points.push({ x, f: force });
+    }
+    drawGraph();
+  }
+
+  function drawGraph() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, 200, 150);
+
+    // Axes
+    ctx.strokeStyle = '#64748b';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(30, 130);
+    ctx.lineTo(190, 130);
+    ctx.moveTo(30, 130);
+    ctx.lineTo(30, 10);
+    ctx.stroke();
+
+    // Labels
+    ctx.fillStyle = '#64748b';
+    ctx.font = '12px sans-serif';
+    ctx.fillText('x (m)', 170, 145);
+    ctx.fillText('F (N)', 5, 20);
+
+    // Ideal line (F = kx)
+    ctx.strokeStyle = '#dbeafe';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(30, 130);
+    ctx.lineTo(30 + 0.2 * 400, 130 - 40 * 2);
+    ctx.stroke();
+
+    // Points
+    ctx.fillStyle = '#2563eb';
+    points.forEach(p => {
+      const px = 30 + p.x * 400;
+      const py = 130 - p.f * 2;
+      ctx.beginPath();
+      ctx.arc(px, py, 5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Connect points
+    if (points.length > 1) {
+      ctx.strokeStyle = '#22c55e';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(30, 130);
+      points.forEach(p => {
+        ctx.lineTo(30 + p.x * 400, 130 - p.f * 2);
+      });
+      ctx.stroke();
+    }
+  }
+
+  select?.addEventListener('change', updateSpring);
+  drawGraph();
+</script>

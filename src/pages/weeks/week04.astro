@@ -1,34 +1,301 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const weekData = {
-  '03': { title: '力と質量、密度', prev: '02', next: '04' },
-  '04': { title: '力の合成と分解', prev: '03', next: '05' },
-  '05': { title: '抗力と摩擦力', prev: '04', next: '06' },
-  '06': { title: '張力と弾性力', prev: '05', next: '07' },
-  '07': { title: '剛体と重心', prev: '06', next: '08' },
-  '08': { title: '力のモーメント', prev: '07', next: '09' },
-  '09': { title: '運動の表し方', prev: '08', next: '10' },
-  '10': { title: '運動方程式', prev: '09', next: '11' },
-  '11': { title: '等速度・等加速度運動', prev: '10', next: '12' },
-  '12': { title: '落下運動と放物運動', prev: '11', next: null },
-};
-
-const weekNum = '04';
-const data = weekData[weekNum];
 ---
 
-<Layout title={`Week ${weekNum}: ${data.title}`}>
-  <h1>Week {weekNum}: {data.title}</h1>
+<Layout title="Week 4: 力の合成と分解">
+  <h1>Week 4: 力の合成と分解</h1>
+  <p class="subtitle">力を合わせて、力を分けよう！</p>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>力を合成できる（合力を求める）</li>
+    <li>力を分解できる（分力を求める）</li>
+    <li>sin・cos を使った計算ができる</li>
+  </ul>
+
+  <h2>力はベクトル！</h2>
   
   <div class="highlight-box">
-    <p>🚧 このページは準備中です...</p>
+    力には <strong>大きさ</strong> と <strong>向き</strong> がある → 矢印（ベクトル）で表す
+  </div>
+
+  <h2>力の合成（合力）</h2>
+
+  <h3>一直線上の力</h3>
+  <div class="example">
+    <p><strong>同じ向き：</strong>足し算！ 3 N + 4 N = <strong>7 N</strong></p>
+    <p><strong>逆向き：</strong>引き算！ 5 N - 2 N = <strong>3 N</strong>（大きい方の向き）</p>
+  </div>
+
+  <h3>斜めの力：平行四辺形の法則</h3>
+  <div class="highlight-box">
+    2つの力を <strong>隣り合う2辺</strong> とする平行四辺形を描く<br/>
+    → <strong>対角線</strong> が合力！
+  </div>
+
+  <div class="animation-container" id="vector-animation">
+    <p style="color: var(--text-secondary);">🎮 ベクトル合成シミュレーター</p>
+    <canvas id="vectorCanvas" width="400" height="300"></canvas>
+    <p style="font-size: 0.9rem; color: var(--text-secondary);">
+      赤と青の矢印の先端をドラッグして動かしてみよう！
+    </p>
+  </div>
+
+  <h3>合力の大きさ（直角の場合）</h3>
+  <div class="formula-box">
+    <span class="big-formula">|F| = √(Fx² + Fy²)</span>
+    <p>三平方の定理（ピタゴラス）を使う！</p>
+  </div>
+
+  <div class="example">
+    <h4>例：直角に働く2つの力</h4>
+    <p>Fx = 3 N（横）、Fy = 4 N（縦）の合力は？</p>
+    <p class="formula">|F| = √(3² + 4²) = √(9 + 16) = √25 = <strong>5 N</strong></p>
+  </div>
+
+  <h2>力の分解（分力）</h2>
+
+  <div class="highlight-box">
+    1つの力を、2つの方向（縦と横）に分ける！
+  </div>
+
+  <h3>斜めの力の分解</h3>
+  <div class="formula-box">
+    <span class="big-formula">Fx = F cos θ</span>
+    <span class="big-formula">Fy = F sin θ</span>
+  </div>
+
+  <div class="example">
+    <h4>💡 sin・cos の覚え方</h4>
+    <p><strong>cos（コサイン）</strong>→ 地面に落ちた影（横方向）</p>
+    <p><strong>sin（サイン）</strong>→ 壁に映った影（縦方向）</p>
+    <img src="" alt="" style="display:none" />
+  </div>
+
+  <h3>三角関数の値（暗記！）</h3>
+  <table>
+    <tr><th>角度</th><th>sin</th><th>cos</th></tr>
+    <tr><td>30°</td><td>1/2 = 0.5</td><td>√3/2 ≈ 0.87</td></tr>
+    <tr><td>45°</td><td>√2/2 ≈ 0.71</td><td>√2/2 ≈ 0.71</td></tr>
+    <tr><td>60°</td><td>√3/2 ≈ 0.87</td><td>1/2 = 0.5</td></tr>
+  </table>
+
+  <h2>斜面上の物体</h2>
+
+  <div class="highlight-box">
+    重力 mg を斜面に沿って分解すると...
+  </div>
+
+  <table>
+    <tr><th>成分</th><th>公式</th><th>意味</th></tr>
+    <tr><td>斜面に平行（滑り落ちる力）</td><td><strong>mg sin θ</strong></td><td>物体を滑らせる</td></tr>
+    <tr><td>斜面に垂直（押し付ける力）</td><td><strong>mg cos θ</strong></td><td>面を押す力</td></tr>
+  </table>
+
+  <div class="example">
+    <h4>例：30°の斜面</h4>
+    <p>質量 2 kg の物体（g = 10 m/s²）</p>
+    <p>滑り落ちる力 = 2 × 10 × sin30° = 20 × 0.5 = <strong>10 N</strong></p>
+    <p>面を押す力 = 2 × 10 × cos30° = 20 × 0.87 ≈ <strong>17.3 N</strong></p>
+  </div>
+
+  <h2>力のつり合い</h2>
+
+  <div class="formula-box">
+    <span class="big-formula">ΣFx = 0, ΣFy = 0</span>
+    <p>静止している物体は、力がつり合っている！</p>
+  </div>
+
+  <h2>練習問題</h2>
+  <table>
+    <tr><th>問題</th><th>解答</th></tr>
+    <tr>
+      <td>① F1 = (3, 0) N と F2 = (0, 4) N の合力の大きさは？</td>
+      <td><details><summary>答え</summary>5 N（3-4-5の直角三角形）</details></td>
+    </tr>
+    <tr>
+      <td>② 大きさ 10 N、x軸と60°の力の x成分は？</td>
+      <td><details><summary>答え</summary>10 × cos60° = 10 × 0.5 = 5 N</details></td>
+    </tr>
+    <tr>
+      <td>③ 45°斜面で質量 4 kg の物体を滑らせる力は？</td>
+      <td><details><summary>答え</summary>4 × 10 × sin45° ≈ 28.3 N</details></td>
+    </tr>
+  </table>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ 合力：<strong>平行四辺形の対角線</strong></li>
+      <li>✓ 分力：<strong>Fx = F cos θ, Fy = F sin θ</strong></li>
+      <li>✓ 斜面：滑る力 = <strong>mg sin θ</strong></li>
+      <li>✓ つり合い：ΣFx = 0, ΣFy = 0</li>
+    </ul>
   </div>
 
   <div class="nav-buttons">
-    <a href={`/physics-basic/weeks/week${data.prev}/`} class="nav-btn secondary">← 前へ</a>
-    {data.next && (
-      <a href={`/physics-basic/weeks/week${data.next}/`} class="nav-btn">次へ →</a>
-    )}
+    <a href="/physics-basic/weeks/week03/" class="nav-btn secondary">← Week 3</a>
+    <a href="/physics-basic/weeks/week05/" class="nav-btn">Week 5 へ →</a>
   </div>
 </Layout>
+
+<style>
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: -0.5rem;
+  }
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  .big-formula {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+    display: block;
+    margin: 0.5rem 0;
+  }
+  .formula {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    background: #f1f5f9;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+  }
+  #vectorCanvas {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    cursor: crosshair;
+  }
+  details summary {
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  // Simple vector animation
+  const canvas = document.getElementById('vectorCanvas') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    const origin = { x: 200, y: 200 };
+    let vecA = { x: 80, y: -60 };
+    let vecB = { x: 100, y: 40 };
+    let dragging: string | null = null;
+
+    function draw() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Grid
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < canvas.width; i += 20) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+      }
+      for (let i = 0; i < canvas.height; i += 20) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+      }
+
+      // Parallelogram (dotted)
+      ctx.strokeStyle = '#94a3b8';
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(origin.x + vecA.x, origin.y + vecA.y);
+      ctx.lineTo(origin.x + vecA.x + vecB.x, origin.y + vecA.y + vecB.y);
+      ctx.lineTo(origin.x + vecB.x, origin.y + vecB.y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Vector A (red)
+      drawArrow(ctx, origin.x, origin.y, origin.x + vecA.x, origin.y + vecA.y, '#ef4444', 3);
+      
+      // Vector B (blue)
+      drawArrow(ctx, origin.x, origin.y, origin.x + vecB.x, origin.y + vecB.y, '#3b82f6', 3);
+      
+      // Resultant (green, thick)
+      const resultX = vecA.x + vecB.x;
+      const resultY = vecA.y + vecB.y;
+      drawArrow(ctx, origin.x, origin.y, origin.x + resultX, origin.y + resultY, '#22c55e', 4);
+
+      // Labels
+      ctx.font = 'bold 14px sans-serif';
+      ctx.fillStyle = '#ef4444';
+      ctx.fillText('A', origin.x + vecA.x + 5, origin.y + vecA.y);
+      ctx.fillStyle = '#3b82f6';
+      ctx.fillText('B', origin.x + vecB.x + 5, origin.y + vecB.y);
+      ctx.fillStyle = '#22c55e';
+      ctx.fillText('合力', origin.x + resultX + 5, origin.y + resultY);
+
+      // Magnitude display
+      const mag = Math.sqrt(resultX * resultX + resultY * resultY).toFixed(1);
+      ctx.fillStyle = '#1e293b';
+      ctx.fillText(`|合力| = ${mag}`, 10, 20);
+    }
+
+    function drawArrow(ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number, color: string, width: number) {
+      const headLen = 12;
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+      
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = width;
+      
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const distA = Math.hypot(x - (origin.x + vecA.x), y - (origin.y + vecA.y));
+      const distB = Math.hypot(x - (origin.x + vecB.x), y - (origin.y + vecB.y));
+      
+      if (distA < 20) dragging = 'A';
+      else if (distB < 20) dragging = 'B';
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      if (dragging === 'A') {
+        vecA = { x: x - origin.x, y: y - origin.y };
+      } else if (dragging === 'B') {
+        vecB = { x: x - origin.x, y: y - origin.y };
+      }
+      draw();
+    });
+
+    canvas.addEventListener('mouseup', () => { dragging = null; });
+    canvas.addEventListener('mouseleave', () => { dragging = null; });
+
+    draw();
+  }
+</script>

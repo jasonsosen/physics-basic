@@ -1,34 +1,157 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-
-const weekData = {
-  '03': { title: '力と質量、密度', prev: '02', next: '04' },
-  '04': { title: '力の合成と分解', prev: '03', next: '05' },
-  '05': { title: '抗力と摩擦力', prev: '04', next: '06' },
-  '06': { title: '張力と弾性力', prev: '05', next: '07' },
-  '07': { title: '剛体と重心', prev: '06', next: '08' },
-  '08': { title: '力のモーメント', prev: '07', next: '09' },
-  '09': { title: '運動の表し方', prev: '08', next: '10' },
-  '10': { title: '運動方程式', prev: '09', next: '11' },
-  '11': { title: '等速度・等加速度運動', prev: '10', next: '12' },
-  '12': { title: '落下運動と放物運動', prev: '11', next: null },
-};
-
-const weekNum = '12';
-const data = weekData[weekNum];
 ---
 
-<Layout title={`Week ${weekNum}: ${data.title}`}>
-  <h1>Week {weekNum}: {data.title}</h1>
-  
+<Layout title="Week 12: 落下運動と放物運動">
+  <h1>Week 12: 落下運動と放物運動</h1>
+  <p class="subtitle">空を飛ぶ物体の秘密！</p>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>自由落下・鉛直投げ上げを計算できる</li>
+    <li>水平投射を理解する</li>
+    <li>斜方投射の計算ができる</li>
+  </ul>
+
+  <h2>鉛直方向の運動</h2>
+
+  <h3>自由落下（初速度 0 で落下）</h3>
+  <div class="formula-box">
+    <span class="big-formula">v = gt</span>
+    <span class="big-formula">y = ½gt²</span>
+    <span class="big-formula">v² = 2gy</span>
+  </div>
+
+  <h3>鉛直投げ上げ</h3>
+  <p>上向きを正とすると、加速度は <strong>−g</strong></p>
+
+  <div class="formula-box">
+    <span class="big-formula">v = v₀ − gt</span>
+    <span class="big-formula">y = v₀t − ½gt²</span>
+  </div>
+
+  <h3>最高点</h3>
   <div class="highlight-box">
-    <p>🚧 このページは準備中です...</p>
+    最高点では <strong>v = 0</strong>！
+  </div>
+
+  <table>
+    <tr><th>求めるもの</th><th>公式</th></tr>
+    <tr><td>到達時間</td><td>t = v₀ / g</td></tr>
+    <tr><td>最高点の高さ</td><td>h = v₀² / 2g</td></tr>
+  </table>
+
+  <h2>水平投射</h2>
+
+  <div class="highlight-box">
+    水平方向に投げ出す運動 → <strong>横と縦を分けて考える！</strong>
+  </div>
+
+  <table>
+    <tr><th>方向</th><th>運動の種類</th><th>公式</th></tr>
+    <tr><td>水平（x）</td><td>等速度運動</td><td>x = v₀t</td></tr>
+    <tr><td>鉛直（y）</td><td>自由落下</td><td>y = ½gt²</td></tr>
+  </table>
+
+  <div class="example">
+    <h4>高さ h から水平に投げる</h4>
+    <p>落下時間：t = √(2h/g)</p>
+    <p>水平到達距離：x = v₀ × √(2h/g)</p>
+  </div>
+
+  <h2>斜方投射</h2>
+
+  <div class="highlight-box">
+    角度 θ で投げる → 初速度を分解！
+  </div>
+
+  <div class="formula-box">
+    <span class="big-formula">v₀x = v₀ cos θ</span>
+    <span class="big-formula">v₀y = v₀ sin θ</span>
+  </div>
+
+  <table>
+    <tr><th>方向</th><th>運動</th><th>公式</th></tr>
+    <tr><td>水平</td><td>等速度</td><td>x = v₀ cos θ · t</td></tr>
+    <tr><td>鉛直</td><td>投げ上げ</td><td>y = v₀ sin θ · t − ½gt²</td></tr>
+  </table>
+
+  <h3>重要な公式</h3>
+  <table>
+    <tr><th>求めるもの</th><th>公式</th></tr>
+    <tr><td>最高点の高さ</td><td>h = (v₀ sin θ)² / 2g</td></tr>
+    <tr><td>滞空時間</td><td>T = 2v₀ sin θ / g</td></tr>
+    <tr><td>飛距離</td><td><strong>R = v₀² sin 2θ / g</strong></td></tr>
+  </table>
+
+  <div class="highlight-box warning">
+    <strong>⚠️ 最大飛距離：θ = 45° のとき！</strong>
+    <p>R_max = v₀² / g</p>
+  </div>
+
+  <h2>例題</h2>
+
+  <div class="example">
+    <h4>例題1：鉛直投げ上げ</h4>
+    <p><strong>問題：</strong>初速度 20 m/s で投げ上げ。最高点の高さと到達時間は？（g = 10）</p>
+    <p><strong>解答：</strong></p>
+    <p>t = v₀/g = 20/10 = <strong>2 s</strong></p>
+    <p>h = v₀²/2g = 400/20 = <strong>20 m</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題2：水平投射</h4>
+    <p><strong>問題：</strong>高さ 45 m から水平に 10 m/s で投げる。落下時間と水平到達距離は？</p>
+    <p><strong>解答：</strong></p>
+    <p>t = √(2×45/10) = √9 = <strong>3 s</strong></p>
+    <p>x = 10 × 3 = <strong>30 m</strong></p>
+  </div>
+
+  <div class="example">
+    <h4>例題3：斜方投射の飛距離</h4>
+    <p><strong>問題：</strong>初速度 20 m/s、角度 30° で投げる。飛距離は？（g = 10）</p>
+    <p><strong>解答：</strong></p>
+    <p>R = v₀² sin 2θ / g = 400 × sin 60° / 10</p>
+    <p>= 400 × 0.87 / 10 ≈ <strong>34.6 m</strong></p>
+  </div>
+
+  <h2>練習問題</h2>
+  <table>
+    <tr><th>問題</th><th>解答</th></tr>
+    <tr>
+      <td>① 初速度 30 m/s で投げ上げ。最高点の高さは？</td>
+      <td><details><summary>答え</summary>h = 900/20 = 45 m</details></td>
+    </tr>
+    <tr>
+      <td>② 高さ 20 m から落下。地面に着くまでの時間は？</td>
+      <td><details><summary>答え</summary>t = √(40/10) = 2 s</details></td>
+    </tr>
+    <tr>
+      <td>③ 飛距離が最大になる角度は？</td>
+      <td><details><summary>答え</summary>45°</details></td>
+    </tr>
+  </table>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ 自由落下：v = gt, y = ½gt²</li>
+      <li>✓ 投げ上げ：最高点で v = 0</li>
+      <li>✓ 水平投射：横は等速、縦は自由落下</li>
+      <li>✓ 斜方投射：<strong>v₀x = v₀cosθ, v₀y = v₀sinθ</strong></li>
+      <li>✓ 最大飛距離：<strong>θ = 45°</strong></li>
+    </ul>
   </div>
 
   <div class="nav-buttons">
-    <a href={`/physics-basic/weeks/week${data.prev}/`} class="nav-btn secondary">← 前へ</a>
-    {data.next && (
-      <a href={`/physics-basic/weeks/week${data.next}/`} class="nav-btn">次へ →</a>
-    )}
+    <a href="/physics-basic/weeks/week11/" class="nav-btn secondary">← Week 11</a>
+    <a href="/physics-basic/" class="nav-btn">🏠 ホームへ</a>
   </div>
 </Layout>
+
+<style>
+  .subtitle { color: var(--text-secondary); font-size: 1.1rem; margin-top: -0.5rem; }
+  .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
+  .big-formula { font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
+  details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
+</style>
