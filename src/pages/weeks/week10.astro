@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
+import Math from '../../components/Math.astro';
 ---
 
 <Layout title="Week 10: 運動方程式">
@@ -16,7 +17,7 @@ import QuizCard from '../../components/QuizCard.astro';
     </div>
 
     <div class="formula-box">
-      <span class="big-formula">F = ma</span>
+      <Math f="F = ma" block />
       <p>F: 力 [N]、m: 質量 [kg]、a: 加速度 [m/s²]</p>
     </div>
 
@@ -42,8 +43,8 @@ import QuizCard from '../../components/QuizCard.astro';
     </div>
 
     <div class="formula-box">
-      <span class="big-formula">滑る力：F = mg sin θ</span>
-      <span class="big-formula">加速度：a = g sin θ</span>
+      <Math f="滑る力：F = mg sin \\theta" block />
+      <Math f="加速度：a = g sin \\theta" block />
       <p>※ 運動方程式 $ma = mg \sin \theta$ より、$m$が消える！つまり質量に関係なく加速度は同じ。</p>
     </div>
   </section>

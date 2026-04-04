@@ -2,6 +2,7 @@
 import VectorAdder from "../../components/VectorAdder.astro";
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
+import Math from '../../components/Math.astro';
 ---
 
 <Layout title="Week 4: 力の合成と分解">
@@ -33,7 +34,7 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <div class="formula-box">
       <h4>大きさの求め方（三平方の定理）</h4>
-      <span class="big-formula">|F| = √(Fx² + Fy²)</span>
+      <Math f="|F| = \\sqrt(Fx^2 + Fy^2)" block />
     </div>
   </section>
 
@@ -57,7 +58,7 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <h3>斜めの力：成分ごとに足す</h3>
     <div class="formula-box">
-      <span class="big-formula">F = F₁ + F₂ = (F₁x + F₂x, F₁y + F₂y)</span>
+      <Math f="F = F_{1} + F_{2} = (F_{1}x + F_{2}x, F_{1}y + F_{2}y)" block />
     </div>
 
     <div class="example-box">
@@ -139,8 +140,8 @@ import QuizCard from '../../components/QuizCard.astro';
     </div>
 
     <div class="formula-box">
-      <span class="big-formula">Fx = F cos θ</span>
-      <span class="big-formula">Fy = F sin θ</span>
+      <Math f="Fx = F cos \\theta" block />
+      <Math f="Fy = F sin \\theta" block />
       <p>θ は x軸（水平）からの角度</p>
     </div>
 
@@ -337,7 +338,7 @@ import QuizCard from '../../components/QuizCard.astro';
     <h2>⚖️ 力のつり合い</h2>
 
     <div class="formula-box">
-      <span class="big-formula">ΣFx = 0、ΣFy = 0</span>
+      <Math f="\\SigmaFx = 0、\\SigmaFy = 0" block />
       <p>静止している物体は、力がつり合っている！</p>
     </div>
 

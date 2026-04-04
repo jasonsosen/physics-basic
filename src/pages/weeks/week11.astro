@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
+import Math from '../../components/Math.astro';
 ---
 
 <Layout title="Week 11: 等速度運動と等加速度運動">
@@ -16,7 +17,7 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <div class="formula-box">
       <h4>位置の公式</h4>
-      <span class="big-formula">x = x₀ + vt</span>
+      <Math f="x = x_{0} + vt" block />
       <p>x₀: 初期位置（t=0のときの位置）、v: 速度、t: 時間</p>
     </div>
   </section>
@@ -33,13 +34,13 @@ import QuizCard from '../../components/QuizCard.astro';
     <div class="formula-box">
       <h4>🔥 等加速度 3大公式</h4>
       <p>① 速度と時間の関係（vを知りたい）</p>
-      <span class="big-formula">v = v₀ + at</span>
+      <Math f="v = v_{0} + at" block />
       <hr style="border:0; border-top:1px solid #bfdbfe; margin:16px 0;">
       <p>② 位置と時間の関係（xを知りたい）</p>
-      <span class="big-formula">x = v₀t + ½at²</span>
+      <Math f="x = v_{0}t + \\frac{1}{2}at^2" block />
       <hr style="border:0; border-top:1px solid #bfdbfe; margin:16px 0;">
       <p>③ 時間 t が分からないとき（vとxの関係）</p>
-      <span class="big-formula">v² - v₀² = 2ax</span>
+      <Math f="v^2 - v_{0}^2 = 2ax" block />
       
       <div style="margin-top: 16px; text-align: left; background: white; padding: 12px; border-radius: 8px;">
         <p><strong>v₀</strong>: 初速度（最初のスピード）</p>

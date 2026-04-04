@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
+import Math from '../../components/Math.astro';
 ---
 
 <Layout title="Week 9: 運動の表し方">
@@ -17,7 +18,7 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <div class="formula-box">
       <h4>速度の求め方（グラフの傾き）</h4>
-      <span class="big-formula">v = Δx / Δt = (x₂ - x₁) / (t₂ - t₁)</span>
+      <Math f="v = \\Deltax / \\Deltat = (x_{2} - x_{1}) / (t_{2} - t_{1})" block />
       <p>※ $\Delta$（デルタ）は「変化量」を意味します。</p>
     </div>
 
@@ -45,7 +46,7 @@ import QuizCard from '../../components/QuizCard.astro';
     <h2>🏃 平均の速度</h2>
 
     <div class="formula-box">
-      <span class="big-formula">平均の速度 = 総変位 / 総時間</span>
+      <Math f="平均の速度 = 総変位 / 総時間" block />
     </div>
 
     <div class="example-box">

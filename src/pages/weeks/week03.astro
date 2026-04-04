@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
+import Math from '../../components/Math.astro';
 ---
 
 <Layout title="Week 3: 力と質量、密度">
@@ -16,7 +17,7 @@ import QuizCard from '../../components/QuizCard.astro';
     </div>
 
     <div class="formula-box main-formula">
-      <span class="big-formula">ρ = m / V</span>
+      <Math f="\\rho = \\frac{m}{V}" block />
       <p>密度 ＝ 質量 ÷ 体積</p>
     </div>
 
@@ -144,7 +145,7 @@ import QuizCard from '../../components/QuizCard.astro';
     </div>
 
     <div class="formula-box">
-      <span class="big-formula">W = mg</span>
+      <Math f="W = mg" block />
       <p>重力 ＝ 質量 × 重力加速度</p>
     </div>
 
@@ -316,7 +317,7 @@ import QuizCard from '../../components/QuizCard.astro';
     <p class="intro-text">バネを引っ張ると、元に戻ろうとする力が生まれます。</p>
 
     <div class="formula-box">
-      <span class="big-formula">F = kx</span>
+      <Math f="F = kx" block />
       <p>弾性力 ＝ バネ定数 × 伸び</p>
     </div>
 

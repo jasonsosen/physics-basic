@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
+import Math from '../../components/Math.astro';
 ---
 
 <Layout title="Week 8: 力のモーメント">
@@ -15,7 +16,7 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <div class="formula-box">
       <h4>力のモーメントの公式</h4>
-      <span class="big-formula">M = F × d</span>
+      <Math f="M = F \\times d" block />
       <p>F: 力 (N)、d: 腕の長さ（支点から力の作用線までの垂直距離）(m)</p>
       <p>単位: <strong>N・m（ニュートンメートル）</strong></p>
     </div>
@@ -35,9 +36,9 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <div class="formula-box">
       <h4>剛体のつり合い条件</h4>
-      <span class="big-formula">① 力のつり合い： ΣF = 0</span>
+      <Math f="① 力のつり合い： \\SigmaF = 0" block />
       <p>（上向きの力 ＝ 下向きの力）</p>
-      <span class="big-formula">② モーメントのつり合い： ΣM = 0</span>
+      <Math f="② モーメントのつり合い： \\SigmaM = 0" block />
       <p>（反時計回りのモーメント ＝ 時計回りのモーメント）</p>
     </div>
 

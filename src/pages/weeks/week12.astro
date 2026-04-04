@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
+import Math from '../../components/Math.astro';
 ---
 
 <Layout title="Week 12: 鉛直運動">
@@ -17,9 +18,9 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <div class="formula-box">
       <h4>自由落下の公式</h4>
-      <span class="big-formula">v = gt</span>
-      <span class="big-formula">h = ½gt²</span>
-      <span class="big-formula">v² = 2gh</span>
+      <Math f="v = gt" block />
+      <Math f="h = \\frac{1}{2}gt^2" block />
+      <Math f="v^2 = 2gh" block />
       <p>※ 先週の等加速度公式の、v₀=0, a=g, x=h にしただけ！</p>
     </div>
   </section>
@@ -35,9 +36,9 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <div class="formula-box">
       <h4>投げ上げの公式</h4>
-      <span class="big-formula">v = v₀ - gt</span>
-      <span class="big-formula">h = v₀t - ½gt²</span>
-      <span class="big-formula">v² - v₀² = -2gh</span>
+      <Math f="v = v_{0} - gt" block />
+      <Math f="h = v_{0}t - \\frac{1}{2}gt^2" block />
+      <Math f="v^2 - v_{0}^2 = -2gh" block />
     </div>
 
     <div class="tip-box">

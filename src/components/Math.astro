@@ -1,0 +1,32 @@
+---
+/**
+ * KaTeX 数学公式组件
+ * 用法：
+ *   行内: <Math f="E = mc^2" />
+ *   块级: <Math f="F = ma" block />
+ */
+import katex from 'katex';
+
+interface Props {
+  f: string;           // formula
+  block?: boolean;     // display mode (块级公式)
+}
+
+const { f, block = false } = Astro.props;
+
+const html = katex.renderToString(f, {
+  throwOnError: false,
+  displayMode: block,
+  strict: false,
+  macros: {
+    "\\dd": "\\mathrm{d}",
+    "\\unit": "\\,\\mathrm{#1}",
+  }
+});
+---
+
+{block ? (
+  <div class="katex-display" set:html={html} />
+) : (
+  <span set:html={html} />
+)}

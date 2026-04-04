@@ -96,10 +96,21 @@ nav .home-link {
   font-size: 0.9rem;
 }
 
-/* 公式样式 */
+/* 公式样式 - KaTeX */
 .katex-display {
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   padding: 1rem 0;
+}
+
+.katex {
+  font-size: 1.1em;
+}
+
+/* 行内公式间距 */
+p .katex {
+  margin: 0 0.1em;
 }
 
 /* 重点框 */

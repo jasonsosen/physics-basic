@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
+import Math from '../../components/Math.astro';
 ---
 
 <Layout title="Week 7: 剛体と重心">
@@ -22,7 +23,7 @@ import QuizCard from '../../components/QuizCard.astro';
 
     <div class="formula-box">
       <h4>2質点系の重心の公式（x座標）</h4>
-      <span class="big-formula">x_G = (m₁x₁ + m₂x₂) / (m₁ + m₂)</span>
+      <Math f="x_G = (m_{1}x_{1} + m_{2}x_{2}) / (m_{1} + m_{2})" block />
       <p>m: 質量、x: 位置（座標）</p>
     </div>
 
