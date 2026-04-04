@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | 物理基礎演習</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <link rel="icon" type="image/svg+xml" href="/physics-basic/favicon.svg" />
+</head>
+<body>
+  <nav>
+    <a href="/physics-basic/" class="home-link">📚 物理基礎演習</a>
+  </nav>
+  <main class="container">
+    <slot />
+  </main>
+</body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

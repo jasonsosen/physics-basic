@@ -1,0 +1,168 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Week 2: 単位系と単位換算">
+  <h1>Week 2: 単位系と単位換算</h1>
+
+  <h2>🎯 今日の目標</h2>
+  <ul>
+    <li>単位系を理解する</li>
+    <li>SI接頭語を習得する</li>
+    <li>単位換算ができるようになる</li>
+  </ul>
+
+  <h2>なぜ単位統一が必要？</h2>
+  
+  <div class="highlight-box warning">
+    <strong>🚀 実話：火星探査機の墜落</strong><br/>
+    1999年、NASAの火星探査機が墜落しました。原因は、NASAがメートル法を使い、下請け会社がヤード・ポンド法を使っていたからです。<br/>
+    <strong>単位の違いで、1億ドル以上の探査機が失われました！</strong>
+  </div>
+
+  <h2>SI基本単位</h2>
+  
+  <p>国際単位系（SI）の7つの基本単位のうち、この授業で主に使うのは：</p>
+  
+  <table>
+    <tr><th>物理量</th><th>単位</th><th>記号</th></tr>
+    <tr><td>長さ</td><td>メートル</td><td>m</td></tr>
+    <tr><td>質量</td><td>キログラム</td><td>kg</td></tr>
+    <tr><td>時間</td><td>秒</td><td>s</td></tr>
+  </table>
+
+  <h2>SI接頭語</h2>
+  
+  <div class="highlight-box">
+    <strong>よく使う接頭語を覚えよう！</strong>
+  </div>
+
+  <table>
+    <tr><th>接頭語</th><th>記号</th><th>倍数</th><th>例</th></tr>
+    <tr><td>キロ</td><td>k</td><td>10³ = 1000</td><td>km, kg</td></tr>
+    <tr><td>（なし）</td><td>-</td><td>10⁰ = 1</td><td>m, g</td></tr>
+    <tr><td>センチ</td><td>c</td><td>10⁻² = 0.01</td><td>cm</td></tr>
+    <tr><td>ミリ</td><td>m</td><td>10⁻³ = 0.001</td><td>mm, mg</td></tr>
+    <tr><td>マイクロ</td><td>μ</td><td>10⁻⁶</td><td>μm</td></tr>
+    <tr><td>ナノ</td><td>n</td><td>10⁻⁹</td><td>nm</td></tr>
+  </table>
+
+  <div class="highlight-box warning">
+    <strong>⚠️ 注意：</strong>μ（マイクロ）と m（ミリ）を間違える人が多い！<br/>
+    1000倍違います！
+  </div>
+
+  <h2>単位換算のやり方</h2>
+
+  <h3>パターン①：接頭語を外す</h3>
+  <div class="example">
+    <h4>例：1.2 km → m</h4>
+    <p>k = 10³ なので：</p>
+    <p class="formula">1.2 km = 1.2 × 10³ m = <strong>1200 m</strong></p>
+  </div>
+
+  <h3>パターン②：べき乗の単位（面積・体積）</h3>
+  <div class="highlight-box warning">
+    <strong>⚠️ 最重要ポイント！</strong><br/>
+    cm² → m² は ÷100 ではない！ <strong>÷10000（= 10⁴）</strong>です！
+  </div>
+
+  <div class="example">
+    <h4>例：1.2 cm² → m²</h4>
+    <div class="step">
+      <span class="step-number">1</span>
+      <span>cm = 10⁻² m を代入</span>
+    </div>
+    <div class="step">
+      <span class="step-number">2</span>
+      <span>1.2 cm² = 1.2 × (10⁻²)² m²</span>
+    </div>
+    <div class="step">
+      <span class="step-number">3</span>
+      <span>= 1.2 × 10⁻⁴ m² = <strong>0.00012 m²</strong></span>
+    </div>
+  </div>
+
+  <h3>パターン③：分母にある単位</h3>
+  <div class="example">
+    <h4>例：1.2 g/cm³ → kg/m³</h4>
+    <div class="step">
+      <span class="step-number">1</span>
+      <span>g → kg: × 10⁻³</span>
+    </div>
+    <div class="step">
+      <span class="step-number">2</span>
+      <span>cm³ → m³: × (10⁻²)³ = × 10⁻⁶</span>
+    </div>
+    <div class="step">
+      <span class="step-number">3</span>
+      <span>分母なので逆数: ÷ 10⁻⁶ = × 10⁶</span>
+    </div>
+    <div class="step">
+      <span class="step-number">4</span>
+      <span>1.2 × 10⁻³ × 10⁶ = <strong>1200 kg/m³</strong></span>
+    </div>
+  </div>
+
+  <h2>練習問題</h2>
+  
+  <p>以下をSI単位系（MKS単位系）に換算しなさい：</p>
+  
+  <table>
+    <tr><th>問題</th><th>解答（クリックで表示）</th></tr>
+    <tr>
+      <td>① 2.32 × 10⁻³ mg</td>
+      <td><details><summary>答え</summary>2.32 × 10⁻⁹ kg</details></td>
+    </tr>
+    <tr>
+      <td>② 0.53 mm</td>
+      <td><details><summary>答え</summary>5.3 × 10⁻⁴ m</details></td>
+    </tr>
+    <tr>
+      <td>③ 10 cm³</td>
+      <td><details><summary>答え</summary>1.0 × 10⁻⁵ m³</details></td>
+    </tr>
+    <tr>
+      <td>④ 18 km/h</td>
+      <td><details><summary>答え</summary>5.0 m/s</details></td>
+    </tr>
+    <tr>
+      <td>⑤ 2.5 g/cm³</td>
+      <td><details><summary>答え</summary>2.5 × 10³ kg/m³</details></td>
+    </tr>
+  </table>
+
+  <h2>📝 今日のポイント</h2>
+  <div class="highlight-box">
+    <ul>
+      <li>✓ SI基本単位：<strong>m, kg, s</strong></li>
+      <li>✓ 接頭語：k(10³), m(10⁻³), μ(10⁻⁶)</li>
+      <li>✓ 面積は「²乗」、体積は「³乗」を忘れずに！</li>
+      <li>✓ 分母は「マイナス乗」になる</li>
+    </ul>
+  </div>
+
+  <div class="nav-buttons">
+    <a href="/physics-basic/" class="nav-btn secondary">← ホームへ</a>
+    <a href="/physics-basic/weeks/week03/" class="nav-btn">Week 3 へ →</a>
+  </div>
+</Layout>
+
+<style>
+  .formula {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    background: #f1f5f9;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+  }
+  
+  details {
+    cursor: pointer;
+  }
+  
+  details summary {
+    color: var(--primary);
+    font-weight: 600;
+  }
+</style>

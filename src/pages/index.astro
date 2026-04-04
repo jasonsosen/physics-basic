@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const weeks = [
+  { num: 2, title: '単位系と単位換算', desc: 'SI単位、接頭語、単位変換の基礎' },
+  { num: 3, title: '力と質量、密度', desc: '力の定義、質量と重さ、密度の計算' },
+  { num: 4, title: '力の合成と分解', desc: 'ベクトル、平行四辺形法、三角関数' },
+  { num: 5, title: '抗力と摩擦力', desc: '垂直抗力、静止摩擦、動摩擦' },
+  { num: 6, title: '張力と弾性力', desc: '糸の張力、フックの法則 F=kx' },
+  { num: 7, title: '剛体と重心', desc: '重心の求め方、安定性' },
+  { num: 8, title: '力のモーメント', desc: '力のモーメント、つり合い条件' },
+  { num: 9, title: '運動の表し方', desc: '位置、速度、加速度のグラフ' },
+  { num: 10, title: '運動方程式', desc: 'ニュートンの法則 F=ma' },
+  { num: 11, title: '等速度・等加速度運動', desc: '公式の使い方と問題演習' },
+  { num: 12, title: '落下運動と放物運動', desc: '自由落下、鉛直投げ上げ、斜方投射' },
+];
+---
+
+<Layout title="ホーム">
+  <h1>物理基礎演習</h1>
+  <p>このサイトでは、物理基礎の重要な概念を分かりやすく学べます。<br/>
+  各週のカードをクリックして学習を始めましょう。</p>
+
+  <div class="week-grid">
+    {weeks.map((week) => (
+      <a href={`/physics-basic/weeks/week${week.num.toString().padStart(2, '0')}/`} class="week-card">
+        <h3>Week {week.num}: {week.title}</h3>
+        <p>{week.desc}</p>
+      </a>
+    ))}
+  </div>
+</Layout>
