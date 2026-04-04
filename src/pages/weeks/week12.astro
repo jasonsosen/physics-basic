@@ -65,6 +65,27 @@ import Layout from '../../layouts/Layout.astro';
     角度 θ で投げる → 初速度を分解！
   </div>
 
+  <h3>🎮 抛体大炮シミュレーター</h3>
+  <div class="animation-container">
+    <canvas id="cannonCanvas" width="500" height="300"></canvas>
+    <div class="cannon-controls">
+      <label>
+        角度 θ: <span id="angle-val">45</span>°
+        <input type="range" id="angle-slider" min="10" max="80" value="45" />
+      </label>
+      <label>
+        初速度 v₀: <span id="velocity-val">30</span> m/s
+        <input type="range" id="velocity-slider" min="10" max="50" value="30" />
+      </label>
+      <button id="fire-btn">🚀 発射！</button>
+    </div>
+    <div class="cannon-info">
+      <span>飛距離: <strong id="range-val">--</strong> m</span>
+      <span>最高点: <strong id="height-val">--</strong> m</span>
+      <span>滞空時間: <strong id="time-val">--</strong> s</span>
+    </div>
+  </div>
+
   <div class="formula-box">
     <span class="big-formula">v₀x = v₀ cos θ</span>
     <span class="big-formula">v₀y = v₀ sin θ</span>
@@ -154,4 +175,245 @@ import Layout from '../../layouts/Layout.astro';
   .formula-box { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0; }
   .big-formula { font-size: 1.3rem; font-weight: bold; color: var(--primary-dark); display: block; margin: 0.5rem 0; }
   details summary { color: var(--primary); font-weight: 600; cursor: pointer; }
+  
+  #cannonCanvas {
+    background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 70%, #8B4513 70%, #8B4513 100%);
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  .cannon-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+  }
+  .cannon-controls label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .cannon-controls input[type="range"] {
+    width: 120px;
+  }
+  #fire-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  #fire-btn:hover { background: #dc2626; }
+  #fire-btn:active { transform: scale(0.95); }
+  .cannon-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+  .cannon-info span {
+    background: #f1f5f9;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+  }
 </style>
+
+<script>
+  const canvas = document.getElementById('cannonCanvas') as HTMLCanvasElement;
+  const ctx = canvas?.getContext('2d');
+  const angleSlider = document.getElementById('angle-slider') as HTMLInputElement;
+  const velocitySlider = document.getElementById('velocity-slider') as HTMLInputElement;
+  const angleVal = document.getElementById('angle-val');
+  const velocityVal = document.getElementById('velocity-val');
+  const fireBtn = document.getElementById('fire-btn');
+  const rangeVal = document.getElementById('range-val');
+  const heightVal = document.getElementById('height-val');
+  const timeVal = document.getElementById('time-val');
+
+  const g = 10;
+  const scale = 3; // pixels per meter
+  const groundY = 210;
+  const cannonX = 40;
+  const cannonY = groundY;
+  
+  let trajectory: {x: number, y: number}[] = [];
+  let animating = false;
+  let currentBall: {x: number, y: number, vx: number, vy: number, t: number} | null = null;
+
+  function drawScene() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, 500, 300);
+    
+    // Sky gradient
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+    skyGrad.addColorStop(0, '#87CEEB');
+    skyGrad.addColorStop(1, '#B0E0E6');
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, 500, groundY);
+    
+    // Ground
+    ctx.fillStyle = '#8B4513';
+    ctx.fillRect(0, groundY, 500, 90);
+    ctx.fillStyle = '#228B22';
+    ctx.fillRect(0, groundY, 500, 5);
+
+    // Cannon base
+    ctx.fillStyle = '#4a4a4a';
+    ctx.beginPath();
+    ctx.arc(cannonX, cannonY, 15, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Cannon barrel
+    const angle = parseInt(angleSlider?.value || '45') * Math.PI / 180;
+    ctx.save();
+    ctx.translate(cannonX, cannonY);
+    ctx.rotate(-angle);
+    ctx.fillStyle = '#2d2d2d';
+    ctx.fillRect(0, -8, 40, 16);
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(35, -10, 10, 20);
+    ctx.restore();
+
+    // Trajectory preview (dotted)
+    if (!animating) {
+      const v0 = parseInt(velocitySlider?.value || '30');
+      const theta = parseInt(angleSlider?.value || '45') * Math.PI / 180;
+      const vx = v0 * Math.cos(theta);
+      const vy = v0 * Math.sin(theta);
+      
+      ctx.strokeStyle = 'rgba(100, 100, 100, 0.5)';
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      
+      for (let t = 0; t < 10; t += 0.1) {
+        const x = cannonX + vx * t * scale;
+        const y = cannonY - (vy * t - 0.5 * g * t * t) * scale;
+        if (y > groundY) break;
+        if (t === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // Drawn trajectory
+    if (trajectory.length > 1) {
+      ctx.strokeStyle = '#22c55e';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(trajectory[0].x, trajectory[0].y);
+      trajectory.forEach(p => ctx.lineTo(p.x, p.y));
+      ctx.stroke();
+      ctx.lineWidth = 1;
+    }
+
+    // Ball
+    if (currentBall) {
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.arc(currentBall.x, currentBall.y, 8, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Velocity vectors
+      const arrowScale = 0.5;
+      // Horizontal (red)
+      ctx.strokeStyle = '#dc2626';
+      ctx.lineWidth = 3;
+      drawArrow(ctx, currentBall.x, currentBall.y, currentBall.x + currentBall.vx * arrowScale, currentBall.y);
+      // Vertical (blue)
+      ctx.strokeStyle = '#2563eb';
+      drawArrow(ctx, currentBall.x, currentBall.y, currentBall.x, currentBall.y - currentBall.vy * arrowScale);
+      ctx.lineWidth = 1;
+    }
+  }
+
+  function drawArrow(ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) {
+    const headLen = 8;
+    const angle = Math.atan2(y2 - y1, x2 - x1);
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+    ctx.stroke();
+  }
+
+  function fire() {
+    if (animating) return;
+    
+    const v0 = parseInt(velocitySlider?.value || '30');
+    const theta = parseInt(angleSlider?.value || '45') * Math.PI / 180;
+    const vx = v0 * Math.cos(theta);
+    const vy = v0 * Math.sin(theta);
+    
+    trajectory = [];
+    currentBall = { x: cannonX, y: cannonY, vx: vx * scale, vy: vy * scale, t: 0 };
+    animating = true;
+    
+    // Calculate theoretical values
+    const range = (v0 * v0 * Math.sin(2 * theta)) / g;
+    const maxHeight = (v0 * v0 * Math.sin(theta) * Math.sin(theta)) / (2 * g);
+    const totalTime = (2 * v0 * Math.sin(theta)) / g;
+    
+    if (rangeVal) rangeVal.textContent = range.toFixed(1);
+    if (heightVal) heightVal.textContent = maxHeight.toFixed(1);
+    if (timeVal) timeVal.textContent = totalTime.toFixed(2);
+
+    animate();
+  }
+
+  function animate() {
+    if (!currentBall || !animating) return;
+    
+    const dt = 0.05;
+    currentBall.t += dt;
+    
+    const v0 = parseInt(velocitySlider?.value || '30');
+    const theta = parseInt(angleSlider?.value || '45') * Math.PI / 180;
+    const vx = v0 * Math.cos(theta);
+    const vy = v0 * Math.sin(theta);
+    
+    currentBall.x = cannonX + vx * currentBall.t * scale;
+    currentBall.y = cannonY - (vy * currentBall.t - 0.5 * g * currentBall.t * currentBall.t) * scale;
+    currentBall.vy = (vy - g * currentBall.t) * scale;
+    
+    trajectory.push({ x: currentBall.x, y: currentBall.y });
+    
+    drawScene();
+    
+    if (currentBall.y >= groundY) {
+      animating = false;
+      currentBall.y = groundY;
+      drawScene();
+    } else {
+      requestAnimationFrame(animate);
+    }
+  }
+
+  angleSlider?.addEventListener('input', () => {
+    if (angleVal) angleVal.textContent = angleSlider.value;
+    trajectory = [];
+    currentBall = null;
+    drawScene();
+  });
+
+  velocitySlider?.addEventListener('input', () => {
+    if (velocityVal) velocityVal.textContent = velocitySlider.value;
+    trajectory = [];
+    currentBall = null;
+    drawScene();
+  });
+
+  fireBtn?.addEventListener('click', fire);
+
+  drawScene();
+</script>

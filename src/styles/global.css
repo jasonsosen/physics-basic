@@ -223,4 +223,55 @@ th {
   html { font-size: 16px; }
   .container { padding: 1rem; }
   .week-grid { grid-template-columns: 1fr; }
+  
+  /* 手机端优化 */
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .formula-box {
+    padding: 1rem;
+  }
+  
+  .big-formula {
+    font-size: 1.2rem !important;
+  }
+  
+  .animation-container {
+    min-height: 250px;
+    padding: 0.5rem;
+  }
+  
+  canvas {
+    max-width: 100%;
+    height: auto !important;
+  }
+  
+  .nav-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .nav-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) {
+  .week-card:hover {
+    transform: none;
+  }
+  
+  details summary {
+    padding: 0.5rem;
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
 }

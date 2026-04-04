@@ -56,9 +56,13 @@ import Layout from '../../layouts/Layout.astro';
   <h3>🎮 摩擦力シミュレーター</h3>
   <div class="animation-container">
     <div id="friction-sim">
-      <div class="sim-display">
-        <div class="box" id="sim-box">📦</div>
-        <div class="floor"></div>
+      <div class="sim-row">
+        <div class="sim-display">
+          <div class="push-arrow" id="push-arrow">→</div>
+          <div class="box" id="sim-box">📦</div>
+          <div class="floor"></div>
+        </div>
+        <canvas id="frictionGraph" width="200" height="150"></canvas>
       </div>
       <div class="controls">
         <label>
@@ -71,7 +75,7 @@ import Layout from '../../layouts/Layout.astro';
         </label>
       </div>
       <div class="sim-info">
-        <p>静止摩擦力: <span id="static-f">0</span> N</p>
+        <p>摩擦力: <span id="static-f">0</span> N</p>
         <p>最大静止摩擦力: <span id="max-f">30</span> N</p>
         <p>状態: <span id="state">静止</span></p>
       </div>
@@ -161,14 +165,31 @@ import Layout from '../../layouts/Layout.astro';
   #friction-sim {
     padding: 1rem;
   }
+  .sim-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .sim-display {
     position: relative;
     height: 80px;
+    width: 200px;
     margin-bottom: 1rem;
+  }
+  .push-arrow {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    font-size: 1.5rem;
+    color: #ef4444;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
   .box {
     position: absolute;
-    left: 20px;
+    left: 30px;
     bottom: 10px;
     font-size: 2rem;
     transition: left 0.3s;
@@ -181,6 +202,11 @@ import Layout from '../../layouts/Layout.astro';
     height: 10px;
     background: linear-gradient(to right, #a3a3a3, #737373);
     border-radius: 2px;
+  }
+  #frictionGraph {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: white;
   }
   .controls {
     display: flex;
@@ -224,19 +250,103 @@ import Layout from '../../layouts/Layout.astro';
   const maxF = document.getElementById('max-f');
   const state = document.getElementById('state');
   const box = document.getElementById('sim-box');
+  const pushArrow = document.getElementById('push-arrow');
+  const graphCanvas = document.getElementById('frictionGraph') as HTMLCanvasElement;
+  const ctx = graphCanvas?.getContext('2d');
 
   const mass = 10; // kg
   const g = 10;
   const N = mass * g; // 100 N
 
+  function drawGraph(force: number, mu: number) {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, 200, 150);
+    
+    const maxFriction = mu * N;
+    const dynamicFriction = mu * 0.8 * N;
+    
+    // Axes
+    ctx.strokeStyle = '#64748b';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(30, 130);
+    ctx.lineTo(190, 130);
+    ctx.moveTo(30, 130);
+    ctx.lineTo(30, 10);
+    ctx.stroke();
+    
+    // Labels
+    ctx.fillStyle = '#64748b';
+    ctx.font = '10px sans-serif';
+    ctx.fillText('推力', 170, 145);
+    ctx.fillText('摩擦力', 5, 15);
+    
+    // Static region (diagonal line up to max)
+    ctx.strokeStyle = '#22c55e';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(30, 130);
+    const maxX = 30 + maxFriction * 1.5;
+    const maxY = 130 - maxFriction;
+    ctx.lineTo(maxX, maxY);
+    ctx.stroke();
+    
+    // Dynamic region (horizontal line after max)
+    ctx.strokeStyle = '#ef4444';
+    ctx.setLineDash([5, 3]);
+    ctx.beginPath();
+    ctx.moveTo(maxX, 130 - dynamicFriction);
+    ctx.lineTo(190, 130 - dynamicFriction);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    
+    // Drop line at transition
+    ctx.strokeStyle = '#f59e0b';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(maxX, maxY);
+    ctx.lineTo(maxX, 130 - dynamicFriction);
+    ctx.stroke();
+    
+    // Current point
+    let currentY;
+    if (force <= maxFriction) {
+      currentY = 130 - force;
+    } else {
+      currentY = 130 - dynamicFriction;
+    }
+    const currentX = 30 + force * 1.5;
+    
+    ctx.fillStyle = force <= maxFriction ? '#22c55e' : '#ef4444';
+    ctx.beginPath();
+    ctx.arc(Math.min(currentX, 185), currentY, 6, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Legend
+    ctx.font = '9px sans-serif';
+    ctx.fillStyle = '#22c55e';
+    ctx.fillText('静止', 140, 25);
+    ctx.fillStyle = '#ef4444';
+    ctx.fillText('動摩擦', 140, 40);
+  }
+
   function update() {
     const force = parseInt(forceSlider?.value || '0');
     const mu = parseInt(muSlider?.value || '3') / 10;
     const maxFriction = mu * N;
+    const dynamicFriction = mu * 0.8 * N;
 
     if (forceValue) forceValue.textContent = force.toString();
     if (muValue) muValue.textContent = mu.toFixed(1);
     if (maxF) maxF.textContent = maxFriction.toFixed(0);
+    
+    // Push arrow visibility
+    if (pushArrow) {
+      pushArrow.style.opacity = force > 0 ? '1' : '0';
+      pushArrow.textContent = '→'.repeat(Math.min(3, Math.ceil(force / 30)));
+    }
+    
+    drawGraph(force, mu);
 
     if (force <= maxFriction) {
       // Static
@@ -245,7 +355,7 @@ import Layout from '../../layouts/Layout.astro';
         state.textContent = force === 0 ? '静止' : '静止（踏ん張り中）';
         state.style.color = '#22c55e';
       }
-      if (box) box.style.left = '20px';
+      if (box) box.style.left = '30px';
     } else {
       // Moving
       const dynamicF = mu * 0.8 * N; // μ' ≈ 0.8μ
