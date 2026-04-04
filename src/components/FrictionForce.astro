@@ -1,0 +1,460 @@
+---
+// Week 05: 摩擦力シミュレータ
+---
+
+<div class="friction-sim" data-friction-sim>
+  <div class="trainer-header">
+    <h3>🧱 摩擦力シミュレータ</h3>
+  </div>
+
+  <!-- 模拟区 -->
+  <div class="sim-area">
+    <canvas data-canvas width="400" height="200"></canvas>
+    <div class="force-display" data-force-display>
+      <div class="force-item">
+        <span class="force-label">押す力 F:</span>
+        <span class="force-val" data-push-force>0 N</span>
+      </div>
+      <div class="force-item">
+        <span class="force-label">摩擦力 f:</span>
+        <span class="force-val" data-friction-force>0 N</span>
+      </div>
+      <div class="force-item">
+        <span class="force-label">状態:</span>
+        <span class="state-badge" data-state>静止</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 控制 -->
+  <div class="controls">
+    <div class="control-row">
+      <label>押す力 F:</label>
+      <input type="range" data-f-slider min="0" max="60" value="0" step="1">
+      <span data-f-value>0 N</span>
+    </div>
+    <div class="control-row">
+      <label>質量 m:</label>
+      <input type="range" data-m-slider min="1" max="10" value="5" step="0.5">
+      <span data-m-value>5 kg</span>
+    </div>
+    <div class="control-row">
+      <label>静止摩擦係数 μs:</label>
+      <input type="range" data-mus-slider min="0.1" max="1" value="0.5" step="0.1">
+      <span data-mus-value>0.5</span>
+    </div>
+    <div class="control-row">
+      <label>動摩擦係数 μk:</label>
+      <input type="range" data-muk-slider min="0.1" max="0.8" value="0.3" step="0.1">
+      <span data-muk-value>0.3</span>
+    </div>
+  </div>
+
+  <!-- 公式 -->
+  <div class="formula-cards">
+    <div class="formula-card">
+      <div class="card-title">静止摩擦力</div>
+      <div class="card-formula">f ≤ μsN</div>
+      <div class="card-note">押す力と同じ（最大まで）</div>
+    </div>
+    <div class="formula-card">
+      <div class="card-title">動摩擦力</div>
+      <div class="card-formula">f = μkN</div>
+      <div class="card-note">動き出すと一定</div>
+    </div>
+    <div class="formula-card">
+      <div class="card-title">垂直抗力</div>
+      <div class="card-formula">N = mg</div>
+      <div class="card-note">水平面の場合</div>
+    </div>
+  </div>
+
+  <!-- 计算显示 -->
+  <div class="calc-display" data-calc>
+    <div class="calc-row">N = mg = <span data-n-calc>50</span> N</div>
+    <div class="calc-row">最大静止摩擦力 = μsN = <span data-fsmax-calc>25</span> N</div>
+    <div class="calc-row">動摩擦力 = μkN = <span data-fk-calc>15</span> N</div>
+  </div>
+
+  <!-- 练习 -->
+  <div class="practice-section">
+    <h4>📝 練習問題</h4>
+    <div class="quiz-item" data-quiz>
+      <p>質量 5 kg の物体を水平面上で 10 N の力で押したが動かなかった。摩擦力は？</p>
+      <div class="answer-row">
+        <input type="number" data-answer placeholder="?">
+        <span>N</span>
+        <button data-check data-correct="10">確認</button>
+        <span class="feedback" data-feedback></span>
+      </div>
+      <div class="hint">💡 動かない → 静止摩擦 → 押す力と釣り合う</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .friction-sim {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .trainer-header h3 {
+    color: #0f172a;
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  .sim-area {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .sim-area canvas {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .force-display {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .force-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .force-label {
+    color: #64748b;
+  }
+
+  .force-val {
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .state-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+
+  .state-badge.static {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  .state-badge.moving {
+    background: #dcfce7;
+    color: #16a34a;
+  }
+
+  .controls {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .control-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .control-row label {
+    min-width: 140px;
+    color: #64748b;
+  }
+
+  .control-row input[type="range"] {
+    flex: 1;
+  }
+
+  .control-row span {
+    min-width: 50px;
+    text-align: right;
+    font-weight: 600;
+  }
+
+  .formula-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .formula-card {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .card-title {
+    font-size: 0.85em;
+    color: #64748b;
+    margin-bottom: 4px;
+  }
+
+  .card-formula {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #0f172a;
+    font-family: 'Times New Roman', serif;
+  }
+
+  .card-note {
+    font-size: 0.8em;
+    color: #94a3b8;
+    margin-top: 4px;
+  }
+
+  .calc-display {
+    background: #fef3c7;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .calc-row {
+    margin: 4px 0;
+    color: #92400e;
+  }
+
+  .practice-section {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .practice-section h4 {
+    margin: 0 0 12px;
+    color: #0f172a;
+  }
+
+  .quiz-item p {
+    margin-bottom: 12px;
+  }
+
+  .answer-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .answer-row input {
+    width: 80px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .answer-row button {
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .feedback.correct { color: #16a34a; }
+  .feedback.wrong { color: #dc2626; }
+
+  .hint {
+    font-size: 0.9em;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+
+  @media (max-width: 640px) {
+    .control-row { flex-wrap: wrap; }
+    .control-row label { width: 100%; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-friction-sim]').forEach(container => {
+    const canvas = container.querySelector('[data-canvas]');
+    const ctx = canvas.getContext('2d');
+    
+    const fSlider = container.querySelector('[data-f-slider]');
+    const mSlider = container.querySelector('[data-m-slider]');
+    const musSlider = container.querySelector('[data-mus-slider]');
+    const mukSlider = container.querySelector('[data-muk-slider]');
+    
+    const fValue = container.querySelector('[data-f-value]');
+    const mValue = container.querySelector('[data-m-value]');
+    const musValue = container.querySelector('[data-mus-value]');
+    const mukValue = container.querySelector('[data-muk-value]');
+    
+    const pushForce = container.querySelector('[data-push-force]');
+    const frictionForce = container.querySelector('[data-friction-force]');
+    const stateEl = container.querySelector('[data-state]');
+    
+    const nCalc = container.querySelector('[data-n-calc]');
+    const fsmaxCalc = container.querySelector('[data-fsmax-calc]');
+    const fkCalc = container.querySelector('[data-fk-calc]');
+    
+    const g = 10;
+    
+    function update() {
+      const F = parseFloat(fSlider.value);
+      const m = parseFloat(mSlider.value);
+      const mus = parseFloat(musSlider.value);
+      const muk = parseFloat(mukSlider.value);
+      
+      const N = m * g;
+      const fsMax = mus * N;
+      const fk = muk * N;
+      
+      fValue.textContent = F + ' N';
+      mValue.textContent = m + ' kg';
+      musValue.textContent = mus;
+      mukValue.textContent = muk;
+      
+      nCalc.textContent = N.toFixed(0);
+      fsmaxCalc.textContent = fsMax.toFixed(1);
+      fkCalc.textContent = fk.toFixed(1);
+      
+      let friction, isMoving;
+      if (F <= fsMax) {
+        friction = F;
+        isMoving = false;
+      } else {
+        friction = fk;
+        isMoving = true;
+      }
+      
+      pushForce.textContent = F + ' N';
+      frictionForce.textContent = friction.toFixed(1) + ' N';
+      stateEl.textContent = isMoving ? '動いている' : '静止';
+      stateEl.className = 'state-badge ' + (isMoving ? 'moving' : 'static');
+      
+      draw(F, friction, m, isMoving);
+    }
+    
+    function draw(F, friction, m, isMoving) {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = 200 * dpr;
+      ctx.scale(dpr, dpr);
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = '200px';
+      
+      const w = rect.width;
+      const h = 200;
+      
+      ctx.clearRect(0, 0, w, h);
+      
+      // 地面
+      ctx.fillStyle = '#d4d4d4';
+      ctx.fillRect(0, h - 30, w, 30);
+      
+      // 箱子
+      const boxW = 60 + m * 3;
+      const boxH = 50;
+      const boxX = w/2 - boxW/2 + (isMoving ? Math.sin(Date.now()/100) * 3 : 0);
+      const boxY = h - 30 - boxH;
+      
+      ctx.fillStyle = isMoving ? '#22c55e' : '#3b82f6';
+      ctx.fillRect(boxX, boxY, boxW, boxH);
+      
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(m + 'kg', boxX + boxW/2, boxY + boxH/2 + 5);
+      
+      // 推力箭头
+      if (F > 0) {
+        const arrowLen = Math.min(F * 2, 80);
+        ctx.strokeStyle = '#ef4444';
+        ctx.fillStyle = '#ef4444';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(boxX - 10, boxY + boxH/2);
+        ctx.lineTo(boxX - 10 - arrowLen, boxY + boxH/2);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(boxX - 10, boxY + boxH/2);
+        ctx.lineTo(boxX - 20, boxY + boxH/2 - 8);
+        ctx.lineTo(boxX - 20, boxY + boxH/2 + 8);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.fillText('F', boxX - 10 - arrowLen/2, boxY + boxH/2 - 12);
+      }
+      
+      // 摩擦力箭头
+      if (friction > 0) {
+        const arrowLen = Math.min(friction * 2, 80);
+        ctx.strokeStyle = '#f59e0b';
+        ctx.fillStyle = '#f59e0b';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(boxX + boxW + 10, boxY + boxH/2);
+        ctx.lineTo(boxX + boxW + 10 + arrowLen, boxY + boxH/2);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.moveTo(boxX + boxW + 10, boxY + boxH/2);
+        ctx.lineTo(boxX + boxW + 20, boxY + boxH/2 - 8);
+        ctx.lineTo(boxX + boxW + 20, boxY + boxH/2 + 8);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.fillText('f', boxX + boxW + 10 + arrowLen/2, boxY + boxH/2 - 12);
+      }
+    }
+    
+    [fSlider, mSlider, musSlider, mukSlider].forEach(s => {
+      s?.addEventListener('input', update);
+    });
+    
+    // 答题
+    container.querySelectorAll('[data-check]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('[data-quiz]');
+        const input = item.querySelector('[data-answer]');
+        const feedback = item.querySelector('[data-feedback]');
+        const correct = parseFloat(btn.dataset.correct);
+        const user = parseFloat(input.value);
+        
+        if (isNaN(user)) return;
+        
+        if (Math.abs(user - correct) < 0.1) {
+          feedback.className = 'feedback correct';
+          feedback.textContent = '✅ 正解！';
+        } else {
+          feedback.className = 'feedback wrong';
+          feedback.textContent = '❌ ' + correct + ' N';
+        }
+      });
+    });
+    
+    update();
+  });
+</script>

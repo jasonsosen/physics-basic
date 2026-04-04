@@ -1,192 +1,302 @@
 ---
-// Week 10: F = ma 計算器
+// Week 10: F = ma 推箱子模拟器 (重构版)
+// 从计算器改为物理模拟
 ---
 
-<div class="newton-trainer">
+<div class="newton-sim" data-newton-sim>
   <div class="trainer-header">
-    <h3>⚡ 運動方程式 F = ma</h3>
+    <h3>📦 推箱子シミュレータ</h3>
+    <p class="subtitle">F = ma を体感しよう！</p>
   </div>
 
-  <!-- 公式視覺化 -->
-  <div class="formula-visual">
-    <div class="formula-box" id="boxF" data-var="F">
-      <span class="var-symbol">F</span>
-      <span class="var-name">力 (N)</span>
-      <input type="number" id="inputF" placeholder="?" step="any">
+  <!-- 模拟区 -->
+  <div class="sim-area">
+    <div class="ground">
+      <div class="box" data-box>
+        <span class="box-mass" data-mass-label>2 kg</span>
+      </div>
+      <div class="force-arrow" data-force-arrow>
+        <span class="force-label" data-force-label>6 N →</span>
+      </div>
+      <div class="velocity-bar-container">
+        <div class="velocity-bar" data-velocity-bar></div>
+        <span class="velocity-label" data-velocity-label>v = 0 m/s</span>
+      </div>
     </div>
-    <div class="equals">=</div>
-    <div class="formula-box" id="boxM" data-var="m">
-      <span class="var-symbol">m</span>
-      <span class="var-name">質量 (kg)</span>
-      <input type="number" id="inputM" placeholder="?" step="any">
-    </div>
-    <div class="times">×</div>
-    <div class="formula-box" id="boxA" data-var="a">
-      <span class="var-symbol">a</span>
-      <span class="var-name">加速度 (m/s²)</span>
-      <input type="number" id="inputA" placeholder="?" step="any">
+    
+    <div class="accel-display" data-accel-display>
+      a = <span data-accel-value>3.0</span> m/s²
     </div>
   </div>
 
-  <div class="calc-controls">
-    <button class="calc-btn" id="calcBtn">計算！</button>
-    <button class="reset-btn" id="resetBtn">リセット</button>
+  <!-- 控制面板 -->
+  <div class="controls-panel">
+    <div class="control-group">
+      <label>
+        <span class="control-icon">💪</span>
+        推力 F
+      </label>
+      <input type="range" data-force-slider min="0" max="20" value="6" step="1">
+      <span class="control-value" data-force-value>6 N</span>
+    </div>
+    
+    <div class="control-group">
+      <label>
+        <span class="control-icon">📦</span>
+        質量 m
+      </label>
+      <input type="range" data-mass-slider min="1" max="10" value="2" step="0.5">
+      <span class="control-value" data-mass-value>2 kg</span>
+    </div>
+    
+    <div class="button-row">
+      <button class="push-btn" data-push-btn>🚀 押す！</button>
+      <button class="reset-btn" data-reset-btn>リセット</button>
+    </div>
   </div>
 
-  <div class="result-display" id="resultDisplay"></div>
+  <!-- 公式显示 -->
+  <div class="formula-display">
+    <div class="formula-main" data-formula>
+      F = ma → <span data-f-val>6</span> = <span data-m-val>2</span> × <span data-a-val>3</span>
+    </div>
+    <div class="formula-insight">
+      <span class="insight-item">📦 重いほど動きにくい（慣性）</span>
+      <span class="insight-item">💪 力が大きいほど加速する</span>
+    </div>
+  </div>
 
-  <!-- 練習問題 -->
+  <!-- 练习题 -->
   <div class="practice-section">
-    <h4>📝 小テストの問題</h4>
-    <div class="problems-grid">
-      <div class="problem-card">
-        <div class="problem-num">①</div>
-        <div class="problem-text">m = 2.0 kg, a = 3.0 m/s² のとき、F は？</div>
-        <div class="problem-answer">
-          <input type="number" placeholder="F = ?" id="p1">
-          <span>N</span>
-          <button onclick="checkP(1, 6)">確認</button>
-        </div>
-        <div class="problem-fb" id="fb1"></div>
+    <h4>📝 小テスト</h4>
+    <div class="quiz-grid">
+      <div class="quiz-item" data-quiz="1">
+        <span>① m=2kg, a=3m/s² → F=?</span>
+        <input type="number" data-answer placeholder="?">
+        <span>N</span>
+        <button data-check data-correct="6">確認</button>
+        <span class="feedback" data-feedback></span>
       </div>
-      
-      <div class="problem-card">
-        <div class="problem-num">②</div>
-        <div class="problem-text">m = 2.0 kg, F = -4.0 N のとき、a は？</div>
-        <div class="problem-answer">
-          <input type="number" placeholder="a = ?" id="p2" step="any">
-          <span>m/s²</span>
-          <button onclick="checkP(2, -2)">確認</button>
-        </div>
-        <div class="problem-fb" id="fb2"></div>
+      <div class="quiz-item" data-quiz="2">
+        <span>② m=2kg, F=-4N → a=?</span>
+        <input type="number" data-answer placeholder="?" step="any">
+        <span>m/s²</span>
+        <button data-check data-correct="-2">確認</button>
+        <span class="feedback" data-feedback></span>
       </div>
-      
-      <div class="problem-card">
-        <div class="problem-num">③</div>
-        <div class="problem-text">a = 1.0 m/s², F = 3.0 N のとき、m は？</div>
-        <div class="problem-answer">
-          <input type="number" placeholder="m = ?" id="p3">
-          <span>kg</span>
-          <button onclick="checkP(3, 3)">確認</button>
-        </div>
-        <div class="problem-fb" id="fb3"></div>
+      <div class="quiz-item" data-quiz="3">
+        <span>③ a=1m/s², F=3N → m=?</span>
+        <input type="number" data-answer placeholder="?">
+        <span>kg</span>
+        <button data-check data-correct="3">確認</button>
+        <span class="feedback" data-feedback></span>
       </div>
     </div>
-  </div>
-
-  <!-- 概念說明 -->
-  <div class="concept-box">
-    <h5>💡 覚えておこう</h5>
-    <ul>
-      <li><strong>F = ma</strong>：力 = 質量 × 加速度</li>
-      <li><strong>a = F/m</strong>：力が同じなら、軽いほど加速しやすい</li>
-      <li><strong>m = F/a</strong>：同じ加速度を得るには、重いほど大きな力が必要</li>
-      <li>F が負 → 加速度も負（減速）</li>
-    </ul>
   </div>
 </div>
 
 <style>
-  .newton-trainer {
+  .newton-sim {
     background: #f8fafc;
     border-radius: 16px;
     padding: 24px;
     margin: 24px 0;
   }
 
-  .trainer-header h3 {
-    color: #0f172a;
-    margin: 0 0 24px 0;
+  .trainer-header {
     text-align: center;
+    margin-bottom: 20px;
   }
 
-  .formula-visual {
+  .trainer-header h3 {
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .subtitle {
+    color: #64748b;
+    margin: 4px 0 0;
+  }
+
+  /* 模拟区 */
+  .sim-area {
+    background: linear-gradient(180deg, #bae6fd 0%, #7dd3fc 100%);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    min-height: 180px;
+    overflow: hidden;
+  }
+
+  .ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(135deg, #a3e635, #84cc16);
+    border-radius: 0 0 16px 16px;
+  }
+
+  .box {
+    position: absolute;
+    bottom: 60px;
+    left: 50px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: left 0.05s linear, width 0.3s, height 0.3s;
+  }
+
+  .box-mass {
+    color: white;
+    font-weight: 700;
+    font-size: 0.9em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+
+  .force-arrow {
+    position: absolute;
+    bottom: 85px;
+    left: 10px;
+    color: #dc2626;
+    font-weight: 700;
+    font-size: 1.2em;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .force-arrow.active {
+    opacity: 1;
+    animation: pulse-arrow 0.5s ease infinite;
+  }
+
+  @keyframes pulse-arrow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+
+  .velocity-bar-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 24px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .velocity-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    border-radius: 12px;
+    transition: width 0.1s linear;
+  }
+
+  .velocity-label {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85em;
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  .accel-display {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background: rgba(255,255,255,0.9);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #7c3aed;
+  }
+
+  /* 控制面板 */
+  .controls-panel {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
     margin-bottom: 20px;
   }
 
-  .formula-box {
-    background: #fff;
-    border: 3px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 16px;
-    text-align: center;
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .control-group label {
     min-width: 100px;
-    transition: all 0.3s;
+    color: #0f172a;
+    font-weight: 500;
+  }
+
+  .control-icon {
+    margin-right: 4px;
+  }
+
+  .control-group input[type="range"] {
+    flex: 1;
+    height: 8px;
+    -webkit-appearance: none;
+    background: #e2e8f0;
+    border-radius: 4px;
+  }
+
+  .control-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #f59e0b;
+    border-radius: 50%;
     cursor: pointer;
   }
 
-  .formula-box:hover {
-    border-color: #f59e0b;
-    transform: translateY(-2px);
-  }
-
-  .formula-box.highlight {
-    border-color: #f59e0b;
-    background: #fef3c7;
-  }
-
-  .var-symbol {
-    display: block;
-    font-size: 2em;
-    font-weight: 700;
-    color: #0f172a;
-  }
-
-  .var-name {
-    display: block;
-    font-size: 0.8em;
+  .control-value {
+    min-width: 60px;
+    text-align: right;
+    font-weight: 600;
     color: #64748b;
-    margin: 4px 0 8px;
   }
 
-  .formula-box input {
-    width: 80px;
-    padding: 10px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 1.1em;
-  }
-
-  .formula-box input:focus {
-    outline: none;
-    border-color: #f59e0b;
-  }
-
-  .equals, .times {
-    font-size: 2em;
-    color: #64748b;
-    font-weight: 700;
-  }
-
-  .calc-controls {
+  .button-row {
     display: flex;
-    justify-content: center;
     gap: 12px;
-    margin-bottom: 20px;
   }
 
-  .calc-btn {
+  .push-btn {
+    flex: 1;
     background: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
     border: none;
-    padding: 14px 32px;
+    padding: 14px;
     border-radius: 30px;
     font-size: 1.1em;
     font-weight: 600;
     cursor: pointer;
-    min-height: 44px;
-    transition: all 0.2s;
+    min-height: 48px;
+    transition: transform 0.2s;
   }
 
-  .calc-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  .push-btn:hover {
+    transform: scale(1.02);
+  }
+
+  .push-btn:active {
+    transform: scale(0.98);
   }
 
   .reset-btn {
@@ -196,218 +306,224 @@
     padding: 14px 24px;
     border-radius: 30px;
     cursor: pointer;
-    min-height: 44px;
   }
 
-  .result-display {
-    background: #fff;
-    border: 2px solid #e2e8f0;
+  /* 公式 */
+  .formula-display {
+    background: #fef3c7;
+    border: 2px solid #fbbf24;
     border-radius: 12px;
-    padding: 20px;
+    padding: 16px;
+    margin-bottom: 20px;
     text-align: center;
-    margin-bottom: 24px;
-    min-height: 60px;
-    font-size: 1.2em;
-    color: #0f172a;
   }
 
-  .result-display.success {
-    background: #d1fae5;
-    border-color: #10b981;
-    color: #065f46;
+  .formula-main {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #92400e;
+    margin-bottom: 12px;
+    font-family: 'Times New Roman', serif;
   }
 
-  .result-display.error {
-    background: #fee2e2;
-    border-color: #ef4444;
-    color: #991b1b;
+  .formula-insight {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
+  .insight-item {
+    font-size: 0.9em;
+    color: #78350f;
+  }
+
+  /* 练习题 */
   .practice-section {
     background: #fff;
     border: 2px solid #e2e8f0;
     border-radius: 16px;
     padding: 20px;
-    margin-bottom: 20px;
   }
 
   .practice-section h4 {
     color: #0f172a;
-    margin: 0 0 16px 0;
+    margin: 0 0 16px;
   }
 
-  .problems-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
+  .quiz-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
-  .problem-card {
-    background: #f8fafc;
-    border-radius: 12px;
-    padding: 16px;
-  }
-
-  .problem-num {
-    display: inline-block;
-    background: #f59e0b;
-    color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 28px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .problem-text {
-    color: #0f172a;
-    margin-bottom: 12px;
-    line-height: 1.5;
-  }
-
-  .problem-answer {
+  .quiz-item {
     display: flex;
     align-items: center;
     gap: 8px;
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+    flex-wrap: wrap;
   }
 
-  .problem-answer input {
-    width: 80px;
+  .quiz-item span:first-child {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .quiz-item input {
+    width: 70px;
     padding: 8px;
     border: 2px solid #e2e8f0;
     border-radius: 6px;
+    text-align: center;
   }
 
-  .problem-answer button {
+  .quiz-item button {
     background: #f59e0b;
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 8px 14px;
     border-radius: 6px;
     cursor: pointer;
     min-height: 36px;
   }
 
-  .problem-fb {
-    margin-top: 8px;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 0.9em;
-    display: none;
-  }
-
-  .problem-fb.show { display: block; }
-  .problem-fb.correct { background: #d1fae5; color: #065f46; }
-  .problem-fb.wrong { background: #fee2e2; color: #991b1b; }
-
-  .concept-box {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    border-radius: 12px;
-    padding: 20px;
-  }
-
-  .concept-box h5 {
-    color: #92400e;
-    margin: 0 0 12px 0;
-  }
-
-  .concept-box ul {
-    margin: 0;
-    padding-left: 20px;
-    color: #78350f;
-    line-height: 1.8;
-  }
+  .feedback.correct { color: #16a34a; }
+  .feedback.wrong { color: #dc2626; }
 
   @media (max-width: 640px) {
-    .formula-visual {
-      flex-direction: column;
-    }
-    .equals, .times {
-      transform: rotate(90deg);
-    }
+    .control-group { flex-wrap: wrap; }
+    .control-group label { width: 100%; }
   }
 </style>
 
 <script>
-  const inputF = document.getElementById('inputF');
-  const inputM = document.getElementById('inputM');
-  const inputA = document.getElementById('inputA');
-  const result = document.getElementById('resultDisplay');
-
-  document.getElementById('calcBtn')?.addEventListener('click', () => {
-    const F = parseFloat(inputF.value);
-    const m = parseFloat(inputM.value);
-    const a = parseFloat(inputA.value);
+  // 使用局部作用域，避免全局ID冲突
+  document.querySelectorAll('[data-newton-sim]').forEach(container => {
+    const box = container.querySelector('[data-box]');
+    const forceArrow = container.querySelector('[data-force-arrow]');
+    const velocityBar = container.querySelector('[data-velocity-bar]');
+    const velocityLabel = container.querySelector('[data-velocity-label]');
+    const accelValue = container.querySelector('[data-accel-value]');
+    const massLabel = container.querySelector('[data-mass-label]');
     
-    const filled = [!isNaN(F), !isNaN(m), !isNaN(a)];
-    const count = filled.filter(Boolean).length;
+    const forceSlider = container.querySelector('[data-force-slider]');
+    const massSlider = container.querySelector('[data-mass-slider]');
+    const forceValue = container.querySelector('[data-force-value]');
+    const massValue = container.querySelector('[data-mass-value]');
+    const forceLabel = container.querySelector('[data-force-label]');
     
-    if (count < 2) {
-      result.className = 'result-display error';
-      result.textContent = '⚠️ 2つの値を入力してください';
-      return;
+    const fVal = container.querySelector('[data-f-val]');
+    const mVal = container.querySelector('[data-m-val]');
+    const aVal = container.querySelector('[data-a-val]');
+    
+    const pushBtn = container.querySelector('[data-push-btn]');
+    const resetBtn = container.querySelector('[data-reset-btn]');
+    
+    let animationId = null;
+    let velocity = 0;
+    let position = 50;
+    let isRunning = false;
+    
+    function updateDisplay() {
+      const F = parseFloat(forceSlider.value);
+      const m = parseFloat(massSlider.value);
+      const a = F / m;
+      
+      forceValue.textContent = F + ' N';
+      massValue.textContent = m + ' kg';
+      massLabel.textContent = m + ' kg';
+      accelValue.textContent = a.toFixed(1);
+      forceLabel.textContent = F + ' N →';
+      
+      fVal.textContent = F;
+      mVal.textContent = m;
+      aVal.textContent = a.toFixed(1);
+      
+      // 箱子大小随质量变化
+      const size = 40 + m * 4;
+      box.style.width = size + 'px';
+      box.style.height = size + 'px';
     }
     
-    if (count === 3) {
-      // 檢查是否正確
-      const calc = m * a;
-      if (Math.abs(calc - F) < 0.01) {
-        result.className = 'result-display success';
-        result.textContent = `✅ 正しい！ F = ${m} × ${a} = ${calc.toFixed(1)} N`;
-      } else {
-        result.className = 'result-display error';
-        result.textContent = `❌ 合ってない！ ${m} × ${a} = ${calc.toFixed(1)} ≠ ${F}`;
+    function simulate() {
+      const F = parseFloat(forceSlider.value);
+      const m = parseFloat(massSlider.value);
+      const a = F / m;
+      
+      isRunning = true;
+      forceArrow.classList.add('active');
+      
+      const startTime = performance.now();
+      const maxVelocity = 20;
+      
+      function animate(currentTime) {
+        if (!isRunning) return;
+        
+        const elapsed = (currentTime - startTime) / 1000;
+        velocity = Math.min(a * elapsed, maxVelocity);
+        position = 50 + 0.5 * a * elapsed * elapsed * 10;
+        
+        // 更新显示
+        box.style.left = Math.min(position, 300) + 'px';
+        velocityBar.style.width = (velocity / maxVelocity * 100) + '%';
+        velocityLabel.textContent = 'v = ' + velocity.toFixed(1) + ' m/s';
+        
+        if (position < 300 && velocity < maxVelocity) {
+          animationId = requestAnimationFrame(animate);
+        } else {
+          isRunning = false;
+          forceArrow.classList.remove('active');
+        }
       }
-      return;
+      
+      animationId = requestAnimationFrame(animate);
     }
     
-    // 計算缺失的值
-    let calculated;
-    let formula;
-    
-    if (isNaN(F)) {
-      calculated = m * a;
-      inputF.value = calculated.toFixed(2);
-      formula = `F = m × a = ${m} × ${a} = ${calculated.toFixed(1)} N`;
-      document.getElementById('boxF').classList.add('highlight');
-    } else if (isNaN(m)) {
-      calculated = F / a;
-      inputM.value = calculated.toFixed(2);
-      formula = `m = F / a = ${F} / ${a} = ${calculated.toFixed(1)} kg`;
-      document.getElementById('boxM').classList.add('highlight');
-    } else {
-      calculated = F / m;
-      inputA.value = calculated.toFixed(2);
-      formula = `a = F / m = ${F} / ${m} = ${calculated.toFixed(1)} m/s²`;
-      document.getElementById('boxA').classList.add('highlight');
+    function reset() {
+      if (animationId) cancelAnimationFrame(animationId);
+      isRunning = false;
+      velocity = 0;
+      position = 50;
+      box.style.left = '50px';
+      velocityBar.style.width = '0%';
+      velocityLabel.textContent = 'v = 0 m/s';
+      forceArrow.classList.remove('active');
     }
     
-    result.className = 'result-display success';
-    result.innerHTML = `✨ ${formula}`;
+    forceSlider?.addEventListener('input', updateDisplay);
+    massSlider?.addEventListener('input', updateDisplay);
+    pushBtn?.addEventListener('click', () => { reset(); simulate(); });
+    resetBtn?.addEventListener('click', reset);
+    
+    // 答题检查
+    container.querySelectorAll('[data-check]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const quizItem = btn.closest('[data-quiz]');
+        const input = quizItem.querySelector('[data-answer]');
+        const feedback = quizItem.querySelector('[data-feedback]');
+        const correct = parseFloat(btn.dataset.correct);
+        const user = parseFloat(input.value);
+        
+        if (isNaN(user)) return;
+        
+        if (Math.abs(user - correct) < 0.1) {
+          feedback.className = 'feedback correct';
+          feedback.textContent = '✅';
+        } else {
+          feedback.className = 'feedback wrong';
+          feedback.textContent = '❌ ' + correct;
+        }
+      });
+    });
+    
+    // 页面离开时清理
+    document.addEventListener('astro:before-swap', () => {
+      if (animationId) cancelAnimationFrame(animationId);
+    });
+    
+    updateDisplay();
   });
-
-  document.getElementById('resetBtn')?.addEventListener('click', () => {
-    inputF.value = '';
-    inputM.value = '';
-    inputA.value = '';
-    result.className = 'result-display';
-    result.textContent = '2つの値を入力して計算！';
-    document.querySelectorAll('.formula-box').forEach(b => b.classList.remove('highlight'));
-  });
-
-  window.checkP = function(num, ans) {
-    const input = document.getElementById(`p${num}`);
-    const fb = document.getElementById(`fb${num}`);
-    const user = parseFloat(input.value);
-    
-    if (Math.abs(user - ans) < 0.1) {
-      fb.className = 'problem-fb show correct';
-      fb.textContent = '✅ 正解！';
-    } else {
-      fb.className = 'problem-fb show wrong';
-      fb.textContent = `❌ 正解は ${ans}`;
-    }
-  };
 </script>

@@ -1,0 +1,518 @@
+---
+// Week 11: 運動学公式ソルバー
+// 4大公式：任意2つから残りを求める
+---
+
+<div class="kinematics-solver" data-kinematics>
+  <div class="trainer-header">
+    <h3>🚗 運動学公式マスター</h3>
+    <p class="subtitle">2つ入力すれば残りを計算！</p>
+  </div>
+
+  <!-- 変数入力 -->
+  <div class="variables-grid">
+    <div class="var-card" data-var="v0">
+      <div class="var-symbol">v₀</div>
+      <div class="var-name">初速度</div>
+      <input type="number" data-input="v0" placeholder="?" step="any">
+      <span class="var-unit">m/s</span>
+    </div>
+    
+    <div class="var-card" data-var="v">
+      <div class="var-symbol">v</div>
+      <div class="var-name">終速度</div>
+      <input type="number" data-input="v" placeholder="?" step="any">
+      <span class="var-unit">m/s</span>
+    </div>
+    
+    <div class="var-card" data-var="a">
+      <div class="var-symbol">a</div>
+      <div class="var-name">加速度</div>
+      <input type="number" data-input="a" placeholder="?" step="any">
+      <span class="var-unit">m/s²</span>
+    </div>
+    
+    <div class="var-card" data-var="t">
+      <div class="var-symbol">t</div>
+      <div class="var-name">時間</div>
+      <input type="number" data-input="t" placeholder="?" step="any">
+      <span class="var-unit">s</span>
+    </div>
+    
+    <div class="var-card" data-var="x">
+      <div class="var-symbol">x</div>
+      <div class="var-name">変位</div>
+      <input type="number" data-input="x" placeholder="?" step="any">
+      <span class="var-unit">m</span>
+    </div>
+  </div>
+
+  <div class="button-row">
+    <button class="solve-btn" data-solve>🧮 計算！</button>
+    <button class="clear-btn" data-clear>クリア</button>
+  </div>
+
+  <div class="result-area" data-result></div>
+
+  <!-- 公式一覧 -->
+  <div class="formulas-section">
+    <h4>📐 運動学の4大公式</h4>
+    <div class="formula-grid">
+      <div class="formula-item">
+        <span class="formula-num">①</span>
+        <span class="formula-eq">v = v₀ + at</span>
+      </div>
+      <div class="formula-item">
+        <span class="formula-num">②</span>
+        <span class="formula-eq">x = v₀t + ½at²</span>
+      </div>
+      <div class="formula-item">
+        <span class="formula-num">③</span>
+        <span class="formula-eq">x = ½(v₀ + v)t</span>
+      </div>
+      <div class="formula-item">
+        <span class="formula-num">④</span>
+        <span class="formula-eq">v² = v₀² + 2ax</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 练习题 -->
+  <div class="practice-section">
+    <h4>📝 小テストの問題</h4>
+    
+    <div class="quiz-card">
+      <p><strong>①</strong> 速さ 3.0 m/s で等速度運動する物体。2.0 s 間の変位は？</p>
+      <div class="quiz-input">
+        <input type="number" data-q1 placeholder="?">
+        <span>m</span>
+        <button data-check1>確認</button>
+        <span class="feedback" data-fb1></span>
+      </div>
+    </div>
+    
+    <div class="quiz-card">
+      <p><strong>②</strong> 初速度 0、加速度 2.0 m/s² で 5.0 s 間加速。終速度は？</p>
+      <div class="quiz-input">
+        <input type="number" data-q2 placeholder="?">
+        <span>m/s</span>
+        <button data-check2>確認</button>
+        <span class="feedback" data-fb2></span>
+      </div>
+    </div>
+    
+    <div class="quiz-card">
+      <p><strong>③</strong> 初速度 0、加速度 2.0 m/s² で 5.0 s 間加速。変位は？</p>
+      <div class="quiz-input">
+        <input type="number" data-q3 placeholder="?">
+        <span>m</span>
+        <button data-check3>確認</button>
+        <span class="feedback" data-fb3></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .kinematics-solver {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .trainer-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .trainer-header h3 {
+    color: #0f172a;
+    margin: 0;
+  }
+
+  .subtitle {
+    color: #64748b;
+    margin: 4px 0 0;
+  }
+
+  .variables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .var-card {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .var-card:focus-within {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+  }
+
+  .var-card.calculated {
+    background: #f0fdf4;
+    border-color: #22c55e;
+  }
+
+  .var-symbol {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #8b5cf6;
+    font-family: 'Times New Roman', serif;
+  }
+
+  .var-name {
+    font-size: 0.85em;
+    color: #64748b;
+    margin-bottom: 8px;
+  }
+
+  .var-card input {
+    width: 80px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.1em;
+  }
+
+  .var-card input:focus {
+    outline: none;
+    border-color: #8b5cf6;
+  }
+
+  .var-unit {
+    display: block;
+    font-size: 0.85em;
+    color: #94a3b8;
+    margin-top: 4px;
+  }
+
+  .button-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .solve-btn {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 48px;
+  }
+
+  .solve-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  }
+
+  .clear-btn {
+    background: #e2e8f0;
+    color: #64748b;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+
+  .result-area {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    min-height: 60px;
+    text-align: center;
+    color: #64748b;
+  }
+
+  .result-area.success {
+    background: #f0fdf4;
+    border-color: #22c55e;
+    color: #166534;
+  }
+
+  .result-area.error {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #991b1b;
+  }
+
+  .formulas-section {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .formulas-section h4 {
+    color: #0f172a;
+    margin: 0 0 12px;
+  }
+
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+  }
+
+  .formula-item {
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .formula-num {
+    background: #8b5cf6;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+
+  .formula-eq {
+    font-family: 'Times New Roman', serif;
+    font-size: 1.1em;
+    color: #0f172a;
+  }
+
+  .practice-section {
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .practice-section h4 {
+    color: #0f172a;
+    margin: 0 0 16px;
+  }
+
+  .quiz-card {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .quiz-card p {
+    margin: 0 0 12px;
+    color: #0f172a;
+  }
+
+  .quiz-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .quiz-input input {
+    width: 80px;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .quiz-input button {
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .feedback.correct { color: #16a34a; }
+  .feedback.wrong { color: #dc2626; }
+</style>
+
+<script>
+  document.querySelectorAll('[data-kinematics]').forEach(container => {
+    const inputs = {
+      v0: container.querySelector('[data-input="v0"]'),
+      v: container.querySelector('[data-input="v"]'),
+      a: container.querySelector('[data-input="a"]'),
+      t: container.querySelector('[data-input="t"]'),
+      x: container.querySelector('[data-input="x"]')
+    };
+    
+    const cards = {
+      v0: container.querySelector('[data-var="v0"]'),
+      v: container.querySelector('[data-var="v"]'),
+      a: container.querySelector('[data-var="a"]'),
+      t: container.querySelector('[data-var="t"]'),
+      x: container.querySelector('[data-var="x"]')
+    };
+    
+    const result = container.querySelector('[data-result]');
+    const solveBtn = container.querySelector('[data-solve]');
+    const clearBtn = container.querySelector('[data-clear]');
+    
+    function solve() {
+      const vals = {};
+      const known = [];
+      const unknown = [];
+      
+      for (const key in inputs) {
+        const val = parseFloat(inputs[key].value);
+        if (!isNaN(val)) {
+          vals[key] = val;
+          known.push(key);
+        } else {
+          unknown.push(key);
+        }
+      }
+      
+      if (known.length < 2) {
+        result.className = 'result-area error';
+        result.textContent = '⚠️ 少なくとも2つの値を入力してください';
+        return;
+      }
+      
+      // 清除之前的计算结果标记
+      for (const key in cards) {
+        cards[key].classList.remove('calculated');
+      }
+      
+      let calculated = [];
+      let iterations = 0;
+      
+      // 迭代求解
+      while (unknown.length > 0 && iterations < 10) {
+        iterations++;
+        let progress = false;
+        
+        for (let i = unknown.length - 1; i >= 0; i--) {
+          const target = unknown[i];
+          let value = null;
+          let formula = '';
+          
+          // v = v0 + at
+          if (target === 'v' && vals.v0 !== undefined && vals.a !== undefined && vals.t !== undefined) {
+            value = vals.v0 + vals.a * vals.t;
+            formula = 'v = v₀ + at';
+          } else if (target === 'v0' && vals.v !== undefined && vals.a !== undefined && vals.t !== undefined) {
+            value = vals.v - vals.a * vals.t;
+            formula = 'v₀ = v - at';
+          } else if (target === 'a' && vals.v !== undefined && vals.v0 !== undefined && vals.t !== undefined && vals.t !== 0) {
+            value = (vals.v - vals.v0) / vals.t;
+            formula = 'a = (v - v₀)/t';
+          } else if (target === 't' && vals.v !== undefined && vals.v0 !== undefined && vals.a !== undefined && vals.a !== 0) {
+            value = (vals.v - vals.v0) / vals.a;
+            formula = 't = (v - v₀)/a';
+          }
+          
+          // x = v0*t + 0.5*a*t^2
+          else if (target === 'x' && vals.v0 !== undefined && vals.a !== undefined && vals.t !== undefined) {
+            value = vals.v0 * vals.t + 0.5 * vals.a * vals.t * vals.t;
+            formula = 'x = v₀t + ½at²';
+          }
+          
+          // x = 0.5*(v0+v)*t
+          else if (target === 'x' && vals.v0 !== undefined && vals.v !== undefined && vals.t !== undefined) {
+            value = 0.5 * (vals.v0 + vals.v) * vals.t;
+            formula = 'x = ½(v₀ + v)t';
+          } else if (target === 't' && vals.v0 !== undefined && vals.v !== undefined && vals.x !== undefined && (vals.v0 + vals.v) !== 0) {
+            value = 2 * vals.x / (vals.v0 + vals.v);
+            formula = 't = 2x/(v₀ + v)';
+          }
+          
+          // v^2 = v0^2 + 2ax
+          else if (target === 'v' && vals.v0 !== undefined && vals.a !== undefined && vals.x !== undefined) {
+            const v2 = vals.v0 * vals.v0 + 2 * vals.a * vals.x;
+            if (v2 >= 0) {
+              value = Math.sqrt(v2);
+              formula = 'v² = v₀² + 2ax';
+            }
+          } else if (target === 'x' && vals.v !== undefined && vals.v0 !== undefined && vals.a !== undefined && vals.a !== 0) {
+            value = (vals.v * vals.v - vals.v0 * vals.v0) / (2 * vals.a);
+            formula = 'x = (v² - v₀²)/2a';
+          } else if (target === 'a' && vals.v !== undefined && vals.v0 !== undefined && vals.x !== undefined && vals.x !== 0) {
+            value = (vals.v * vals.v - vals.v0 * vals.v0) / (2 * vals.x);
+            formula = 'a = (v² - v₀²)/2x';
+          }
+          
+          if (value !== null) {
+            vals[target] = value;
+            inputs[target].value = value.toFixed(2);
+            cards[target].classList.add('calculated');
+            calculated.push({ var: target, formula: formula });
+            unknown.splice(i, 1);
+            progress = true;
+          }
+        }
+        
+        if (!progress) break;
+      }
+      
+      if (calculated.length > 0) {
+        result.className = 'result-area success';
+        result.innerHTML = '✅ 計算完了！<br>' + calculated.map(c => 
+          `<strong>${c.var}</strong> = ${vals[c.var].toFixed(2)} (${c.formula})`
+        ).join('<br>');
+      } else {
+        result.className = 'result-area error';
+        result.textContent = '⚠️ この組み合わせでは計算できません';
+      }
+    }
+    
+    function clear() {
+      for (const key in inputs) {
+        inputs[key].value = '';
+        cards[key].classList.remove('calculated');
+      }
+      result.className = 'result-area';
+      result.textContent = '2つの値を入力して計算！';
+    }
+    
+    solveBtn?.addEventListener('click', solve);
+    clearBtn?.addEventListener('click', clear);
+    
+    // 練習題
+    function checkQuiz(qNum, correct) {
+      const input = container.querySelector(`[data-q${qNum}]`);
+      const fb = container.querySelector(`[data-fb${qNum}]`);
+      const user = parseFloat(input.value);
+      
+      if (isNaN(user)) return;
+      
+      if (Math.abs(user - correct) < 0.1) {
+        fb.className = 'feedback correct';
+        fb.textContent = '✅';
+      } else {
+        fb.className = 'feedback wrong';
+        fb.textContent = '❌ ' + correct;
+      }
+    }
+    
+    container.querySelector('[data-check1]')?.addEventListener('click', () => checkQuiz(1, 6));
+    container.querySelector('[data-check2]')?.addEventListener('click', () => checkQuiz(2, 10));
+    container.querySelector('[data-check3]')?.addEventListener('click', () => checkQuiz(3, 25));
+    
+    result.textContent = '2つの値を入力して計算！';
+  });
+</script>
