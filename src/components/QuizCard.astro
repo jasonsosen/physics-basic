@@ -1,0 +1,247 @@
+---
+// QuizCard.astro - 填空练习题组件
+// 简洁的填空 + 答案展开设计，移动端友好
+export interface Props {
+  id: string;
+  question: string;        // 例如: "3.5 km"
+  answer: string;          // 例如: "3500" 或 "3.5 × 10³"
+  answerUnit: string;      // 例如: "m"
+  steps: string[];         // 解题步骤数组
+  hint?: string;           // 可选提示
+}
+
+const { id, question, answer, answerUnit, steps, hint } = Astro.props;
+---
+
+<div class="quiz-card" data-quiz-id={id} data-correct={answer.replace(/\s/g, '').replace(/×/g, '*').replace(/⁻/g, '-').replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (m) => '⁰¹²³⁴⁵⁶⁷⁸⁹'.indexOf(m).toString())}>
+  <div class="quiz-question">
+    <span class="quiz-num">{id}</span>
+    <span class="quiz-text">{question} = </span>
+    <input 
+      type="text" 
+      inputmode="decimal" 
+      class="quiz-input" 
+      placeholder="?"
+      autocomplete="off"
+    />
+    <span class="quiz-unit">{answerUnit}</span>
+  </div>
+
+  <button class="quiz-btn show-btn">答えを見る</button>
+
+  <div class="quiz-solution hidden">
+    <div class="solution-answer">
+      <span class="answer-label">✅ 正解：</span>
+      <span class="answer-value">{answer} {answerUnit}</span>
+    </div>
+    
+    <div class="solution-steps">
+      <p class="steps-title">📝 解き方：</p>
+      <ol>
+        {steps.map((step) => (
+          <li set:html={step}></li>
+        ))}
+      </ol>
+    </div>
+
+    {hint && (
+      <div class="solution-hint">
+        💡 {hint}
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .quiz-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 16px 0;
+    transition: all 0.2s ease;
+  }
+
+  .quiz-card:hover {
+    border-color: #cbd5e1;
+  }
+
+  .quiz-card.answered {
+    border-color: #10b981;
+    background: #f0fdf4;
+  }
+
+  .quiz-card.wrong {
+    border-color: #f59e0b;
+    background: #fffbeb;
+  }
+
+  .quiz-question {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .quiz-num {
+    background: #3b82f6;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .quiz-text {
+    color: #1e293b;
+  }
+
+  .quiz-input {
+    width: 120px;
+    height: 44px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3b82f6;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    background: #f8fafc;
+    transition: all 0.2s ease;
+  }
+
+  .quiz-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  }
+
+  .quiz-input.correct {
+    border-color: #10b981;
+    background: #ecfdf5;
+    color: #059669;
+  }
+
+  .quiz-input.incorrect {
+    border-color: #f59e0b;
+    background: #fffbeb;
+    color: #d97706;
+  }
+
+  .quiz-input:disabled {
+    cursor: not-allowed;
+  }
+
+  .quiz-unit {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .quiz-btn {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .show-btn {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .show-btn:hover {
+    background: #2563eb;
+  }
+
+  .show-btn:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+  }
+
+  .quiz-solution {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px dashed #e2e8f0;
+    animation: slideIn 0.3s ease;
+  }
+
+  .quiz-solution.hidden {
+    display: none;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .solution-answer {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+
+  .answer-label {
+    color: #10b981;
+    font-weight: 600;
+  }
+
+  .answer-value {
+    color: #059669;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+  }
+
+  .solution-steps {
+    background: #f1f5f9;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  .steps-title {
+    font-weight: 600;
+    color: #334155;
+    margin: 0 0 12px 0;
+  }
+
+  .solution-steps ol {
+    margin: 0;
+    padding-left: 24px;
+    line-height: 1.8;
+    color: #475569;
+  }
+
+  .solution-steps li {
+    margin-bottom: 6px;
+  }
+
+  .solution-hint {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+  }
+
+  /* 移动端 */
+  @media (max-width: 480px) {
+    .quiz-question {
+      font-size: 1.1rem;
+    }
+    
+    .quiz-input {
+      width: 100px;
+    }
+  }
+</style>
