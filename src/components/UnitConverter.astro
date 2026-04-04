@@ -1,0 +1,543 @@
+---
+// 単位換算トレーナー - Week 02
+// 基於實際小測驗題目設計
+---
+
+<div class="unit-converter">
+  <h3>🔄 単位換算トレーナー</h3>
+  
+  <div class="problem-selector">
+    <button class="prob-btn active" data-prob="1">① km→m</button>
+    <button class="prob-btn" data-prob="2">② m→mm</button>
+    <button class="prob-btn" data-prob="3">③ μm→nm</button>
+    <button class="prob-btn" data-prob="4">④ cm²→m²</button>
+    <button class="prob-btn" data-prob="5">⑤ g·cm/s²→N</button>
+    <button class="prob-btn" data-prob="6">⑥ g/cm³→kg/m³</button>
+  </div>
+
+  <div class="conversion-area" id="conversionArea">
+    <!-- 動態載入題目 -->
+  </div>
+
+  <div class="factor-bank" id="factorBank">
+    <!-- 可拖拽的換算因子 -->
+  </div>
+
+  <div class="calculation-zone" id="calcZone">
+    <!-- 計算過程顯示 -->
+  </div>
+
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<style>
+  .unit-converter {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  .unit-converter h3 {
+    color: #00d9ff;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+  }
+
+  .problem-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .prob-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ccc;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s;
+  }
+
+  .prob-btn:hover {
+    background: rgba(0,217,255,0.2);
+    border-color: #00d9ff;
+  }
+
+  .prob-btn.active {
+    background: #00d9ff;
+    color: #000;
+    font-weight: bold;
+  }
+
+  .prob-btn.completed {
+    background: rgba(0,255,100,0.2);
+    border-color: #00ff64;
+    color: #00ff64;
+  }
+
+  .conversion-area {
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .value-box {
+    background: rgba(255,200,0,0.15);
+    border: 2px solid #ffc800;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.4em;
+    color: #ffc800;
+    font-family: 'Courier New', monospace;
+  }
+
+  .operator {
+    font-size: 1.5em;
+    color: #888;
+    padding: 0 8px;
+  }
+
+  .drop-zone {
+    background: rgba(0,217,255,0.1);
+    border: 2px dashed #00d9ff;
+    border-radius: 8px;
+    padding: 12px 20px;
+    min-width: 120px;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    color: #00d9ff;
+    transition: all 0.3s;
+  }
+
+  .drop-zone:hover, .drop-zone.drag-over {
+    background: rgba(0,217,255,0.3);
+    border-style: solid;
+    transform: scale(1.05);
+  }
+
+  .drop-zone.filled {
+    background: rgba(0,255,100,0.2);
+    border-color: #00ff64;
+    border-style: solid;
+  }
+
+  .result-box {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid #888;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.4em;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+  }
+
+  .result-box.correct {
+    background: rgba(0,255,100,0.2);
+    border-color: #00ff64;
+    color: #00ff64;
+  }
+
+  .factor-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .factor-card {
+    background: linear-gradient(135deg, #2a2a4a 0%, #1a1a3e 100%);
+    border: 2px solid #6366f1;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: grab;
+    transition: all 0.3s;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .factor-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(99,102,241,0.3);
+    border-color: #818cf8;
+  }
+
+  .factor-card:active {
+    cursor: grabbing;
+  }
+
+  .factor-card.used {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .factor-num {
+    font-size: 1.3em;
+    color: #a5b4fc;
+    border-bottom: 2px solid #6366f1;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+
+  .factor-den {
+    font-size: 1.3em;
+    color: #c4b5fd;
+  }
+
+  .calculation-zone {
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    font-family: 'Courier New', monospace;
+    color: #aaa;
+    min-height: 40px;
+  }
+
+  .calc-step {
+    margin: 8px 0;
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+  .calc-step.cancel {
+    background: rgba(255,100,100,0.1);
+  }
+
+  .calc-step .cancelled {
+    text-decoration: line-through;
+    color: #ff6b6b;
+  }
+
+  .calc-step .result {
+    color: #00ff64;
+    font-weight: bold;
+  }
+
+  .feedback {
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.1em;
+    min-height: 24px;
+  }
+
+  .feedback.success {
+    background: rgba(0,255,100,0.15);
+    color: #00ff64;
+    border: 1px solid #00ff64;
+  }
+
+  .feedback.error {
+    background: rgba(255,100,100,0.15);
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+  }
+
+  .feedback.hint {
+    background: rgba(255,200,0,0.15);
+    color: #ffc800;
+    border: 1px solid #ffc800;
+  }
+
+  /* 面積/體積特殊視覺化 */
+  .area-visual {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 16px 0;
+    padding: 16px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+  }
+
+  .square {
+    border: 2px solid #00d9ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00d9ff;
+    font-size: 0.8em;
+  }
+
+  .square.large {
+    width: 80px;
+    height: 80px;
+  }
+
+  .square.small {
+    width: 40px;
+    height: 40px;
+  }
+
+  @media (max-width: 600px) {
+    .conversion-area {
+      flex-direction: column;
+    }
+    
+    .factor-card {
+      min-width: 80px;
+      padding: 12px;
+    }
+  }
+</style>
+
+<script>
+  // 題目數據 - 基於實際小測驗
+  const problems = {
+    1: {
+      title: '① 1.0 km → m',
+      value: '1.0',
+      fromUnit: 'km',
+      toUnit: 'm',
+      answer: '1.0 × 10³',
+      factors: [
+        { num: '1000 m', den: '1 km', correct: true },
+        { num: '1 km', den: '1000 m', correct: false },
+        { num: '100 m', den: '1 km', correct: false }
+      ],
+      hint: 'km は m より大きい単位。変換後の数値は大きくなる！'
+    },
+    2: {
+      title: '② 1.0 m → mm',
+      value: '1.0',
+      fromUnit: 'm',
+      toUnit: 'mm',
+      answer: '1.0 × 10³',
+      factors: [
+        { num: '1000 mm', den: '1 m', correct: true },
+        { num: '1 m', den: '1000 mm', correct: false },
+        { num: '100 mm', den: '1 m', correct: false }
+      ],
+      hint: '1 m = 1000 mm（ミリは千分の一）'
+    },
+    3: {
+      title: '③ 1.0×10⁻¹ μm → nm',
+      value: '1.0×10⁻¹',
+      fromUnit: 'μm',
+      toUnit: 'nm',
+      answer: '1.0 × 10²',
+      factors: [
+        { num: '1000 nm', den: '1 μm', correct: true },
+        { num: '1 μm', den: '1000 nm', correct: false },
+        { num: '10 nm', den: '1 μm', correct: false }
+      ],
+      hint: '1 μm = 1000 nm（μ=10⁻⁶、n=10⁻⁹）'
+    },
+    4: {
+      title: '④ 1.0×10⁴ cm² → m²',
+      value: '1.0×10⁴',
+      fromUnit: 'cm²',
+      toUnit: 'm²',
+      answer: '1.0 × 10⁰ (= 1.0)',
+      factors: [
+        { num: '(0.01)² m²', den: '1 cm²', correct: true, display: '10⁻⁴ m² / 1 cm²' },
+        { num: '0.01 m²', den: '1 cm²', correct: false },
+        { num: '1 cm²', den: '0.01 m²', correct: false }
+      ],
+      hint: '⚠️ 面積単位は二乗で換算！1 cm² = (0.01)² m² = 10⁻⁴ m²',
+      isArea: true
+    },
+    5: {
+      title: '⑤ 1.0×10² g·cm/s² → N',
+      value: '1.0×10²',
+      fromUnit: 'g·cm/s²',
+      toUnit: 'N',
+      answer: '1.0 × 10⁻³',
+      factors: [
+        { num: '10⁻³ kg', den: '1 g', correct: true },
+        { num: '10⁻² m', den: '1 cm', correct: true },
+        { num: '1 g', den: '10⁻³ kg', correct: false }
+      ],
+      hint: '1 N = 1 kg·m/s²。g→kg は ×10⁻³、cm→m は ×10⁻²',
+      isCompound: true
+    },
+    6: {
+      title: '⑥ 1.0 g/cm³ → kg/m³',
+      value: '1.0',
+      fromUnit: 'g/cm³',
+      toUnit: 'kg/m³',
+      answer: '1.0 × 10³',
+      factors: [
+        { num: '10⁻³ kg', den: '1 g', correct: true },
+        { num: '(10² cm)³', den: '1 m³', correct: true, display: '10⁶ cm³ / 1 m³' },
+        { num: '1 g', den: '10⁻³ kg', correct: false }
+      ],
+      hint: '分子と分母を別々に換算。g/cm³ = (10⁻³ kg)/(10⁻⁶ m³) = 10³ kg/m³',
+      isCompound: true
+    }
+  };
+
+  let currentProblem = 1;
+  let droppedFactor = null;
+  let completedProblems = new Set();
+
+  function renderProblem(probNum) {
+    const prob = problems[probNum];
+    const convArea = document.getElementById('conversionArea');
+    const factorBank = document.getElementById('factorBank');
+    const calcZone = document.getElementById('calcZone');
+    const feedback = document.getElementById('feedback');
+
+    // 清空
+    feedback.className = 'feedback';
+    feedback.textContent = '';
+    calcZone.innerHTML = '<span style="color:#666">換算因子をドラッグして計算しよう</span>';
+    droppedFactor = null;
+
+    // 轉換區域
+    convArea.innerHTML = `
+      <div class="value-box">${prob.value} ${prob.fromUnit}</div>
+      <span class="operator">×</span>
+      <div class="drop-zone" id="dropZone">
+        ここにドロップ
+      </div>
+      <span class="operator">=</span>
+      <div class="result-box" id="resultBox">? ${prob.toUnit}</div>
+    `;
+
+    // 面積視覺化
+    if (prob.isArea) {
+      convArea.innerHTML += `
+        <div class="area-visual">
+          <div>
+            <div class="square large">1 cm</div>
+            <div style="color:#888;font-size:0.8em;text-align:center">1 cm²</div>
+          </div>
+          <span style="font-size:2em;color:#00d9ff">→</span>
+          <div>
+            <div class="square small">0.01m</div>
+            <div style="color:#888;font-size:0.8em;text-align:center">(0.01)² m²</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 因子卡片
+    factorBank.innerHTML = prob.factors.map((f, i) => `
+      <div class="factor-card" draggable="true" data-index="${i}" data-correct="${f.correct}">
+        <div class="factor-num">${f.display || f.num}</div>
+        <div class="factor-den">${f.den}</div>
+      </div>
+    `).join('');
+
+    // 拖拽事件
+    setupDragDrop();
+  }
+
+  function setupDragDrop() {
+    const cards = document.querySelectorAll('.factor-card');
+    const dropZone = document.getElementById('dropZone');
+
+    cards.forEach(card => {
+      card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', card.dataset.index);
+        card.style.opacity = '0.5';
+      });
+      card.addEventListener('dragend', () => {
+        card.style.opacity = '1';
+      });
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('drag-over');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      
+      const index = parseInt(e.dataTransfer.getData('text/plain'));
+      const prob = problems[currentProblem];
+      const factor = prob.factors[index];
+      
+      // 顯示在drop zone
+      dropZone.innerHTML = `
+        <div class="factor-num">${factor.display || factor.num}</div>
+        <div class="factor-den">${factor.den}</div>
+      `;
+      dropZone.classList.add('filled');
+      
+      // 標記卡片已使用
+      document.querySelectorAll('.factor-card')[index].classList.add('used');
+      
+      // 檢查答案
+      checkAnswer(factor.correct, prob);
+    });
+  }
+
+  function checkAnswer(isCorrect, prob) {
+    const feedback = document.getElementById('feedback');
+    const calcZone = document.getElementById('calcZone');
+    const resultBox = document.getElementById('resultBox');
+
+    if (isCorrect) {
+      // 顯示計算過程
+      calcZone.innerHTML = `
+        <div class="calc-step">
+          ${prob.value} ${prob.fromUnit} × (換算因子)
+        </div>
+        <div class="calc-step cancel">
+          = ${prob.value} × <span class="cancelled">${prob.fromUnit}</span> × (... / <span class="cancelled">${prob.fromUnit}</span>)
+        </div>
+        <div class="calc-step">
+          = <span class="result">${prob.answer} ${prob.toUnit}</span>
+        </div>
+      `;
+      
+      resultBox.textContent = prob.answer + ' ' + prob.toUnit;
+      resultBox.classList.add('correct');
+      
+      feedback.className = 'feedback success';
+      feedback.textContent = '✅ 正解！単位が約分されて消えた！';
+      
+      // 標記完成
+      completedProblems.add(currentProblem);
+      document.querySelector(`[data-prob="${currentProblem}"]`).classList.add('completed');
+      
+    } else {
+      feedback.className = 'feedback error';
+      feedback.textContent = '❌ 不正解。' + prob.hint;
+      
+      // 3秒後重置
+      setTimeout(() => {
+        renderProblem(currentProblem);
+      }, 3000);
+    }
+  }
+
+  // 初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    renderProblem(1);
+    
+    // 題目選擇器
+    document.querySelectorAll('.prob-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.prob-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentProblem = parseInt(btn.dataset.prob);
+        renderProblem(currentProblem);
+      });
+    });
+  });
+</script>

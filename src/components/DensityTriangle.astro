@@ -1,0 +1,521 @@
+---
+// 密度公式三角形 - Week 03
+// ρ = m/V の三変形を視覚的に学ぶ
+---
+
+<div class="density-trainer">
+  <h3>🔺 密度の公式トレーナー</h3>
+  
+  <div class="triangle-container">
+    <div class="formula-triangle">
+      <div class="tri-top" id="triM" data-var="m">
+        <span class="var-label">m</span>
+        <span class="var-name">質量</span>
+      </div>
+      <div class="tri-bottom">
+        <div class="tri-left" id="triRho" data-var="ρ">
+          <span class="var-label">ρ</span>
+          <span class="var-name">密度</span>
+        </div>
+        <div class="tri-right" id="triV" data-var="V">
+          <span class="var-label">V</span>
+          <span class="var-name">体積</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="formula-display" id="formulaDisplay">
+      クリックして求めたい量を選択
+    </div>
+  </div>
+
+  <div class="problem-area">
+    <h4>📝 練習問題</h4>
+    <div class="problem-tabs">
+      <button class="tab-btn active" data-tab="basic">基本</button>
+      <button class="tab-btn" data-tab="trap">⚠️ 陷阱題</button>
+    </div>
+    
+    <div class="problem-content" id="problemContent">
+      <!-- 動態載入 -->
+    </div>
+  </div>
+</div>
+
+<style>
+  .density-trainer {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  .density-trainer h3 {
+    color: #f472b6;
+    margin-bottom: 20px;
+  }
+
+  .triangle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .formula-triangle {
+    position: relative;
+    width: 200px;
+    height: 180px;
+  }
+
+  .tri-top, .tri-left, .tri-right {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+  }
+
+  .tri-top {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border: 3px solid #fcd34d;
+  }
+
+  .tri-left {
+    bottom: 0;
+    left: 10px;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    border: 3px solid #93c5fd;
+  }
+
+  .tri-right {
+    bottom: 0;
+    right: 10px;
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    border: 3px solid #6ee7b7;
+  }
+
+  .tri-top:hover, .tri-left:hover, .tri-right:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  }
+
+  .tri-top.selected { transform: translateX(-50%) scale(1.15); }
+  .tri-left.selected, .tri-right.selected { transform: scale(1.15); }
+
+  .tri-top.selected, .tri-left.selected, .tri-right.selected {
+    box-shadow: 0 0 30px rgba(255,255,255,0.5);
+  }
+
+  .var-label {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #1a1a2e;
+  }
+
+  .var-name {
+    font-size: 0.7em;
+    color: rgba(0,0,0,0.7);
+  }
+
+  /* 連接線 */
+  .formula-triangle::before {
+    content: '';
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    width: 2px;
+    height: 40px;
+    background: rgba(255,255,255,0.3);
+    transform: translateX(-50%);
+  }
+
+  .formula-triangle::after {
+    content: '×';
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 1.5em;
+  }
+
+  .formula-display {
+    margin-top: 20px;
+    padding: 20px 40px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    font-size: 1.5em;
+    color: #fff;
+    font-family: 'Times New Roman', serif;
+    min-width: 200px;
+    text-align: center;
+  }
+
+  .formula-display .highlight {
+    color: #fbbf24;
+    font-weight: bold;
+  }
+
+  .problem-area {
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .problem-area h4 {
+    color: #a78bfa;
+    margin-bottom: 16px;
+  }
+
+  .problem-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .tab-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ccc;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .tab-btn:hover {
+    background: rgba(167,139,250,0.2);
+  }
+
+  .tab-btn.active {
+    background: #a78bfa;
+    color: #000;
+    font-weight: bold;
+  }
+
+  .problem-content {
+    min-height: 200px;
+  }
+
+  .problem-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .problem-text {
+    color: #e2e8f0;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .problem-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .problem-input input {
+    background: rgba(0,0,0,0.3);
+    border: 2px solid #6366f1;
+    border-radius: 8px;
+    padding: 10px 16px;
+    color: #fff;
+    font-size: 1.1em;
+    width: 120px;
+  }
+
+  .problem-input input:focus {
+    outline: none;
+    border-color: #818cf8;
+    box-shadow: 0 0 10px rgba(129,140,248,0.3);
+  }
+
+  .unit-label {
+    color: #94a3b8;
+  }
+
+  .check-btn {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .check-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+  }
+
+  .problem-feedback {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    display: none;
+  }
+
+  .problem-feedback.show {
+    display: block;
+  }
+
+  .problem-feedback.correct {
+    background: rgba(52,211,153,0.2);
+    border: 1px solid #34d399;
+    color: #34d399;
+  }
+
+  .problem-feedback.wrong {
+    background: rgba(248,113,113,0.2);
+    border: 1px solid #f87171;
+    color: #f87171;
+  }
+
+  .trap-warning {
+    background: rgba(251,191,36,0.15);
+    border: 1px solid #fbbf24;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+    color: #fbbf24;
+    font-size: 0.9em;
+  }
+
+  .trap-explanation {
+    background: rgba(96,165,250,0.15);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  .trap-explanation h5 {
+    color: #60a5fa;
+    margin-bottom: 8px;
+  }
+
+  .trap-explanation p {
+    color: #cbd5e1;
+    line-height: 1.6;
+  }
+
+  .emoji-visual {
+    font-size: 2em;
+    text-align: center;
+    margin: 12px 0;
+  }
+</style>
+
+<script>
+  // 基本問題 - 基於實際小測驗
+  const basicProblems = [
+    {
+      id: 1,
+      text: '物体Aの体積が 40 cm³、質量が 200 g である。密度は？',
+      given: { m: 200, V: 40 },
+      find: 'ρ',
+      answer: 5.0,
+      unit: 'g/cm³',
+      formula: 'ρ = m/V = 200/40 = 5.0'
+    },
+    {
+      id: 2,
+      text: '物体Aの密度が 4.0 g/cm³、質量が 200 g である。体積は？',
+      given: { ρ: 4.0, m: 200 },
+      find: 'V',
+      answer: 50,
+      unit: 'cm³',
+      formula: 'V = m/ρ = 200/4.0 = 50'
+    },
+    {
+      id: 3,
+      text: '物体Bの密度が 3.0 g/cm³、質量が 300 g である。体積は？',
+      given: { ρ: 3.0, m: 300 },
+      find: 'V',
+      answer: 100,
+      unit: 'cm³',
+      formula: 'V = m/ρ = 300/3.0 = 100'
+    },
+    {
+      id: 4,
+      text: '物体Bの密度が 3.0 g/cm³、体積が 20 cm³ である。質量は？',
+      given: { ρ: 3.0, V: 20 },
+      find: 'm',
+      answer: 60,
+      unit: 'g',
+      formula: 'm = ρV = 3.0 × 20 = 60'
+    }
+  ];
+
+  // 陷阱題 - 質量vs重量
+  const trapProblems = [
+    {
+      id: 't1',
+      text: '地球上でばねに物体Aを吊るすと 0.24 m 伸びた。ばね定数は 20 N/m。物体Aの質量は？（g = 10 m/s²）',
+      answer: 0.48,
+      unit: 'kg',
+      steps: [
+        'ばねの力: F = kx = 20 × 0.24 = 4.8 N',
+        '重力と釣り合い: W = F = 4.8 N',
+        '質量: m = W/g = 4.8/10 = 0.48 kg'
+      ]
+    },
+    {
+      id: 't2',
+      text: '⚠️ 陷阱題：月面上における物体Aの質量は？（月面の g = 地球の 1/6）',
+      answer: 0.48,
+      unit: 'kg',
+      isTrap: true,
+      wrongAnswer: 0.08,
+      explanation: '質量は場所によって変わらない！重量（重力）だけが変わる。'
+    }
+  ];
+
+  let currentTab = 'basic';
+
+  // 三角形互動
+  function setupTriangle() {
+    const vars = ['triM', 'triRho', 'triV'];
+    const display = document.getElementById('formulaDisplay');
+    
+    vars.forEach(id => {
+      document.getElementById(id).addEventListener('click', function() {
+        // 移除其他選中狀態
+        vars.forEach(v => document.getElementById(v).classList.remove('selected'));
+        this.classList.add('selected');
+        
+        const v = this.dataset.var;
+        let formula = '';
+        
+        switch(v) {
+          case 'm':
+            formula = '<span class="highlight">m</span> = ρ × V';
+            break;
+          case 'ρ':
+            formula = '<span class="highlight">ρ</span> = m ÷ V';
+            break;
+          case 'V':
+            formula = '<span class="highlight">V</span> = m ÷ ρ';
+            break;
+        }
+        
+        display.innerHTML = formula;
+      });
+    });
+  }
+
+  // 渲染問題
+  function renderProblems(tab) {
+    const content = document.getElementById('problemContent');
+    const problems = tab === 'basic' ? basicProblems : trapProblems;
+    
+    let html = '';
+    
+    if (tab === 'trap') {
+      html += `
+        <div class="trap-warning">
+          ⚠️ 注意：這裡有常見的陷阱題！很多學生會答錯。
+        </div>
+      `;
+    }
+    
+    problems.forEach((p, i) => {
+      html += `
+        <div class="problem-card" data-id="${p.id}">
+          <div class="problem-text">${p.text}</div>
+          <div class="problem-input">
+            <input type="number" step="any" id="input-${p.id}" placeholder="答え">
+            <span class="unit-label">${p.unit}</span>
+            <button class="check-btn" onclick="checkProblem('${p.id}', ${tab === 'trap'})">確認</button>
+          </div>
+          <div class="problem-feedback" id="feedback-${p.id}"></div>
+        </div>
+      `;
+    });
+    
+    if (tab === 'trap') {
+      html += `
+        <div class="trap-explanation">
+          <h5>💡 質量と重量の違い</h5>
+          <div class="emoji-visual">
+            🌍 地球: 60kg → ⚖️ 60kg<br>
+            🌙 月面: 60kg → ⚖️ 10kg (表示)
+          </div>
+          <p><strong>質量 (mass)</strong>：物体に含まれる物質の量。場所によって変わらない。「肉の量」</p>
+          <p><strong>重量 (weight)</strong>：重力による力。場所によって変わる。「引っ張られる力」</p>
+          <p style="color:#fbbf24;margin-top:12px">⚠️ 月面でも質量は同じ！体重計の表示が変わるだけ！</p>
+        </div>
+      `;
+    }
+    
+    content.innerHTML = html;
+  }
+
+  // 檢查答案
+  window.checkProblem = function(id, isTrapTab) {
+    const input = document.getElementById(`input-${id}`);
+    const feedback = document.getElementById(`feedback-${id}`);
+    const userAnswer = parseFloat(input.value);
+    
+    const problems = isTrapTab ? trapProblems : basicProblems;
+    const problem = problems.find(p => p.id === id || p.id === parseInt(id));
+    
+    if (!problem) return;
+    
+    feedback.classList.add('show');
+    
+    // 檢查是否是陷阱題的錯誤答案
+    if (problem.isTrap && Math.abs(userAnswer - problem.wrongAnswer) < 0.01) {
+      feedback.className = 'problem-feedback show wrong';
+      feedback.innerHTML = `
+        ❌ 陷阱にかかった！<br>
+        ${problem.explanation}<br>
+        <strong>正解: ${problem.answer} ${problem.unit}</strong>
+      `;
+      return;
+    }
+    
+    if (Math.abs(userAnswer - problem.answer) < 0.01) {
+      feedback.className = 'problem-feedback show correct';
+      if (problem.formula) {
+        feedback.innerHTML = `✅ 正解！<br>計算: ${problem.formula}`;
+      } else if (problem.steps) {
+        feedback.innerHTML = `✅ 正解！<br>${problem.steps.join('<br>')}`;
+      } else {
+        feedback.innerHTML = '✅ 正解！';
+      }
+    } else {
+      feedback.className = 'problem-feedback show wrong';
+      feedback.innerHTML = `❌ 不正解。正解は ${problem.answer} ${problem.unit}`;
+    }
+  };
+
+  // 初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    setupTriangle();
+    renderProblems('basic');
+    
+    // Tab 切換
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTab = btn.dataset.tab;
+        renderProblems(currentTab);
+      });
+    });
+  });
+</script>
