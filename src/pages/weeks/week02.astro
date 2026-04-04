@@ -20,25 +20,51 @@ import QuizCard from '../../components/QuizCard.astro';
     </div>
 
     <h3>SI基本単位（この授業で使う3つ）</h3>
-    <div class="unit-cards">
-      <div class="unit-card">
-        <div class="unit-icon">📏</div>
-        <div class="unit-name">長さ</div>
-        <div class="unit-symbol">m</div>
-        <div class="unit-label">メートル</div>
+    <div class="unit-cards-small">
+      <div class="unit-card-sm">
+        <span class="unit-sym">m</span>
+        <span class="unit-desc">長さ（メートル）</span>
       </div>
-      <div class="unit-card">
-        <div class="unit-icon">⚖️</div>
-        <div class="unit-name">質量</div>
-        <div class="unit-symbol">kg</div>
-        <div class="unit-label">キログラム</div>
+      <div class="unit-card-sm">
+        <span class="unit-sym">kg</span>
+        <span class="unit-desc">質量（キログラム）</span>
       </div>
-      <div class="unit-card">
-        <div class="unit-icon">⏱️</div>
-        <div class="unit-name">時間</div>
-        <div class="unit-symbol">s</div>
-        <div class="unit-label">秒</div>
+      <div class="unit-card-sm">
+        <span class="unit-sym">s</span>
+        <span class="unit-desc">時間（秒）</span>
       </div>
+    </div>
+
+    <div class="unit-systems">
+      <h4>📊 単位系の比較</h4>
+      <table class="systems-table">
+        <tr>
+          <th></th>
+          <th>SI (MKS)</th>
+          <th>CGS</th>
+        </tr>
+        <tr>
+          <td>長さ</td>
+          <td><strong>m</strong></td>
+          <td>cm</td>
+        </tr>
+        <tr>
+          <td>質量</td>
+          <td><strong>kg</strong></td>
+          <td>g</td>
+        </tr>
+        <tr>
+          <td>時間</td>
+          <td><strong>s</strong></td>
+          <td>s</td>
+        </tr>
+        <tr>
+          <td>力</td>
+          <td><strong>N</strong> (= kg·m/s²)</td>
+          <td>dyn (= g·cm/s²)</td>
+        </tr>
+      </table>
+      <p class="note-text">⚠️ 物理では必ず <strong>SI単位</strong> に換算してから計算する！</p>
     </div>
   </section>
 
@@ -406,24 +432,101 @@ import QuizCard from '../../components/QuizCard.astro';
     />
   </section>
 
-  <!-- ===== Section 9: 総合チャレンジ ===== -->
-  <section class="content-section exercise-section challenge-section">
-    <h2>🏆 総合チャレンジ</h2>
-    <p class="section-desc">ここまでの知識を総動員！</p>
+  <!-- ===== Section 9: CGS → SI 変換 ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習 Level 5：CGS単位 → SI単位</h2>
+    <p class="section-desc">力の単位：1 N = 1 kg·m/s²、1 dyn = 1 g·cm/s²</p>
+
+    <div class="info-box">
+      <strong>💡 CGS → SI の換算</strong>
+      <p>力の場合：g·cm/s² → kg·m/s² (= N)</p>
+      <ul>
+        <li>g → kg: × 10⁻³</li>
+        <li>cm → m: × 10⁻²</li>
+        <li>合計: × 10⁻³ × 10⁻² = × 10⁻⁵</li>
+      </ul>
+      <p>∴ <strong>1 dyn = 10⁻⁵ N</strong></p>
+    </div>
 
     <QuizCard 
       id="15"
-      question="4.5 mg/mm³"
-      answer="4500"
-      answerUnit="kg/m³"
+      question="1.0 × 10² g·cm/s²"
+      answer="1.0 × 10⁻³"
+      answerUnit="N"
       steps={[
-        "分子：4.5 mg = 4.5 × 10⁻⁶ kg",
-        "分母：1 mm³ = (10⁻³)³ = 10⁻⁹ m³",
-        "(4.5 × 10⁻⁶) ÷ (10⁻⁹)",
-        "= 4.5 × 10⁻⁶⁺⁹ = 4.5 × 10³",
-        "= <strong>4500 kg/m³</strong>"
+        "g·cm/s² → kg·m/s² (= N) に変換",
+        "g → kg: × 10⁻³",
+        "cm → m: × 10⁻²",
+        "1.0 × 10² × 10⁻³ × 10⁻² = 1.0 × 10² × 10⁻⁵",
+        "= <strong>1.0 × 10⁻³ N</strong>"
       ]}
-      hint="実は mg/mm³ と g/cm³ は同じ数値になる！"
+      hint="1 dyn (ダイン) = 10⁻⁵ N"
+    />
+  </section>
+
+  <!-- ===== Section 10: 計算問題（総合応用） ===== -->
+  <section class="content-section exercise-section challenge-section">
+    <h2>🧮 計算問題（小テスト形式）</h2>
+    <p class="section-desc">単位換算を使った実践問題！まず単位を揃えてから計算</p>
+
+    <QuizCard 
+      id="16"
+      question="直方体（5 mm × 1 cm × 2×10⁻³ m）の体積"
+      answer="100"
+      answerUnit="mm³"
+      steps={[
+        "まず全部 mm に統一する",
+        "5 mm = 5 mm ✓",
+        "1 cm = 10 mm",
+        "2×10⁻³ m = 2 mm",
+        "体積 = 5 × 10 × 2 = <strong>100 mm³</strong>"
+      ]}
+      hint="単位を揃えてから掛け算！"
+    />
+
+    <QuizCard 
+      id="17"
+      question="円柱（体積 2 cm³、高さ 50 mm）の断面積"
+      answer="40"
+      answerUnit="mm²"
+      steps={[
+        "V = S × h より、S = V / h",
+        "単位を mm に統一：",
+        "2 cm³ = 2 × 10³ mm³ = 2000 mm³",
+        "50 mm = 50 mm",
+        "S = 2000 ÷ 50 = <strong>40 mm²</strong>"
+      ]}
+      hint="体積 = 断面積 × 高さ"
+    />
+
+    <QuizCard 
+      id="18"
+      question="10 km/h で 18 秒間走った距離"
+      answer="50"
+      answerUnit="m"
+      steps={[
+        "まず速度を m/s に換算",
+        "10 km/h = 10 × 1000 m / 3600 s",
+        "= 10000/3600 ≈ 2.78 m/s",
+        "（または 10 ÷ 3.6 ≈ 2.78 m/s）",
+        "距離 = 速度 × 時間 = 2.78 × 18 ≈ <strong>50 m</strong>"
+      ]}
+      hint="km/h → m/s は ÷3.6"
+    />
+
+    <QuizCard 
+      id="19"
+      question="問16の直方体（質量 5×10² mg）の密度"
+      answer="5"
+      answerUnit="g/cm³"
+      steps={[
+        "ρ = m / V",
+        "質量：5×10² mg = 0.5 g",
+        "体積：100 mm³ = 0.1 cm³",
+        "（1 cm³ = 10³ mm³ より）",
+        "ρ = 0.5 / 0.1 = <strong>5 g/cm³</strong>"
+      ]}
+      hint="密度 = 質量 ÷ 体積"
     />
   </section>
 
@@ -510,7 +613,99 @@ import QuizCard from '../../components/QuizCard.astro';
     font-weight: 700;
   }
 
-  /* ===== 単位カード ===== */
+  /* ===== 単位カード（小型版） ===== */
+  .unit-cards-small {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .unit-card-sm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #eff6ff;
+    border: 1px solid #93c5fd;
+    border-radius: 8px;
+    padding: 10px 16px;
+  }
+
+  .unit-sym {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    min-width: 40px;
+  }
+
+  .unit-desc {
+    font-size: 0.9rem;
+    color: #475569;
+  }
+
+  /* ===== 単位系比較表 ===== */
+  .unit-systems {
+    margin: 20px 0;
+    padding: 16px;
+    background: #f8fafc;
+    border-radius: 10px;
+  }
+
+  .unit-systems h4 {
+    margin: 0 0 12px 0;
+    color: #334155;
+  }
+
+  .systems-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .systems-table th, .systems-table td {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+  }
+
+  .systems-table th {
+    background: #e2e8f0;
+    font-weight: 600;
+  }
+
+  .systems-table td:first-child {
+    background: #f1f5f9;
+    font-weight: 500;
+  }
+
+  .note-text {
+    margin: 12px 0 0 0;
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+
+  /* ===== 情報ボックス ===== */
+  .info-box {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+  }
+
+  .info-box p {
+    margin: 8px 0;
+  }
+
+  .info-box ul {
+    margin: 8px 0 8px 20px;
+  }
+
+  .info-box li {
+    margin: 4px 0;
+  }
+
+  /* ===== 旧単位カード（使わない） ===== */
   .unit-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
