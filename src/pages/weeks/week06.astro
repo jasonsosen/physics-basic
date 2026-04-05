@@ -164,6 +164,95 @@ import Math from '../../components/Math.astro';
     />
   </section>
 
+  <!-- ===== 総合問題（試験形式） ===== -->
+  <section class="content-section exam-section">
+    <h2>📝 総合問題（試験形式）</h2>
+    <p class="section-desc">試験に出る形式の問題。<strong>式を立てて</strong>から計算しよう！</p>
+
+    <div class="exam-problem">
+      <div class="problem-header">
+        <span class="problem-num">総合1</span>
+        <span class="problem-topic">張力のつり合い</span>
+      </div>
+      <div class="problem-body">
+        <p>質量 <Math f="m" /> [kg] の物体を図のように2方向から糸で引っ張って吊るしたところ、物体は静止した。糸1は鉛直方向から30°、糸2は鉛直方向から60°の角度をなしている。糸1と糸2の張力の大きさをそれぞれ <Math f="T_1" /> [N], <Math f="T_2" /> [N]、重力加速度の大きさを <Math f="g" /> [m/s²] とする。</p>
+        <div class="problem-questions">
+          <p><strong>(1)</strong> 鉛直方向の力のつりあいの式を示しなさい。</p>
+          <p><strong>(2)</strong> 水平方向の力のつりあいの式を示しなさい。</p>
+          <p><strong>(3)</strong> 糸1の張力 <Math f="T_1" /> を <Math f="m" /> と <Math f="g" /> を用いて表しなさい。</p>
+          <p><strong>(4)</strong> 糸2の張力 <Math f="T_2" /> を <Math f="m" /> と <Math f="g" /> を用いて表しなさい。</p>
+        </div>
+      </div>
+      <details class="solution-details">
+        <summary>💡 解答を見る</summary>
+        <div class="solution-content">
+          <p><strong>(1)</strong> <Math f="T_1 \cos 30° + T_2 \cos 60° = mg" /></p>
+          <p><strong>(2)</strong> <Math f="T_1 \sin 30° = T_2 \sin 60°" /></p>
+          <p><strong>(3)</strong> (2)より <Math f="T_1 = \sqrt{3} T_2" />、これを(1)に代入：</p>
+          <p class="indent"><Math f="\sqrt{3} T_2 \cdot \frac{\sqrt{3}}{2} + T_2 \cdot \frac{1}{2} = mg" /></p>
+          <p class="indent"><Math f="\frac{3}{2} T_2 + \frac{1}{2} T_2 = mg" /> → <Math f="2 T_2 = mg" /> → <Math f="T_2 = \frac{mg}{2}" /></p>
+          <p class="indent">よって <Math f="T_1 = \sqrt{3} T_2 = \boxed{\frac{\sqrt{3}}{2} mg}" /></p>
+          <p><strong>(4)</strong> <Math f="T_2 = \boxed{\frac{1}{2} mg}" /></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="exam-problem">
+      <div class="problem-header">
+        <span class="problem-num">総合2</span>
+        <span class="problem-topic">ばねの直列接続</span>
+      </div>
+      <div class="problem-body">
+        <p>ばね1、ばね2のばね定数をそれぞれ <Math f="k_1" /> [N/m], <Math f="k_2" /> [N/m] とする。ばね1とばね2を直列につなぎ、質量 <Math f="m" /> [kg] の物体を吊るしたとき、ばね1は <Math f="x_1" /> [m]、ばね2は <Math f="x_2" /> [m] 伸びて静止した。重力加速度を <Math f="g" /> [m/s²] とし、ばねの質量は無視する。</p>
+        <div class="problem-questions">
+          <p><strong>(1)</strong> ばね全体の伸び <Math f="x" /> [m] を求めなさい。</p>
+          <p><strong>(2)</strong> それぞれのばねに働く弾性力 <Math f="F_1, F_2" /> を <Math f="m, g" /> で表しなさい。</p>
+          <p><strong>(3)</strong> 合成ばねのばね定数 <Math f="k" /> と <Math f="k_1, k_2" /> の関係式を示しなさい。</p>
+          <p><strong>(4)</strong> <Math f="k_1 = 100" /> N/m, <Math f="k_2 = 200" /> N/m のとき、<Math f="k" /> を求めなさい。</p>
+        </div>
+      </div>
+      <details class="solution-details">
+        <summary>💡 解答を見る</summary>
+        <div class="solution-content">
+          <p><strong>(1)</strong> <Math f="x = x_1 + x_2" /></p>
+          <p><strong>(2)</strong> 直列なので各ばねには同じ力が作用：<Math f="F_1 = F_2 = mg" /></p>
+          <p><strong>(3)</strong> <Math f="x = x_1 + x_2 = \frac{F}{k_1} + \frac{F}{k_2} = F \left( \frac{1}{k_1} + \frac{1}{k_2} \right)" /></p>
+          <p class="indent">合成ばねでは <Math f="x = \frac{F}{k}" /> なので：</p>
+          <p class="indent"><Math f="\boxed{\frac{1}{k} = \frac{1}{k_1} + \frac{1}{k_2}}" /></p>
+          <p><strong>(4)</strong> <Math f="\frac{1}{k} = \frac{1}{100} + \frac{1}{200} = \frac{2 + 1}{200} = \frac{3}{200}" /></p>
+          <p class="indent"><Math f="k = \frac{200}{3} \approx \boxed{66.7 \text{ N/m}}" /></p>
+        </div>
+      </details>
+    </div>
+
+    <div class="exam-problem">
+      <div class="problem-header">
+        <span class="problem-num">総合3</span>
+        <span class="problem-topic">定滑車と運動方程式</span>
+      </div>
+      <div class="problem-body">
+        <p>図のように定滑車の両側に質量 <Math f="m_1 = 6" /> kg の物体1と質量 <Math f="m_2" /> kg の物体2が、軽くて伸びない糸で吊るされている。ただし <Math f="m_1 > m_2" /> とする。このとき、物体1, 2と糸は一体となって、加速度 <Math f="a = 2" /> m/s² で運動を始めた。重力加速度 <Math f="g = 10" /> m/s² とする。</p>
+        <div class="problem-questions">
+          <p><strong>(1)</strong> 物体1, 2それぞれの運動方程式を示しなさい（張力を <Math f="T" /> とする）。</p>
+          <p><strong>(2)</strong> <Math f="m_2" /> [kg] を求めなさい。</p>
+          <p><strong>(3)</strong> 物体1が運動を始めてから4秒後に地面にぶつかった。物体1と地面の距離 <Math f="h" /> [m] を求めなさい。</p>
+        </div>
+      </div>
+      <details class="solution-details">
+        <summary>💡 解答を見る</summary>
+        <div class="solution-content">
+          <p><strong>(1)</strong> 物体1（下向き正）：<Math f="m_1 a = m_1 g - T" /></p>
+          <p class="indent">物体2（上向き正）：<Math f="m_2 a = T - m_2 g" /></p>
+          <p><strong>(2)</strong> 2式を加えると：<Math f="(m_1 + m_2) a = (m_1 - m_2) g" /></p>
+          <p class="indent"><Math f="(6 + m_2) \times 2 = (6 - m_2) \times 10" /></p>
+          <p class="indent"><Math f="12 + 2m_2 = 60 - 10m_2" /></p>
+          <p class="indent"><Math f="12m_2 = 48" /> → <Math f="m_2 = \boxed{4 \text{ kg}}" /></p>
+          <p><strong>(3)</strong> 等加速度運動：<Math f="h = \frac{1}{2} a t^2 = \frac{1}{2} \times 2 \times 4^2 = \boxed{16 \text{ m}}" /></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
   <!-- ===== まとめ ===== -->
   <section class="content-section summary-section">
     <h2>📝 今日のまとめ</h2>
@@ -215,4 +304,22 @@ import Math from '../../components/Math.astro';
   .nav-btn:not(.secondary):hover { background: #2563eb; }
   .nav-btn.secondary { background: #f1f5f9; color: #475569; }
   .nav-btn.secondary:hover { background: #e2e8f0; }
+  
+  /* 総合問題スタイル */
+  .exam-section { background: #fffbeb; border: 2px solid #f59e0b; }
+  .exam-section h2 { border-color: #f59e0b; color: #b45309; }
+  .section-desc { color: #78716c; margin-bottom: 24px; }
+  .exam-problem { background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .problem-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .problem-num { background: #f59e0b; color: white; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
+  .problem-topic { color: #78716c; font-size: 0.9rem; }
+  .problem-body p { margin: 12px 0; line-height: 1.8; }
+  .problem-questions { background: #f9fafb; border-radius: 8px; padding: 16px; margin-top: 16px; }
+  .problem-questions p { margin: 8px 0; }
+  .solution-details { margin-top: 16px; }
+  .solution-details summary { cursor: pointer; color: #3b82f6; font-weight: 600; padding: 8px 0; }
+  .solution-details summary:hover { color: #2563eb; }
+  .solution-content { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 16px; margin-top: 8px; }
+  .solution-content p { margin: 8px 0; line-height: 1.8; }
+  .solution-content .indent { margin-left: 24px; }
 </style>
