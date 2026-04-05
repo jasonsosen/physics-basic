@@ -128,41 +128,84 @@ import Math from '../../components/Math.astro';
       </section>
     </div>
 
-    <!-- ========== 題目タブ ========== -->
+    <!-- ========== 練習問題タブ ========== -->
     <div slot="problems">
-      <!-- Level 1: 密度 -->
+      <!-- 基礎問題（厳選4問） -->
       <section class="content-section exercise-section">
-        <h2>✏️ Level 1：密度の計算</h2>
-        <QuizCard id="1" question="質量 500 g、体積 100 cm³ の物体の密度" answer="5.0" answerUnit="g/cm³" steps={["ρ = m/V = 500 ÷ 100 = 5.0 g/cm³"]} />
-        <QuizCard id="2" question="密度 2.5 g/cm³、体積 20 cm³ の物体の質量" answer="50" answerUnit="g" steps={["m = ρV = 2.5 × 20 = 50 g"]} />
-        <QuizCard id="3" question="密度 7.8 g/cm³、質量 39 g の金属の体積" answer="5.0" answerUnit="cm³" steps={["V = m/ρ = 39 ÷ 7.8 = 5.0 cm³"]} />
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+
+        <QuizCard id="1" question="長さ 500 mm、幅 20 mm、高さ 10 mm の直方体の体積は何 cm³？" answer="100" answerUnit="cm³" steps={["まず mm → cm に換算（÷10）", "50 cm × 2 cm × 1 cm = 100 cm³"]} hint="⚠️ 単位換算の陷阱！mm³ ではなく cm³ で答える" />
+
+        <QuizCard id="2" question="質量 250 g のリンゴの重力は？（g = 10 m/s²）" answer="2.5" answerUnit="N" steps={["g → kg に換算：250 g = 0.25 kg", "W = mg = 0.25 × 10 = 2.5 N"]} hint="g → kg に換算してから計算！" />
+
+        <QuizCard id="3" question="バネ定数 k = 20 N/m のバネに物体を吊るしたら 30 cm 伸びた。物体の重力は？" answer="6" answerUnit="N" steps={["cm → m に換算：30 cm = 0.3 m", "F = kx = 20 × 0.3 = 6 N"]} hint="⚠️ cm → m に換算！" />
+
+        <QuizCard id="4" question="問3のバネと物体を月に持っていくと、伸びは何 m？（月の g は地球の 1/6）" answer="0.05" answerUnit="m" steps={["月での重力 = 6 ÷ 6 = 1 N", "x = F/k = 1 ÷ 20 = 0.05 m"]} hint="バネ定数 k は場所で変わらない！" />
       </section>
 
-      <!-- Level 2: 重力 -->
-      <section class="content-section exercise-section">
-        <h2>✏️ Level 2：重力の計算</h2>
-        <QuizCard id="4" question="質量 5 kg の物体の重力（g = 10）" answer="50" answerUnit="N" steps={["W = mg = 5 × 10 = 50 N"]} />
-        <QuizCard id="5" question="質量 200 g のリンゴの重力（g = 10）" answer="2" answerUnit="N" steps={["200 g = 0.2 kg", "W = 0.2 × 10 = 2 N"]} hint="g → kg に換算！" />
-        <QuizCard id="6" question="月で重さが 10 N の物体、地球での重さ" answer="60" answerUnit="N" steps={["地球 = 月 × 6 = 10 × 6 = 60 N"]} />
-        <QuizCard id="7" question="重力 30 N を受けている物体の質量（g = 10）" answer="3" answerUnit="kg" steps={["m = W/g = 30 ÷ 10 = 3 kg"]} />
-      </section>
-
-      <!-- 陷阱チェック -->
+      <!-- 陷阱問題 -->
       <section class="content-section exercise-section trap-section">
-        <h2>🚨 陷阱チェック：質量 vs 重さ</h2>
-        <p class="section-desc">間違える人が本当に多い！</p>
-        <QuizCard id="8" question="宇宙飛行士の地球での質量は 72 kg。月に行ったら質量は？" answer="72" answerUnit="kg" steps={["質量は場所で変わらない！", "答え：72 kg（同じ）"]} hint="陷阱注意！" />
-        <QuizCard id="9" question="地球で 600 N の重力を受ける人、月での重力は？" answer="100" answerUnit="N" steps={["月 = 地球 ÷ 6 = 600 ÷ 6 = 100 N"]} />
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">期末試験で最も間違えやすい問題！</p>
+
+        <QuizCard id="5" question="問3の物体を月に持っていったら、質量はどうなる？" answer="変わらない" answerUnit="" steps={["🚨 これが最大の陷阱！", "質量は物体固有の性質 → 場所で変わらない", "変わるのは「重力（重さ）」だけ！"]} hint="質量 ≠ 重さ を絶対に混同しない！" />
       </section>
 
-      <!-- Level 3: バネ -->
-      <section class="content-section exercise-section">
-        <h2>✏️ Level 3：バネの計算</h2>
-        <QuizCard id="10" question="バネ定数 50 N/m のバネが 0.2 m 伸びた時の弾性力" answer="10" answerUnit="N" steps={["F = kx = 50 × 0.2 = 10 N"]} />
-        <QuizCard id="11" question="バネ定数 25 N/m のバネに物体を吊るしたら 0.24 m 伸びた。物体の重力は？" answer="6" answerUnit="N" steps={["F = kx = 25 × 0.24 = 6 N"]} />
-        <QuizCard id="12" question="問11のバネと物体を月に持っていくと、伸びは？" answer="0.04" answerUnit="m" steps={["月での重力 = 6 ÷ 6 = 1 N", "x = F/k = 1 ÷ 25 = 0.04 m"]} hint="k は変わらない！" />
-        <QuizCard id="13" question="問11の物体の質量は？（g = 10）" answer="0.6" answerUnit="kg" steps={["m = W/g = 6 ÷ 10 = 0.6 kg"]} />
-        <QuizCard id="14" question="問11の物体を月に持っていった時の質量は？" answer="0.6" answerUnit="kg" steps={["質量は変わらない！0.6 kg"]} hint="また陷阱！" />
+      <!-- 総合問題（試験形式） -->
+      <section class="content-section exam-section">
+        <h2>📝 総合問題（試験形式）</h2>
+        <p class="section-desc">文字式で答える練習。期末試験はこの形式！</p>
+
+        <div class="exam-problem">
+          <div class="problem-header">
+            <span class="problem-num">総合1</span>
+            <span class="problem-topic">密度・質量・バネの融合</span>
+          </div>
+          <div class="problem-body">
+            <p>密度 <Math f="\\rho" /> [g/cm³]、体積 <Math f="V" /> [cm³] の実心物体を、バネ定数 <Math f="k" /> [N/m] の軽いバネに吊るしたところ、静止した。重力加速度を <Math f="g" /> [m/s²] とする。</p>
+            <div class="problem-questions">
+              <p><strong>(1)</strong> この物体の質量 <Math f="m" /> [kg] を <Math f="\\rho, V" /> で表しなさい。</p>
+              <p><strong>(2)</strong> バネの伸び <Math f="\\Delta x" /> [m] を <Math f="\\rho, V, k, g" /> で表しなさい。</p>
+            </div>
+          </div>
+          <details class="solution-details">
+            <summary>💡 解答を見る</summary>
+            <div class="solution-content">
+              <p><strong>(1)</strong> <Math f="m = \\rho V \\times 10^{-3}" /> kg</p>
+              <p class="indent">（g/cm³ × cm³ = g なので、kg に換算するため 10⁻³ を掛ける）</p>
+              <p><strong>(2)</strong> つり合いより <Math f="k \\Delta x = mg" /></p>
+              <p class="indent"><Math f="\\Delta x = \\frac{mg}{k} = \\frac{\\rho V g \\times 10^{-3}}{k}" /> [m]</p>
+              <p class="indent">または <Math f="\\boxed{\\Delta x = \\frac{\\rho V g}{1000k}}" /></p>
+            </div>
+          </details>
+        </div>
+
+        <div class="exam-problem">
+          <div class="problem-header">
+            <span class="problem-num">総合2</span>
+            <span class="problem-topic">地球と月の比較</span>
+          </div>
+          <div class="problem-body">
+            <p>質量 <Math f="m" /> [kg] の物体を地球（重力加速度 <Math f="g" />）でバネに吊るしたら伸びが <Math f="x_1" /> だった。同じ物体とバネを月（重力加速度 <Math f="g/6" />）に持っていったら伸びが <Math f="x_2" /> になった。</p>
+            <div class="problem-questions">
+              <p><strong>(1)</strong> 地球でのつり合いの式を書きなさい。</p>
+              <p><strong>(2)</strong> 月でのつり合いの式を書きなさい。</p>
+              <p><strong>(3)</strong> <Math f="x_1" /> と <Math f="x_2" /> の比を求めなさい。</p>
+            </div>
+          </div>
+          <details class="solution-details">
+            <summary>💡 解答を見る</summary>
+            <div class="solution-content">
+              <p><strong>(1)</strong> <Math f="kx_1 = mg" /></p>
+              <p><strong>(2)</strong> <Math f="kx_2 = m \\cdot \\frac{g}{6} = \\frac{mg}{6}" /></p>
+              <p><strong>(3)</strong> (1)÷(2) より：</p>
+              <p class="indent"><Math f="\\frac{x_1}{x_2} = \\frac{mg/k}{mg/(6k)} = 6" /></p>
+              <p class="indent">よって <Math f="\\boxed{x_1 : x_2 = 6 : 1}" /></p>
+              <p class="note">💡 質量 m とバネ定数 k は約分されて消える！</p>
+            </div>
+          </details>
+        </div>
       </section>
     </div>
   </TabView>
@@ -226,4 +269,22 @@ import Math from '../../components/Math.astro';
   .nav-btn:not(.secondary):hover { background: #2563eb; }
   .nav-btn.secondary { background: #f1f5f9; color: #475569; }
   .nav-btn.secondary:hover { background: #e2e8f0; }
+  
+  /* 総合問題スタイル */
+  .exam-section { background: #fffbeb; border: 2px solid #f59e0b; }
+  .exam-section h2 { border-color: #f59e0b; color: #b45309; }
+  .exam-problem { background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .problem-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .problem-num { background: #f59e0b; color: white; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
+  .problem-topic { color: #78716c; font-size: 0.9rem; }
+  .problem-body p { margin: 12px 0; line-height: 1.8; }
+  .problem-questions { background: #f9fafb; border-radius: 8px; padding: 16px; margin-top: 16px; }
+  .problem-questions p { margin: 8px 0; }
+  .solution-details { margin-top: 16px; }
+  .solution-details summary { cursor: pointer; color: #3b82f6; font-weight: 600; padding: 8px 0; }
+  .solution-details summary:hover { color: #2563eb; }
+  .solution-content { background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 16px; margin-top: 8px; }
+  .solution-content p { margin: 8px 0; line-height: 1.8; }
+  .solution-content .indent { margin-left: 24px; }
+  .solution-content .note { color: #059669; font-size: 0.9rem; margin-top: 12px; }
 </style>

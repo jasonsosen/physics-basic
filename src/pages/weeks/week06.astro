@@ -72,119 +72,48 @@ import Math from '../../components/Math.astro';
       </section>
     </div>
 
-    <!-- ========== 題目タブ ========== -->
+    <!-- ========== 練習問題タブ ========== -->
     <div slot="problems">
+      <!-- 基礎問題（厳選3問） -->
       <section class="content-section exercise-section">
-        <h2>✏️ 練習問題：張力と弾性力</h2>
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">張力とばねの基本を確認</p>
 
         <QuizCard 
           id="1"
-          question="質量 2.0 kg のおもりを天井から糸で吊るして静止している。張力 T は？ (g = 9.8)"
-          answer="19.6"
+          question="重さ 3.0 N の球を糸で吊るし、水平方向に 4.0 N で引いて静止させた。糸の張力 T は？"
+          answer="5.0"
           answerUnit="N"
           steps={[
-            "つり合いより T = mg",
-            "= 2.0 × 9.8 = 19.6 N"
+            "Tx = 4.0 N（水平）、Ty = 3.0 N（鉛直）",
+            "T = √(Tx² + Ty²) = √(16 + 9) = √25 = 5.0 N"
           ]}
+          hint="3:4:5 の直角三角形！"
         />
 
         <QuizCard 
           id="2"
-          question="重さ 3.0 N の球を糸で吊るし、水平方向に 4.0 N の力で引いて静止させた。糸の張力の水平成分 Tx の大きさは？"
-          answer="4.0"
-          answerUnit="N"
-          steps={[
-            "水平方向のつり合い：Tx = 水平な引力 = 4.0 N"
-          ]}
-        />
-
-        <QuizCard 
-          id="3"
-          question="問2の張力の鉛直成分 Ty の大きさは？"
-          answer="3.0"
-          answerUnit="N"
-          steps={[
-            "鉛直方向のつり合い：Ty = 重力 = 3.0 N"
-          ]}
-        />
-
-        <QuizCard 
-          id="4"
-          question="問2,3から、糸の張力 T の大きさは？"
-          answer="5.0"
-          answerUnit="N"
-          steps={[
-            "T = √(Tx² + Ty²)",
-            "= √(4.0² + 3.0²) = √(16 + 9) = √25",
-            "= 5.0 N"
-          ]}
-        />
-
-        <QuizCard 
-          id="5"
-          question="重力 5 N、水平力 12 N のときの張力 T は？"
-          answer="13"
-          answerUnit="N"
-          steps={[
-            "T = √(5² + 12²) = √(25 + 144) = √169",
-            "= 13 N"
-          ]}
-        />
-
-        <QuizCard 
-          id="6"
-          question="ばね定数 k = 50 N/m のばねを 0.20 m 伸ばした。弾性力 F は？"
-          answer="10"
-          answerUnit="N"
-          steps={[
-            "F = kx = 50 × 0.20 = 10 N"
-          ]}
-        />
-
-        <QuizCard 
-          id="7"
           question="ばね定数 k = 200 N/m のばねを 5.0 cm 縮めた。弾性力 F は？"
           answer="10"
           answerUnit="N"
           steps={[
-            "5.0 cm = 0.05 m に直す！",
+            "⚠️ cm → m に換算：5.0 cm = 0.05 m",
             "F = kx = 200 × 0.05 = 10 N"
           ]}
+          hint="単位換算の陷阱！cm → m"
         />
 
         <QuizCard 
-          id="8"
-          question="あるばねに 20 N の力を加えると、0.40 m 伸びた。ばね定数 k は？"
-          answer="50"
-          answerUnit="N/m"
-          steps={[
-            "F = kx より k = F / x",
-            "k = 20 / 0.40 = 50 N/m"
-          ]}
-        />
-
-        <QuizCard 
-          id="9"
-          question="ばね定数 100 N/m のばねに質量 1.0 kg のおもりを吊るした。ばねの伸び x は何 m？ (g = 9.8)"
-          answer="0.098"
-          answerUnit="m"
-          steps={[
-            "弾性力 = 重力 より kx = mg",
-            "100 × x = 1.0 × 9.8",
-            "x = 9.8 / 100 = 0.098 m (9.8 cm)"
-          ]}
-        />
-
-        <QuizCard 
-          id="10"
-          question="天井から V字型に 2本の同じ糸で質量 m のおもりを吊るし、2本の糸の間の角度が 120° だった。糸1本あたりの張力 T は重力 mg と比べてどうなる？"
+          id="3"
+          question="天井から V字型に 2本の同じ糸で質量 m のおもりを吊るし、糸の間の角度が 120° だった。糸1本の張力 T は重力 mg と比べてどうなる？"
           answer="同じ"
           answerUnit=""
           steps={[
-            "鉛直方向のつり合い：2 × T cos60° = mg",
-            "cos60° = 0.5 なので、2 × T × 0.5 = mg",
-            "T = mg (同じ大きさになる)"
+            "鉛直方向のつり合い：2T cos60° = mg",
+            "cos60° = 0.5 なので、2T × 0.5 = mg",
+            "T = mg（重力と同じ大きさ）"
           ]}
+          hint="角度から cos を使う！"
         />
       </section>
 
