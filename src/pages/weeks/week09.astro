@@ -70,12 +70,11 @@ import Math from '../../components/Math.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== Section 3: 練習問題 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習問題（全10問）</h2>
-
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="t=0 sでx=0 m、t=2 sでx=10 mにある物体の平均の速度は？"
       answer="5"
@@ -87,7 +86,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="t=1 sでx=3 m、t=4 sでx=15 mにある物体の平均の速度は？"
       answer="4"
@@ -98,7 +97,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="3"
       question="t=2 sでx=20 m、t=5 sでx=5 mに移動した。このときの平均の速度は？"
       answer="-5"
@@ -108,8 +107,13 @@ import Math from '../../components/Math.astro';
         "= -15 / 3 = <strong>-5 m/s</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="x-tグラフが原点を通る直線で、t=5 sのときx=25 mである。この直線の傾き（速度）は？"
       answer="5"
@@ -118,74 +122,36 @@ import Math from '../../components/Math.astro';
         "v = 25 / 5 = <strong>5 m/s</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
-      id="5"
-      question="速度 8 m/s で等速直線運動をしている。3秒間に進む距離（変位）は？"
-      answer="24"
-      answerUnit="m"
-      steps={[
-        "Δx = v × Δt",
-        "= 8 × 3 = <strong>24 m</strong>"
-      ]}
-    />
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-    <QuizCard 
-      id="6"
-      question="x-tグラフで、t=2 sからt=6 sまでグラフが水平になっている。この間の速度は？"
-      answer="0"
-      answerUnit="m/s"
-      steps={[
-        "水平なグラフの傾きは 0 なので、速度は <strong>0 m/s</strong>（停止している）"
-      ]}
-    />
-
-    <QuizCard 
-      id="7"
-      question="ある人が東へ 30 m、そこから西へ 10 m 移動した。総変位（東を正とする）は？"
-      answer="20"
-      answerUnit="m"
-      steps={[
-        "東へ30m、西へ10m戻ったので",
-        "変位 = 30 + (-10) = <strong>20 m</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="8"
-      question="問7の移動にかかった総時間が 10 s だった。平均の速度は？"
-      answer="2"
-      answerUnit="m/s"
-      steps={[
-        "v = 総変位 / 総時間",
-        "= 20 / 10 = <strong>2 m/s</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="9"
-      question="平均の速さ（道のり÷時間）を求めよ。問7の移動（東30m→西10m）を10秒で行った場合。"
-      answer="4"
-      answerUnit="m/s"
-      steps={[
-        "総移動距離（道のり） = 30 + 10 = 40 m",
-        "平均の速さ = 40 / 10 = <strong>4 m/s</strong>",
-        "※ 速さは方向を考慮せず、移動距離で計算する。"
-      ]}
-    />
-
-    <QuizCard 
-      id="10"
-      question="x-tグラフの傾きが急なほど、速度の大きさは どうなる？（大きい or 小さい で答えよ）"
-      answer="大きい"
-      answerUnit=""
-      steps={[
-        "傾き = 速度 なので、傾きが急（大きい）ほど速度の大きさも<strong>大きい</strong>。"
-      ]}
-    />
-  </section>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week08/" class="nav-btn secondary">← Week 8</a>

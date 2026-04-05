@@ -82,12 +82,11 @@ import Math from '../../components/Math.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== 練習セクション ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習問題：摩擦力</h2>
-
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="質量 2.0 kg の物体が水平面上に静止している。垂直抗力 N は？ (g = 9.8)"
       answer="19.6"
@@ -98,7 +97,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="問1の物体を 5.0 N の力で水平に引いたが、動かなかった。このときの静止摩擦力は？"
       answer="5.0"
@@ -109,7 +108,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="3"
       question="問1の物体に働く最大静止摩擦力 f_max は？ (静止摩擦係数 μ = 0.50)"
       answer="9.8"
@@ -119,8 +118,13 @@ import Math from '../../components/Math.astro';
         "= 0.50 × 19.6 = 9.8 N"
       ]}
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="問1の物体を 10 N の力で引いた。物体は動くか？ (ヒント: f_max は 9.8 N)"
       answer="動く"
@@ -130,76 +134,36 @@ import Math from '../../components/Math.astro';
         "限界を超えたので動く。"
       ]}
     />
+      </section>
 
-    <QuizCard 
-      id="5"
-      question="動いている物体の動摩擦力 f' は？ (動摩擦係数 μ' = 0.40、垂直抗力 N = 19.6 N)"
-      answer="7.84"
-      answerUnit="N"
-      steps={[
-        "f' = μ'N",
-        "= 0.40 × 19.6 = 7.84 N"
-      ]}
-    />
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-    <QuizCard 
-      id="6"
-      question="質量 5.0 kg の物体を水平面上に置いた。垂直抗力 N は？ (g = 9.8)"
-      answer="49"
-      answerUnit="N"
-      steps={[
-        "N = mg = 5.0 × 9.8 = 49 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="7"
-      question="問6の物体が動き出す直前の引く力は何 N？ (μ = 0.60)"
-      answer="29.4"
-      answerUnit="N"
-      steps={[
-        "動き出す直前 ＝ 最大静止摩擦力",
-        "f_max = μN = 0.60 × 49 = 29.4 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="8"
-      question="問6の物体が動いているときの摩擦力は何 N？ (μ' = 0.50)"
-      answer="24.5"
-      answerUnit="N"
-      steps={[
-        "動摩擦力 f' = μ'N",
-        "= 0.50 × 49 = 24.5 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="9"
-      question="傾角 30° の斜面上にある質量 2.0 kg の物体の垂直抗力 N は？ (g = 9.8, cos30° ≈ 0.87)"
-      answer="17.05"
-      answerUnit="N"
-      steps={[
-        "N = mg cos30°",
-        "= 2.0 × 9.8 × 0.87",
-        "= 19.6 × 0.87 ≈ 17.05 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="10"
-      question="問9の物体に働く動摩擦力 f' は？ (μ' = 0.20)"
-      answer="3.41"
-      answerUnit="N"
-      steps={[
-        "f' = μ'N",
-        "= 0.20 × 17.05 = 3.41 N"
-      ]}
-    />
-
-  </section>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week04/" class="nav-btn secondary">← Week 4</a>

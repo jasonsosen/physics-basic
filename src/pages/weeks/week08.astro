@@ -79,12 +79,11 @@ import Math from '../../components/Math.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== 練習セクション ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習問題：力のモーメント</h2>
-
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="支点から 2.0 m 離れた点に、棒に垂直に 5.0 N の力を加えた。力のモーメントの大きさは？"
       answer="10"
@@ -95,7 +94,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="支点から 0.5 m 離れた点に、棒に垂直に 20 N の力を加えた。力のモーメントの大きさは？"
       answer="10"
@@ -106,7 +105,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="3"
       question="シーソーの左側、支点から 2.0 m の位置に 300 N の子供が乗っている。反時計回りのモーメントは？"
       answer="600"
@@ -116,8 +115,13 @@ import Math from '../../components/Math.astro';
         "M = 300 × 2.0 = 600 N・m"
       ]}
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="問3のシーソーをつり合わせるために、右側で支点から 1.5 m の位置に大人が乗る。大人の重さは何 N 必要？"
       answer="400"
@@ -128,79 +132,36 @@ import Math from '../../components/Math.astro';
         "W = 600 / 1.5 = 400 N"
       ]}
     />
+      </section>
 
-    <QuizCard 
-      id="5"
-      question="長さ 4.0 m、重さ 100 N の一様な棒がある。棒の重力によるモーメントを計算するとき、力(100N)が働くのは端から何 m の位置か？"
-      answer="2.0"
-      answerUnit="m"
-      steps={[
-        "一様な棒の重力は「中心（重心）」に働く。",
-        "長さ 4.0 m の半分なので 2.0 m"
-      ]}
-    />
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-    <QuizCard 
-      id="6"
-      question="ある点を支点としたとき、力 F₁ が腕の長さ 3.0 m で反時計回りに働き、力 F₂=15 N が腕の長さ 2.0 m で時計回りに働く。つり合っているとき F₁ は？"
-      answer="10"
-      answerUnit="N"
-      steps={[
-        "F₁ × 3.0 = 15 × 2.0",
-        "3.0 F₁ = 30",
-        "F₁ = 10 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="7"
-      question="長さ 2.0 m で重さ無視できる棒の両端を下から支え、左端から 0.5 m の位置に 40 N のおもりを置いた。左端の支持力が棒を押し上げる力は何 N？（右端を支点と考えて解いてみよう）"
-      answer="30"
-      answerUnit="N"
-      steps={[
-        "右端を支点とする。",
-        "おもりの力(40N)は支点から 1.5m で反時計回り：40 × 1.5 = 60",
-        "左端の支持力(N_L)は支点から 2.0m で時計回り：N_L × 2.0",
-        "つり合い：N_L × 2.0 = 60  =>  N_L = 30 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="8"
-      question="問7で、右端の支持力は何 N？（力のつり合い ΣF = 0 を使おう）"
-      answer="10"
-      answerUnit="N"
-      steps={[
-        "上向きの力 ＝ 下向きの力",
-        "左端の力(30N) + 右端の力(N_R) = おもりの力(40N)",
-        "N_R = 40 - 30 = 10 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="9"
-      question="力 F が棒に対して 30° の角度で加わっている場合、モーメントの計算で使う「垂直な成分」は F sin30° か F cos30° か？ (sin か cos で答えてね)"
-      answer="sin"
-      answerUnit=""
-      steps={[
-        "棒に対して垂直な成分は F sinθ になります。",
-        "平行な成分(F cosθ)は棒を引っ張るだけで回転させません。"
-      ]}
-    />
-
-    <QuizCard 
-      id="10"
-      question="支点から 4.0 m 離れた点に、棒に対して 30° の角度で斜めに 10 N の力を加えた。力のモーメントは？ (sin30° = 0.5)"
-      answer="20"
-      answerUnit="N・m"
-      steps={[
-        "垂直な力 = 10 × sin30° = 10 × 0.5 = 5.0 N",
-        "M = 5.0 × 4.0 = 20 N・m"
-      ]}
-    />
-  </section>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week07/" class="nav-btn secondary">← Week 7</a>

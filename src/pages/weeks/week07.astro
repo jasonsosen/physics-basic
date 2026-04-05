@@ -65,12 +65,11 @@ import Math from '../../components/Math.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== 練習セクション ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習問題：重心の計算</h2>
-
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="質量 2 kg の物体A が x = 0 に、質量 2 kg の物体B が x = 10 にある。重心の x 座標は？"
       answer="5"
@@ -82,7 +81,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="質量 3 kg の物体A が x = 0 に、質量 1 kg の物体B が x = 8 にある。重心の x 座標は？"
       answer="2"
@@ -95,7 +94,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="3"
       question="質量 1 kg の物体A が x = 2 に、質量 4 kg の物体B が x = 12 にある。重心の x 座標は？"
       answer="10"
@@ -106,8 +105,13 @@ import Math from '../../components/Math.astro';
         "= 50 / 5 = 10"
       ]}
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="質量 m₁ = 5 kg (x₁ = 0)、質量 m₂ = 5 kg (x₂ = 6)。重心は？"
       answer="3"
@@ -116,73 +120,36 @@ import Math from '../../components/Math.astro';
         "質量が同じなので中点。 6 / 2 = 3"
       ]}
     />
+      </section>
 
-    <QuizCard 
-      id="5"
-      question="質量 m₁ = 4 kg (x₁ = 0)、質量 m₂ = 2 kg (x₂ = 9)。重心は？"
-      answer="3"
-      answerUnit=""
-      steps={[
-        "x_G = (4×0 + 2×9) / (4 + 2) = 18 / 6 = 3"
-      ]}
-    />
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-    <QuizCard 
-      id="6"
-      question="均質な長さ 10 m の棒の重心は、端から何 m の位置にある？"
-      answer="5"
-      answerUnit="m"
-      steps={[
-        "均質な物体の重心は、その図形的な中心にある。",
-        "10 m の半分で 5 m。"
-      ]}
-    />
-
-    <QuizCard 
-      id="7"
-      question="質量 2m の物体が x = 0 に、質量 m の物体が x = L にある。重心の位置は x = 何 L？"
-      answer="1/3"
-      answerUnit="L"
-      steps={[
-        "x_G = (2m×0 + m×L) / (2m + m)",
-        "= mL / 3m = 1/3 L"
-      ]}
-    />
-
-    <QuizCard 
-      id="8"
-      question="重心を求める際、質量の比が 2:3 だった場合、重心からそれぞれの物体までの距離の比は？ (m₁から:m₂から)"
-      answer="3:2"
-      answerUnit=""
-      steps={[
-        "質量の比の「逆比」になるので 3:2"
-      ]}
-    />
-
-    <QuizCard 
-      id="9"
-      question="y座標についても同様。質量 1 kg が y=0, 質量 3 kg が y=4 にある。重心の y 座標は？"
-      answer="3"
-      answerUnit=""
-      steps={[
-        "y_G = (1×0 + 3×4) / (1 + 3) = 12 / 4 = 3"
-      ]}
-    />
-
-    <QuizCard 
-      id="10"
-      question="(x, y) 座標で考える。質量 2 kg が (0,0)、質量 2 kg が (4, 6) にある。重心の座標 (x, y) は？ (半角カンマ区切り、括弧なしで答えてね 例: 2, 3)"
-      answer="2, 3"
-      answerUnit=""
-      steps={[
-        "質量が同じなので、それぞれの座標の中点。",
-        "x: (0+4)/2 = 2",
-        "y: (0+6)/2 = 3"
-      ]}
-    />
-  </section>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week06/" class="nav-btn secondary">← Week 6</a>

@@ -59,12 +59,11 @@ import Math from '../../components/Math.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== Section 3: 練習問題 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習問題（全11問）</h2>
-
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="質量 2.0 kg の物体に 10 N の力を加えた。加速度は？"
       answer="5.0"
@@ -75,7 +74,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="質量 5.0 kg の物体が 3.0 m/s² で加速している。加わっている力は？"
       answer="15"
@@ -86,7 +85,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="3"
       question="物体に 20 N の力を加えると 4.0 m/s² で加速した。物体の質量は？"
       answer="5.0"
@@ -96,8 +95,13 @@ import Math from '../../components/Math.astro';
         "= 20 / 4.0 = <strong>5.0 kg</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="右向きに 15 N、左向きに 5 N の力が加わっている質量 2.0 kg の物体の加速度は？"
       answer="5.0"
@@ -107,87 +111,36 @@ import Math from '../../components/Math.astro';
         "a = F / m = 10 / 2.0 = <strong>5.0 m/s²</strong>（右向き）"
       ]}
     />
+      </section>
 
-    <QuizCard 
-      id="5"
-      question="摩擦のない水平面上で質量 m kg の物体を F N で引くとき、加速度 a を表す式は？"
-      answer="F/m"
-      answerUnit=""
-      steps={[
-        "運動方程式 ma = F より、",
-        "a = <strong>F/m</strong>"
-      ]}
-    />
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-    <QuizCard 
-      id="6"
-      question="傾角 30° の摩擦のない斜面を滑り降りる物体の加速度は？（重力加速度 g=9.8 m/s² とする）"
-      answer="4.9"
-      answerUnit="m/s²"
-      steps={[
-        "a = g sin 30°",
-        "= 9.8 × 0.5 = <strong>4.9 m/s²</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="7"
-      question="傾角 30° の摩擦のない斜面に質量 2.0 kg の物体を置いた。斜面下向きに働く力は？（g=9.8 m/s²）"
-      answer="9.8"
-      answerUnit="N"
-      steps={[
-        "F = mg sin 30°",
-        "= 2.0 × 9.8 × 0.5 = <strong>9.8 N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="8"
-      question="問7の物体の加速度は？"
-      answer="4.9"
-      answerUnit="m/s²"
-      steps={[
-        "a = F / m = 9.8 / 2.0 = <strong>4.9 m/s²</strong>",
-        "（または a = g sin 30° = 9.8 × 0.5 = 4.9）"
-      ]}
-    />
-
-    <QuizCard 
-      id="9"
-      question="傾角 45° の斜面を滑る物体の加速度は？（g=9.8、sin 45°≒0.71）"
-      answer="7.0"
-      answerUnit="m/s²"
-      steps={[
-        "a = g sin 45°",
-        "= 9.8 × 0.71 ≒ <strong>7.0 m/s²</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="10"
-      question="質量 10 kg の物体に重力以外の力が働かず、落下している。加速度は？（g=9.8）"
-      answer="9.8"
-      answerUnit="m/s²"
-      steps={[
-        "重力のみが働くので、加速度は重力加速度 g と同じ。",
-        "<strong>9.8 m/s²</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="11"
-      question="質量 m が2倍になったとき、同じ力 F で引いたときの加速度はどうなる？"
-      answer="半分"
-      answerUnit="になる"
-      steps={[
-        "a = F / m",
-        "m が2倍になると分母が2倍になるため、加速度は<strong>半分（1/2倍）</strong>になる。"
-      ]}
-    />
-
-  </section>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week09/" class="nav-btn secondary">← Week 9</a>

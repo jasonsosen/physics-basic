@@ -62,13 +62,11 @@ import Math from '../../components/Math.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== Section 3: 練習問題 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習問題（全12問）</h2>
-
-    <h3>【等速直線運動】</h3>
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="初めの位置 x₀=5 m から、速度 3 m/s で等速直線運動をした。4秒後の位置 x は？"
       answer="17"
@@ -80,7 +78,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="原点(x₀=0)から等速で進み、5秒後に x=20 m に到達した。速度 v は？"
       answer="4"
@@ -91,8 +89,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <h3>【等加速度直線運動：公式① v = v₀ + at】</h3>
-    <QuizCard 
+<QuizCard 
       id="3"
       question="初速度 2 m/s、加速度 3 m/s² のとき、4秒後の速度 v は？"
       answer="14"
@@ -103,8 +100,13 @@ import Math from '../../components/Math.astro';
         "= 2 + 12 = <strong>14 m/s</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="静止していた物体（v₀=0）が加速度 5 m/s² で動き出した。3秒後の速度は？"
       answer="15"
@@ -114,107 +116,36 @@ import Math from '../../components/Math.astro';
         "= <strong>15 m/s</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
-      id="5"
-      question="初速度 10 m/s の車がブレーキをかけ、加速度 -2 m/s² で減速した。何秒後に停止(v=0)するか？"
-      answer="5"
-      answerUnit="s"
-      steps={[
-        "v = v₀ + at",
-        "0 = 10 + (-2) × t",
-        "2t = 10  ⇒  t = <strong>5 s</strong>"
-      ]}
-    />
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-    <h3>【等加速度直線運動：公式② x = v₀t + ½at²】</h3>
-    <QuizCard 
-      id="6"
-      question="初速度 0 m/s、加速度 4 m/s² のとき、3秒間に進む距離 x は？"
-      answer="18"
-      answerUnit="m"
-      steps={[
-        "x = v₀t + ½at²",
-        "= 0 × 3 + ½ × 4 × 3²",
-        "= 2 × 9 = <strong>18 m</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="7"
-      question="初速度 5 m/s、加速度 2 m/s² のとき、4秒間に進む距離 x は？"
-      answer="36"
-      answerUnit="m"
-      steps={[
-        "x = 5 × 4 + ½ × 2 × 4²",
-        "= 20 + 1 × 16 = <strong>36 m</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="8"
-      question="静止から動き出し、加速度 10 m/s² で 5 秒間進んだ距離は？"
-      answer="125"
-      answerUnit="m"
-      steps={[
-        "x = 0 + ½ × 10 × 5²",
-        "= 5 × 25 = <strong>125 m</strong>"
-      ]}
-    />
-
-    <h3>【等加速度直線運動：公式③ v² - v₀² = 2ax】</h3>
-    <QuizCard 
-      id="9"
-      question="初速度 0 m/s、加速度 3 m/s² で 24 m 進んだ。そのときの速度 v は？"
-      answer="12"
-      answerUnit="m/s"
-      steps={[
-        "v² - v₀² = 2ax",
-        "v² - 0² = 2 × 3 × 24",
-        "v² = 144",
-        "v = <strong>12 m/s</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="10"
-      question="初速度 4 m/s の物体が加速し、8 m 進んだときに速度が 6 m/s になった。加速度 a は？"
-      answer="1.25"
-      answerUnit="m/s²"
-      steps={[
-        "v² - v₀² = 2ax",
-        "6² - 4² = 2 × a × 8",
-        "36 - 16 = 16a",
-        "20 = 16a  ⇒  a = 20 / 16 = <strong>1.25 m/s²</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="11"
-      question="速度 20 m/s で走る車がブレーキをかけ、加速度 -4 m/s² で停止(v=0)した。停止するまでに進んだ距離(制動距離)は？"
-      answer="50"
-      answerUnit="m"
-      steps={[
-        "v² - v₀² = 2ax",
-        "0² - 20² = 2 × (-4) × x",
-        "-400 = -8x",
-        "x = <strong>50 m</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="12"
-      question="公式②で v₀=0 のとき、進む距離 x は時間の「何乗」に比例する？"
-      answer="2"
-      answerUnit="乗"
-      steps={[
-        "x = ½at²",
-        "よって、距離 x は時間 t の<strong>2乗</strong>に比例する！"
-      ]}
-    />
-  </section>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week10/" class="nav-btn secondary">← Week 10</a>

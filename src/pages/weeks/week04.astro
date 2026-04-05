@@ -225,12 +225,11 @@ import Math from '../../components/Math.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== Section 3: 練習 - 合成 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 1：ベクトルの合成</h2>
-
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="F₁ = (5.0, 0.0) N の大きさ"
       answer="5.0"
@@ -241,7 +240,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="F₁ = (5.0, 0.0) N と F₂ = (-2.0, 4.0) N の合力"
       answer="(3.0, 4.0)"
@@ -254,7 +253,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="3"
       question="問2の合力の大きさ"
       answer="5.0"
@@ -266,8 +265,13 @@ import Math from '../../components/Math.astro';
       ]}
       hint="3-4-5の直角三角形！"
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="F₁ = (6.0, 2.0) N と F₂ = (-4.0, 6.0) N の合力の大きさ"
       answer="10"
@@ -278,153 +282,36 @@ import Math from '../../components/Math.astro';
         "= √68 ≈ <strong>8.2 N</strong>"
       ]}
     />
-  </section>
+      </section>
 
-  <!-- ===== Section 5: 練習 - 分解 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 2：力の分解</h2>
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-    <QuizCard 
-      id="5"
-      question="大きさ 10 N、x軸と 60° の力の x成分"
-      answer="5"
-      answerUnit="N"
-      steps={[
-        "Fx = F cos θ",
-        "= 10 × cos 60°",
-        "= 10 × 0.5",
-        "= <strong>5 N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="6"
-      question="大きさ 10 N、x軸と 60° の力の y成分"
-      answer="5√3 ≈ 8.7"
-      answerUnit="N"
-      steps={[
-        "Fy = F sin θ",
-        "= 10 × sin 60°",
-        "= 10 × (√3/2)",
-        "= <strong>5√3 ≈ 8.7 N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="7"
-      question="大きさ 10 N、x軸と 120° の力の x成分"
-      answer="-5"
-      answerUnit="N"
-      steps={[
-        "Fx = F cos θ",
-        "= 10 × cos 120°",
-        "= 10 × (-0.5)",
-        "= <strong>-5 N</strong>（左向き！）"
-      ]}
-      hint="cos 120° = -0.5（負になる！）"
-    />
-
-    <QuizCard 
-      id="8"
-      question="大きさ 10 N、x軸と 120° の力の y成分"
-      answer="5√3 ≈ 8.7"
-      answerUnit="N"
-      steps={[
-        "Fy = F sin θ",
-        "= 10 × sin 120°",
-        "= 10 × (√3/2)",
-        "= <strong>5√3 ≈ 8.7 N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="9"
-      question="問7,8 の力を成分表示すると？"
-      answer="(-5, 5√3)"
-      answerUnit="N"
-      steps={[
-        "F = (Fx, Fy)",
-        "= <strong>(-5, 5√3) N</strong>",
-        "または (-5, 8.7) N"
-      ]}
-    />
-  </section>
-
-  <!-- ===== Section 7: 練習 - 斜面 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 3：斜面の分解</h2>
-
-    <QuizCard 
-      id="10"
-      question="30°斜面で質量 2 kg の物体を滑らせる力（g=10）"
-      answer="10"
-      answerUnit="N"
-      steps={[
-        "滑る力 = mg sin θ",
-        "= 2 × 10 × sin 30°",
-        "= 20 × 0.5",
-        "= <strong>10 N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="11"
-      question="30°斜面で質量 2 kg の物体が面を押す力（g=10）"
-      answer="17.3"
-      answerUnit="N"
-      steps={[
-        "垂直抗力 = mg cos θ",
-        "= 2 × 10 × cos 30°",
-        "= 20 × (√3/2)",
-        "≈ <strong>17.3 N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="12"
-      question="45°斜面で質量 4 kg の物体を滑らせる力（g=10）"
-      answer="28.3"
-      answerUnit="N"
-      steps={[
-        "滑る力 = mg sin θ",
-        "= 4 × 10 × sin 45°",
-        "= 40 × (√2/2)",
-        "≈ <strong>28.3 N</strong>"
-      ]}
-    />
-  </section>
-
-  <!-- ===== Section 9: 練習 - つり合い ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 4：力のつり合い</h2>
-
-    <QuizCard 
-      id="13"
-      question="F₁=(4,0)N, F₂=(0,3)N とつり合う F₃ は？"
-      answer="(-4, -3)"
-      answerUnit="N"
-      steps={[
-        "つり合い条件：F₁ + F₂ + F₃ = 0",
-        "F₃ = -(F₁ + F₂)",
-        "= -((4,0) + (0,3))",
-        "= <strong>(-4, -3) N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="14"
-      question="問13の F₃ の大きさは？"
-      answer="5"
-      answerUnit="N"
-      steps={[
-        "|F₃| = √((-4)² + (-3)²)",
-        "= √(16 + 9) = √25",
-        "= <strong>5 N</strong>"
-      ]}
-    />
-  </section>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week03/" class="nav-btn secondary">← Week 3</a>

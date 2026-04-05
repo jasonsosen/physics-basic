@@ -61,14 +61,11 @@ import Math from '../../components/Math.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== Section 3: 練習問題 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習問題（全12問）</h2>
-    <p>※ 以下の問題では、特に指定がない限り <strong>重力加速度 g = 9.8 m/s²</strong> とする。</p>
-
-    <h3>【自由落下】</h3>
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="ビルからリンゴを静かに落とした。2秒後の速度 v は？"
       answer="19.6"
@@ -80,7 +77,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="問1のとき、2秒間に落下した距離（高さ h）は？"
       answer="19.6"
@@ -92,7 +89,7 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="3"
       question="高さ 44.1 m の橋から石を落とした。水面につくまでの時間 t は？"
       answer="3"
@@ -104,8 +101,13 @@ import Math from '../../components/Math.astro';
         "t = <strong>3 s</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="問3の石が水面につく瞬間の速度 v は？"
       answer="29.4"
@@ -115,107 +117,36 @@ import Math from '../../components/Math.astro';
         "= 9.8 × 3 = <strong>29.4 m/s</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
-      id="5"
-      question="地面に 14 m/s で衝突する物体は、何 m の高さから落下したか？（v²=2gh を使う）"
-      answer="10"
-      answerUnit="m"
-      steps={[
-        "v² = 2gh",
-        "14² = 2 × 9.8 × h",
-        "196 = 19.6h",
-        "h = <strong>10 m</strong>"
-      ]}
-    />
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-    <h3>【鉛直投げ上げ】</h3>
-    <QuizCard 
-      id="6"
-      question="ボールを初速度 19.6 m/s で真上に投げた。最高点に達するまでの時間 t は？"
-      answer="2"
-      answerUnit="s"
-      steps={[
-        "最高点では v = 0",
-        "v = v₀ - gt",
-        "0 = 19.6 - 9.8t",
-        "9.8t = 19.6  ⇒  t = <strong>2 s</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="7"
-      question="問6のとき、最高点の高さ h（投げ上げた位置から）は？"
-      answer="19.6"
-      answerUnit="m"
-      steps={[
-        "h = v₀t - ½gt²",
-        "= 19.6 × 2 - ½ × 9.8 × 2²",
-        "= 39.2 - 19.6 = <strong>19.6 m</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="8"
-      question="初速度 29.4 m/s で投げ上げた物体が、再び元の高さに戻ってくるまでの時間は？"
-      answer="6"
-      answerUnit="s"
-      steps={[
-        "まず最高点までの時間を出す。0 = 29.4 - 9.8t ⇒ t = 3s",
-        "往復の時間はその2倍！",
-        "t = 3 × 2 = <strong>6 s</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="9"
-      question="初速度 29.4 m/s で投げ上げた物体が、元の高さに戻ってきたときの速度の大きさは？"
-      answer="29.4"
-      answerUnit="m/s"
-      steps={[
-        "対称性より、投げ上げた初速度と同じ大きさで戻ってくる！",
-        "速度の大きさ = <strong>29.4 m/s</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="10"
-      question="ボールを真上に投げたら、3秒後に最高点に達した。初速度 v₀ は？"
-      answer="29.4"
-      answerUnit="m/s"
-      steps={[
-        "最高点で v = 0",
-        "0 = v₀ - 9.8 × 3",
-        "v₀ = <strong>29.4 m/s</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="11"
-      question="初速度 9.8 m/s で真上に投げた。1.5秒後の速度は？"
-      answer="-4.9"
-      answerUnit="m/s"
-      steps={[
-        "v = v₀ - gt",
-        "= 9.8 - 9.8 × 1.5",
-        "= 9.8 - 14.7 = <strong>-4.9 m/s</strong>",
-        "（負なので、下向きに落ちてきている状態！）"
-      ]}
-    />
-
-    <QuizCard 
-      id="12"
-      question="真上に投げ上げた物体が最高点にあるときの「加速度」は 0 か？（はい/いいえ）"
-      answer="いいえ"
-      answerUnit=""
-      steps={[
-        "速度は 0 になるが、常に重力（下向きに9.8 m/s²の加速度）は働き続けている！",
-        "よって答えは <strong>いいえ</strong>"
-      ]}
-    />
-  </section>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week11/" class="nav-btn secondary">← Week 11</a>

@@ -339,24 +339,11 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
     <!-- ========== 題目タブ ========== -->
     <div slot="problems">
 
-
-  <!-- ===== Section 3: 練習 Level 1 - 基礎 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 1：基礎換算</h2>
-    <p class="section-desc">接頭語を数字に置き換えて計算しよう</p>
-
-    <div class="notation-box">
-      <strong>📐 解答の書き方</strong>
-      <p>物理では<strong>科学記数法（指数表記）</strong>を使います：</p>
-      <div class="notation-examples">
-        <span class="good">✅ 1.0 × 10³</span>
-        <span class="good">✅ 5.0 × 10⁻⁵</span>
-        <span class="ok">△ 1000（大きすぎ/小さすぎる数は避ける）</span>
-      </div>
-      <p class="notation-note">有効数字も意識！ 1.0 と 1 は精度が違う</p>
-    </div>
-
-    <QuizCard 
+      <!-- 基礎問題 -->
+      <section class="content-section exercise-section">
+        <h2>✏️ 基礎問題</h2>
+        <p class="section-desc">公式の基本を確認しよう</p>
+        <QuizCard 
       id="1"
       question="3.5 km"
       answer="3500"
@@ -368,7 +355,7 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="2"
       question="45 cm"
       answer="0.45"
@@ -380,7 +367,7 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
       ]}
     />
 
-    <QuizCard 
+<QuizCard 
       id="3"
       question="250 mm"
       answer="0.25"
@@ -391,8 +378,13 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
         "= <strong>0.25 m</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
+      <!-- 陷阱問題 -->
+      <section class="content-section exercise-section trap-section">
+        <h2>🚨 陷阱チェック</h2>
+        <p class="section-desc">間違えやすい単位換算や概念！</p>
+        <QuizCard 
       id="4"
       question="50 μm"
       answer="5 × 10⁻⁵"
@@ -404,364 +396,36 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
         "= <strong>5 × 10⁻⁵ m</strong>"
       ]}
     />
+      </section>
 
-    <QuizCard 
-      id="5"
-      question="200 mg"
-      answer="2 × 10⁻⁴"
-      answerUnit="kg"
-      steps={[
-        "mg → kg は2ステップ！",
-        "① mg → g: 200 mg = 0.2 g",
-        "② g → kg: 0.2 g = 0.2 × 10⁻³ kg",
-        "= <strong>2 × 10⁻⁴ kg</strong>"
-      ]}
-      hint="mgからkgは「m(10⁻³)」を2回かける = 10⁻⁶"
-    />
-  </section>
+      <!-- 総合問題 -->
+      <section class="content-section exercise-section exam-section">
+        <h2>🎓 総合問題</h2>
+        <p class="section-desc">試験形式の文字式・総合問題</p>
 
-  <!-- ===== Section 3.5: 跨階換算 + 逆向換算 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 1.5：接頭語どうしの換算</h2>
-    <p class="section-desc">基準単位を経由せず、接頭語間で直接変換！</p>
-
-    <div class="info-box">
-      <strong>💡 ポイント</strong>
-      <p>μm → nm のような「微小単位どうし」の変換では、指数の差を計算する：</p>
-      <p>μ = 10⁻⁶、n = 10⁻⁹ → 差は 10³（1000倍）</p>
+        <div class="exam-problem">
+          <div class="exam-question">
+            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
+            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          </div>
+          <div class="exam-details">
+            (1) 物体にかかる重力を求めよ。<br/>
+            (2) 運動方程式を立てよ。
+          </div>
+          <details class="exam-answer">
+            <summary>解答と解説を見る</summary>
+            <div class="answer-content">
+              <p><strong>解答：</strong></p>
+              <p>(1) <i>W = mg</i></p>
+              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
+              <p><strong>解説：</strong></p>
+              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+            </div>
+          </details>
+        </div>
+      </section>
     </div>
-
-    <QuizCard 
-      id="5.1"
-      question="1.0 m"
-      answer="1.0 × 10³"
-      answerUnit="mm"
-      steps={[
-        "m → mm は「大→小」なので数字が大きくなる",
-        "1 m = 1000 mm = 10³ mm",
-        "= <strong>1.0 × 10³ mm</strong>"
-      ]}
-      hint="下りる時は ×（大きくなる）"
-    />
-
-    <QuizCard 
-      id="5.2"
-      question="1.0 × 10⁻¹ μm"
-      answer="1.0 × 10²"
-      answerUnit="nm"
-      steps={[
-        "μ = 10⁻⁶、n = 10⁻⁹",
-        "μm → nm は ×10³（1000倍大きくなる）",
-        "1.0 × 10⁻¹ × 10³ = 1.0 × 10⁻¹⁺³",
-        "= <strong>1.0 × 10² nm</strong>"
-      ]}
-      hint="μ(10⁻⁶) から n(10⁻⁹) へは ×10³"
-    />
-
-    <QuizCard 
-      id="5.3"
-      question="500 nm"
-      answer="0.5"
-      answerUnit="μm"
-      steps={[
-        "nm → μm は「小→大」なので数字が小さくなる",
-        "n = 10⁻⁹、μ = 10⁻⁶ → 差は 10⁻³（÷1000）",
-        "500 × 10⁻³ = 0.5 μm",
-        "= <strong>0.5 μm</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="5.4"
-      question="2.5 kg"
-      answer="2.5 × 10⁶"
-      answerUnit="mg"
-      steps={[
-        "kg → g: ×10³",
-        "g → mg: ×10³",
-        "合計: ×10⁶",
-        "2.5 × 10⁶ = <strong>2,500,000 mg</strong>"
-      ]}
-      hint="kg → mg は2段階下りる = ×10⁶"
-    />
-  </section>
-
-  <!-- ===== Section 5: 練習 Level 2 - 面積 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 2：面積換算</h2>
-    <p class="section-desc">指数を2倍にすることを忘れずに！</p>
-
-    <QuizCard 
-      id="6"
-      question="300 cm²"
-      answer="0.03"
-      answerUnit="m²"
-      steps={[
-        "長さ：1 cm = 10⁻² m",
-        "面積：1 cm² = (10⁻²)² = 10⁻⁴ m²",
-        "300 cm² = 300 × 10⁻⁴ m²",
-        "= <strong>0.03 m²</strong> (= 3 × 10⁻² m²)"
-      ]}
-      hint="cm² → m² は ÷10000！（÷100 ではない！）"
-    />
-
-    <QuizCard 
-      id="7"
-      question="50 mm²"
-      answer="5 × 10⁻⁵"
-      answerUnit="m²"
-      steps={[
-        "長さ：1 mm = 10⁻³ m",
-        "面積：1 mm² = (10⁻³)² = 10⁻⁶ m²",
-        "50 mm² = 50 × 10⁻⁶ m²",
-        "= <strong>5 × 10⁻⁵ m²</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="8"
-      question="2.5 km²"
-      answer="2.5 × 10⁶"
-      answerUnit="m²"
-      steps={[
-        "長さ：1 km = 10³ m",
-        "面積：1 km² = (10³)² = 10⁶ m²",
-        "2.5 km² = 2.5 × 10⁶ m²",
-        "= <strong>2,500,000 m²</strong>"
-      ]}
-    />
-  </section>
-
-  <!-- ===== Section 6: 練習 Level 3 - 体積 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 3：体積換算</h2>
-    <p class="section-desc">指数を3倍に！また、1 L = 1 dm³ = 10⁻³ m³</p>
-
-    <QuizCard 
-      id="9"
-      question="4000 cm³"
-      answer="4 × 10⁻³"
-      answerUnit="m³"
-      steps={[
-        "長さ：1 cm = 10⁻² m",
-        "体積：1 cm³ = (10⁻²)³ = 10⁻⁶ m³",
-        "4000 cm³ = 4000 × 10⁻⁶ m³",
-        "= 4 × 10³ × 10⁻⁶ m³",
-        "= <strong>4 × 10⁻³ m³</strong> = 0.004 m³"
-      ]}
-    />
-
-    <QuizCard 
-      id="10"
-      question="2.5 L"
-      answer="2.5 × 10⁻³"
-      answerUnit="m³"
-      steps={[
-        "1 L = 1 dm³（立方デシメートル）",
-        "1 dm = 10⁻¹ m",
-        "1 L = 1 dm³ = (10⁻¹)³ = 10⁻³ m³",
-        "2.5 L = <strong>2.5 × 10⁻³ m³</strong>"
-      ]}
-      hint="覚えよう：1 L = 10⁻³ m³ = 0.001 m³"
-    />
-
-    <QuizCard 
-      id="11"
-      question="500 mL"
-      answer="5 × 10⁻⁴"
-      answerUnit="m³"
-      steps={[
-        "mL → L：500 mL = 0.5 L",
-        "L → m³：1 L = 10⁻³ m³",
-        "0.5 L = 0.5 × 10⁻³ m³",
-        "= <strong>5 × 10⁻⁴ m³</strong>"
-      ]}
-    />
-  </section>
-
-  <!-- ===== Section 8: 練習 Level 4 - 複合単位 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 4：複合単位</h2>
-    <p class="section-desc">分子・分母を分けて考えよう</p>
-
-    <QuizCard 
-      id="12"
-      question="72 km/h"
-      answer="20"
-      answerUnit="m/s"
-      steps={[
-        "分数で書く：72 km / 1 h",
-        "分子：72 km = 72 × 1000 m = 72000 m",
-        "分母：1 h = 3600 s",
-        "72000 m ÷ 3600 s = <strong>20 m/s</strong>"
-      ]}
-      hint="速攻法：km/h → m/s は ÷ 3.6 (72 ÷ 3.6 = 20)"
-    />
-
-    <QuizCard 
-      id="13"
-      question="2.5 g/cm³"
-      answer="2500"
-      answerUnit="kg/m³"
-      steps={[
-        "分子：2.5 g = 2.5 × 10⁻³ kg",
-        "分母：1 cm³ = 10⁻⁶ m³",
-        "(2.5 × 10⁻³) ÷ (10⁻⁶)",
-        "= 2.5 × 10⁻³⁺⁶ = 2.5 × 10³",
-        "= <strong>2500 kg/m³</strong>"
-      ]}
-      hint="g/cm³ の数字に 1000 をかけると kg/m³"
-    />
-
-    <QuizCard 
-      id="14"
-      question="13.6 g/cm³（水銀の密度）"
-      answer="13600"
-      answerUnit="kg/m³"
-      steps={[
-        "g/cm³ → kg/m³ は × 1000",
-        "13.6 × 1000 = <strong>13600 kg/m³</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="14.1"
-      question="1.0 × 10³ kg/m³（水の密度）"
-      answer="1.0"
-      answerUnit="g/cm³"
-      steps={[
-        "kg/m³ → g/cm³ は逆方向！",
-        "kg → g: ×10³",
-        "m³ → cm³: ×10⁶（分母なので÷10⁶）",
-        "10³ ÷ 10⁶ = 10⁻³ → つまり <strong>÷1000</strong>",
-        "1.0 × 10³ × 10⁻³ = <strong>1.0 g/cm³</strong>"
-      ]}
-      hint="逆方向は ÷1000！水の密度は覚えておこう"
-    />
-
-    <QuizCard 
-      id="14.2"
-      question="1時間30分"
-      answer="5400"
-      answerUnit="s"
-      steps={[
-        "1時間 = 60分 = 3600 s",
-        "30分 = 30 × 60 = 1800 s",
-        "合計：3600 + 1800 = <strong>5400 s</strong>"
-      ]}
-      hint="1 h = 3600 s、1 min = 60 s"
-    />
-  </section>
-
-  <!-- ===== Section 9: CGS → SI 変換 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 5：CGS単位 → SI単位</h2>
-    <p class="section-desc">力の単位：1 N = 1 kg·m/s²、1 dyn = 1 g·cm/s²</p>
-
-    <div class="info-box">
-      <strong>💡 CGS → SI の換算</strong>
-      <p>力の場合：g·cm/s² → kg·m/s² (= N)</p>
-      <ul>
-        <li>g → kg: × 10⁻³</li>
-        <li>cm → m: × 10⁻²</li>
-        <li>合計: × 10⁻³ × 10⁻² = × 10⁻⁵</li>
-      </ul>
-      <p>∴ <strong>1 dyn = 10⁻⁵ N</strong></p>
-    </div>
-
-    <QuizCard 
-      id="15"
-      question="1.0 × 10² g·cm/s²"
-      answer="1.0 × 10⁻³"
-      answerUnit="N"
-      steps={[
-        "g·cm/s² → kg·m/s² (= N) に変換",
-        "g → kg: × 10⁻³",
-        "cm → m: × 10⁻²",
-        "1.0 × 10² × 10⁻³ × 10⁻² = 1.0 × 10² × 10⁻⁵",
-        "= <strong>1.0 × 10⁻³ N</strong>"
-      ]}
-      hint="1 dyn (ダイン) = 10⁻⁵ N"
-    />
-  </section>
-
-  <!-- ===== Section 10: 計算問題（総合応用） ===== -->
-  <section class="content-section exercise-section challenge-section">
-    <h2>🧮 計算問題（小テスト形式）</h2>
-    <p class="section-desc">単位換算を使った実践問題！まず単位を揃えてから計算</p>
-
-    <QuizCard 
-      id="16"
-      question="直方体（5 mm × 1 cm × 2×10⁻³ m）の体積"
-      answer="100"
-      answerUnit="mm³"
-      steps={[
-        "まず全部 mm に統一する",
-        "5 mm = 5 mm ✓",
-        "1 cm = 10 mm",
-        "2×10⁻³ m = 2 mm",
-        "体積 = 5 × 10 × 2 = <strong>100 mm³</strong>"
-      ]}
-      hint="単位を揃えてから掛け算！"
-    />
-
-    <QuizCard 
-      id="17"
-      question="円柱（体積 2 cm³、高さ 50 mm）の断面積"
-      answer="40"
-      answerUnit="mm²"
-      steps={[
-        "V = S × h より、S = V / h",
-        "単位を mm に統一：",
-        "2 cm³ = 2 × 10³ mm³ = 2000 mm³",
-        "50 mm = 50 mm",
-        "S = 2000 ÷ 50 = <strong>40 mm²</strong>"
-      ]}
-      hint="体積 = 断面積 × 高さ"
-    />
-
-    <QuizCard 
-      id="18"
-      question="10 km/h で 18 秒間走った距離"
-      answer="50"
-      answerUnit="m"
-      steps={[
-        "まず速度を m/s に換算",
-        "10 km/h = 10 × 1000 m / 3600 s",
-        "= 10000/3600 ≈ 2.78 m/s",
-        "（または 10 ÷ 3.6 ≈ 2.78 m/s）",
-        "距離 = 速度 × 時間 = 2.78 × 18 ≈ <strong>50 m</strong>"
-      ]}
-      hint="km/h → m/s は ÷3.6"
-    />
-
-    <QuizCard 
-      id="19"
-      question="問16の直方体（質量 5×10² mg）の密度"
-      answer="5"
-      answerUnit="g/cm³"
-      steps={[
-        "ρ = m / V",
-        "質量：5×10² mg = 0.5 g",
-        "体積：100 mm³ = 0.1 cm³",
-        "（1 cm³ = 10³ mm³ より）",
-        "ρ = 0.5 / 0.1 = <strong>5 g/cm³</strong>"
-      ]}
-      hint="密度 = 質量 ÷ 体積"
-    />
-  </section>
-
-  <!-- ===== 無限練習モード ===== -->
-  <section class="content-section infinite-section">
-    <h2>🔄 無限練習モード</h2>
-    <p class="intro-text">
-      ランダムに問題が生成されます。<strong>連続5問正解</strong>でマスタリー達成！<br/>
-      基礎計算を「体で覚える」まで練習しよう。
-    </p>
-    <InfiniteQuiz category="all" masteryThreshold={5} />
-  </section>
-    </div>
-  </TabView>
+    </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/" class="nav-btn secondary">← ホームへ</a>
