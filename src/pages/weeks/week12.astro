@@ -120,30 +120,34 @@ import Math from '../../components/Math.astro';
       </section>
 
       <!-- 総合問題 -->
-      <section class="content-section exercise-section exam-section">
-        <h2>🎓 総合問題</h2>
-        <p class="section-desc">試験形式の文字式・総合問題</p>
+      <section class="content-section exam-section">
+        <h2>📝 総合問題（試験形式）</h2>
+        <p class="section-desc">文字式で答える練習。期末試験はこの形式！</p>
 
         <div class="exam-problem">
-          <div class="exam-question">
-            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
-            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          <div class="problem-header">
+            <span class="problem-num">総合1</span>
+            <span class="problem-topic">水平投射と自由落下</span>
           </div>
-          <div class="exam-details">
-            (1) 物体にかかる重力を求めよ。<br/>
-            (2) 運動方程式を立てよ。
+          <div class="problem-body">
+            <p>高さ <Math f="h" /> [m] のビルの屋上から、小石Aを自由落下させると同時に、小石Bを水平方向に初速度 <Math f="v_0" /> [m/s] で投げ出した。空気抵抗は無視し、重力加速度を <Math f="g" /> [m/s²] とする。</p>
+            <div class="problem-questions">
+              <p><strong>(1)</strong> 小石Aが地面に到達するまでの時間 <Math f="t" /> を <Math f="h, g" /> で表しなさい。</p>
+              <p><strong>(2)</strong> 小石Bが地面に到達するまでに水平方向に飛んだ距離（水平到達距離）<Math f="x" /> を <Math f="v_0, h, g" /> で表しなさい。</p>
+            </div>
           </div>
-          <details class="exam-answer">
-            <summary>解答と解説を見る</summary>
-            <div class="answer-content">
-              <p><strong>解答：</strong></p>
-              <p>(1) <i>W = mg</i></p>
-              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
-              <p><strong>解説：</strong></p>
-              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+          <details class="solution-details">
+            <summary>💡 解答を見る</summary>
+            <div class="solution-content">
+              <p><strong>(1)</strong> 自由落下の変位の公式 <Math f="y = \\frac{1}{2} g t^2" /> より、<Math f="h = \\frac{1}{2} g t^2" /></p>
+              <p class="indent"><Math f="t^2 = \\frac{2h}{g}" />  よって  <Math f="\\boxed{t = \\sqrt{\\frac{2h}{g}}}" /></p>
+              <p><strong>(2)</strong> Bの鉛直方向の運動はAと同じ（自由落下）なので、地面に着くまでの時間は同じ <Math f="t" /> である。</p>
+              <p class="indent">水平方向は等速度運動なので、<Math f="x = v_0 t" /></p>
+              <p class="indent"><Math f="\\boxed{x = v_0 \\sqrt{\\frac{2h}{g}}}" /></p>
             </div>
           </details>
         </div>
+        
       </section>
     </div>
     </TabView>

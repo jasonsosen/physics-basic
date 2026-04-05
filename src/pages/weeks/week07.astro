@@ -71,7 +71,7 @@ import Math from '../../components/Math.astro';
         <p class="section-desc">公式の基本を確認しよう</p>
         <QuizCard 
       id="1"
-      question="質量 2 kg の物体A が x = 0 に、質量 2 kg の物体B が x = 10 にある。重心の x 座標は？"
+      question="質量 2000 g の物体A が x = 0 に、質量 2 kg の物体B が x = 10 にある。重心の x 座標は？"
       answer="5"
       answerUnit=""
       steps={[
@@ -123,30 +123,34 @@ import Math from '../../components/Math.astro';
       </section>
 
       <!-- 総合問題 -->
-      <section class="content-section exercise-section exam-section">
-        <h2>🎓 総合問題</h2>
-        <p class="section-desc">試験形式の文字式・総合問題</p>
+      <section class="content-section exam-section">
+        <h2>📝 総合問題（試験形式）</h2>
+        <p class="section-desc">文字式で答える練習。期末試験はこの形式！</p>
 
         <div class="exam-problem">
-          <div class="exam-question">
-            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
-            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          <div class="problem-header">
+            <span class="problem-num">総合1</span>
+            <span class="problem-topic">2物体の重心</span>
           </div>
-          <div class="exam-details">
-            (1) 物体にかかる重力を求めよ。<br/>
-            (2) 運動方程式を立てよ。
+          <div class="problem-body">
+            <p>x軸上に、質量 <Math f="m_1" /> の質点が座標 <Math f="x_1" /> に、質量 <Math f="m_2" /> の質点が座標 <Math f="x_2" /> にある。</p>
+            <div class="problem-questions">
+              <p><strong>(1)</strong> この2物体系の重心の座標 <Math f="x_G" /> を <Math f="m_1, m_2, x_1, x_2" /> で表しなさい。</p>
+              <p><strong>(2)</strong> <Math f="m_1 = 2m, m_2 = m, x_1 = 0, x_2 = L" /> のとき、重心の座標 <Math f="x_G" /> を <Math f="L" /> を用いて表しなさい。</p>
+            </div>
           </div>
-          <details class="exam-answer">
-            <summary>解答と解説を見る</summary>
-            <div class="answer-content">
-              <p><strong>解答：</strong></p>
-              <p>(1) <i>W = mg</i></p>
-              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
-              <p><strong>解説：</strong></p>
-              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+          <details class="solution-details">
+            <summary>💡 解答を見る</summary>
+            <div class="solution-content">
+              <p><strong>(1)</strong> 重心の公式より、</p>
+              <p class="indent"><Math f="\\boxed{x_G = \\frac{m_1 x_1 + m_2 x_2}{m_1 + m_2}}" /></p>
+              <p><strong>(2)</strong> 公式に代入すると、</p>
+              <p class="indent"><Math f="x_G = \\frac{2m \\cdot 0 + m \\cdot L}{2m + m} = \\frac{mL}{3m}" /></p>
+              <p class="indent"><Math f="\\boxed{x_G = \\frac{1}{3} L}" /></p>
             </div>
           </details>
         </div>
+        
       </section>
     </div>
     </TabView>

@@ -125,30 +125,33 @@ import Math from '../../components/Math.astro';
       </section>
 
       <!-- 総合問題 -->
-      <section class="content-section exercise-section exam-section">
-        <h2>🎓 総合問題</h2>
-        <p class="section-desc">試験形式の文字式・総合問題</p>
+      <section class="content-section exam-section">
+        <h2>📝 総合問題（試験形式）</h2>
+        <p class="section-desc">文字式で答える練習。期末試験はこの形式！</p>
 
         <div class="exam-problem">
-          <div class="exam-question">
-            <strong>【問】</strong> 次の文章を読み、指定された文字を用いて答えなさい。<br/>
-            質量 <i>m</i> [kg] の物体に、一定の力 <i>F</i> [N] を加えたときの関係式を記述しなさい。（重力加速度を <i>g</i> とします）
+          <div class="problem-header">
+            <span class="problem-num">総合1</span>
+            <span class="problem-topic">v-tグラフと平均の速度</span>
           </div>
-          <div class="exam-details">
-            (1) 物体にかかる重力を求めよ。<br/>
-            (2) 運動方程式を立てよ。
+          <div class="problem-body">
+            <p>ある物体が初速度 <Math f="v_0" /> で動き出し、一定の加速度 <Math f="a" /> で時間 <Math f="t" /> だけ運動した。このときの最終速度を <Math f="v" /> とする。</p>
+            <div class="problem-questions">
+              <p><strong>(1)</strong> この運動の v-t グラフにおける面積から、移動距離 <Math f="x" /> を <Math f="v_0, v, t" /> を用いて表しなさい。（台形の面積の公式を用いること）</p>
+              <p><strong>(2)</strong> (1) の結果を利用して、この間の平均の速度 <Math f="\\bar{v}" /> を <Math f="v_0" /> と <Math f="v" /> を用いて表しなさい。</p>
+            </div>
           </div>
-          <details class="exam-answer">
-            <summary>解答と解説を見る</summary>
-            <div class="answer-content">
-              <p><strong>解答：</strong></p>
-              <p>(1) <i>W = mg</i></p>
-              <p>(2) <i>F = ma</i> （<i>a</i> は加速度）</p>
-              <p><strong>解説：</strong></p>
-              <p>文字式で答える場合は、単位に注意しながら公式をそのまま適用します。</p>
+          <details class="solution-details">
+            <summary>💡 解答を見る</summary>
+            <div class="solution-content">
+              <p><strong>(1)</strong> v-tグラフは、上底が <Math f="v_0" />、下底が <Math f="v" />、高さが <Math f="t" /> の台形になる。</p>
+              <p class="indent">面積 = 移動距離より、<Math f="\\boxed{x = \\frac{1}{2}(v_0 + v)t}" /></p>
+              <p><strong>(2)</strong> 平均の速度 <Math f="\\bar{v} = \\frac{x}{t}" /> であるから、</p>
+              <p class="indent"><Math f="\\boxed{\\bar{v} = \\frac{v_0 + v}{2}}" /></p>
             </div>
           </details>
         </div>
+        
       </section>
     </div>
     </TabView>
