@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
 import Math from '../../components/Math.astro';
+import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
 ---
 
 <Layout title="Week 2: 単位系と単位換算">
@@ -714,6 +715,16 @@ import Math from '../../components/Math.astro';
       ]}
       hint="密度 = 質量 ÷ 体積"
     />
+  </section>
+
+  <!-- ===== 無限練習モード ===== -->
+  <section class="content-section infinite-section">
+    <h2>🔄 無限練習モード</h2>
+    <p class="intro-text">
+      ランダムに問題が生成されます。<strong>連続5問正解</strong>でマスタリー達成！<br/>
+      基礎計算を「体で覚える」まで練習しよう。
+    </p>
+    <InfiniteQuiz category="all" masteryThreshold={5} />
   </section>
 
   <!-- ===== まとめ ===== -->

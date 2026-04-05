@@ -1,0 +1,735 @@
+---
+/**
+ * 無限習題モード
+ * 動的に題目を生成し、連続正解でマスタリー判定
+ */
+export interface Props {
+  category: 'length' | 'area' | 'volume' | 'compound' | 'density' | 'all';
+  masteryThreshold?: number; // 連続正解でマスタリー
+}
+
+const { category = 'all', masteryThreshold = 5 } = Astro.props;
+---
+
+<div class="infinite-quiz" data-category={category} data-mastery={masteryThreshold}>
+  <div class="quiz-header">
+    <h3>🔄 無限練習モード</h3>
+    <div class="stats">
+      <span class="stat correct-count">✅ <span id="correct">0</span></span>
+      <span class="stat streak-count">🔥 連続 <span id="streak">0</span></span>
+      <span class="stat total-count">📊 <span id="total">0</span> 問</span>
+    </div>
+  </div>
+
+  <div class="quiz-area">
+    <div id="quiz-card" class="quiz-card">
+      <div class="quiz-question">
+        <span class="quiz-num" id="quiz-num">1</span>
+        <span class="quiz-text" id="quiz-text">読み込み中...</span>
+        <span class="equals">=</span>
+        <input 
+          type="text" 
+          id="quiz-input"
+          inputmode="decimal" 
+          class="quiz-input" 
+          placeholder="?"
+          autocomplete="off"
+        />
+        <span class="quiz-unit" id="quiz-unit">m</span>
+      </div>
+
+      <div class="button-row">
+        <button id="check-btn" class="quiz-btn primary">答え合わせ</button>
+        <button id="show-btn" class="quiz-btn secondary">答えを見る</button>
+      </div>
+
+      <div id="quiz-result" class="quiz-result hidden"></div>
+
+      <div id="quiz-solution" class="quiz-solution hidden">
+        <div class="solution-answer">
+          <span class="answer-label">正解：</span>
+          <span class="answer-value" id="answer-value"></span>
+        </div>
+        <div class="solution-steps">
+          <p class="steps-title">📝 解き方：</p>
+          <ol id="steps-list"></ol>
+        </div>
+        <div id="hint-box" class="solution-hint hidden"></div>
+      </div>
+
+      <button id="next-btn" class="quiz-btn next hidden">次の問題 →</button>
+    </div>
+
+    <div id="mastery-message" class="mastery-message hidden">
+      <div class="mastery-icon">🎉</div>
+      <h3>マスタリー達成！</h3>
+      <p>連続 <span id="mastery-count">5</span> 問正解しました！</p>
+      <p class="mastery-hint">このスキルは十分に身についています。<br/>他の題型に挑戦しましょう！</p>
+      <button id="continue-btn" class="quiz-btn primary">続ける</button>
+      <button id="change-btn" class="quiz-btn secondary">他の題型へ</button>
+    </div>
+  </div>
+
+  <div class="category-selector">
+    <span>題型：</span>
+    <button class="cat-btn" data-cat="length">長さ</button>
+    <button class="cat-btn" data-cat="area">面積</button>
+    <button class="cat-btn" data-cat="volume">体積</button>
+    <button class="cat-btn" data-cat="compound">速度</button>
+    <button class="cat-btn" data-cat="density">密度</button>
+    <button class="cat-btn active" data-cat="all">ランダム</button>
+  </div>
+</div>
+
+<style>
+  .infinite-quiz {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #0ea5e9;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .quiz-header h3 {
+    margin: 0;
+    color: #0369a1;
+    font-size: 1.3rem;
+  }
+
+  .stats {
+    display: flex;
+    gap: 16px;
+  }
+
+  .stat {
+    background: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .correct-count { color: #16a34a; }
+  .streak-count { color: #ea580c; }
+  .total-count { color: #6366f1; }
+
+  .quiz-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .quiz-question {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .quiz-num {
+    background: #3b82f6;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .quiz-text {
+    color: #1e293b;
+    font-family: 'Courier New', monospace;
+  }
+
+  .equals {
+    color: #64748b;
+  }
+
+  .quiz-input {
+    width: 140px;
+    height: 48px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #3b82f6;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    background: #f8fafc;
+    transition: all 0.2s;
+  }
+
+  .quiz-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+  }
+
+  .quiz-input.correct {
+    border-color: #16a34a;
+    background: #f0fdf4;
+    color: #16a34a;
+  }
+
+  .quiz-input.incorrect {
+    border-color: #dc2626;
+    background: #fef2f2;
+    color: #dc2626;
+  }
+
+  .quiz-unit {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  .button-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-btn {
+    flex: 1;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .quiz-btn.primary {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .quiz-btn.primary:hover {
+    background: #2563eb;
+  }
+
+  .quiz-btn.secondary {
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .quiz-btn.secondary:hover {
+    background: #e2e8f0;
+  }
+
+  .quiz-btn.next {
+    background: #10b981;
+    color: white;
+    margin-top: 16px;
+  }
+
+  .quiz-btn.next:hover {
+    background: #059669;
+  }
+
+  .quiz-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .quiz-result {
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .quiz-result.correct {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  .quiz-result.incorrect {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  .quiz-solution {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  .solution-answer {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  .answer-label {
+    color: #475569;
+  }
+
+  .answer-value {
+    color: #1d4ed8;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+  }
+
+  .solution-steps {
+    background: white;
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  .steps-title {
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  .solution-steps ol {
+    margin: 0;
+    padding-left: 20px;
+    line-height: 1.8;
+    color: #475569;
+  }
+
+  .solution-hint {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-size: 0.95rem;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .mastery-message {
+    text-align: center;
+    padding: 32px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+  }
+
+  .mastery-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+  }
+
+  .mastery-message h3 {
+    color: #92400e;
+    margin: 0 0 8px 0;
+  }
+
+  .mastery-message p {
+    color: #a16207;
+    margin: 8px 0;
+  }
+
+  .mastery-hint {
+    font-size: 0.9rem;
+    margin-bottom: 20px !important;
+  }
+
+  .mastery-message .quiz-btn {
+    margin: 8px;
+    flex: none;
+    padding: 0 24px;
+  }
+
+  .category-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #bae6fd;
+  }
+
+  .category-selector span {
+    color: #0369a1;
+    font-weight: 600;
+  }
+
+  .cat-btn {
+    padding: 6px 14px;
+    border: 2px solid #7dd3fc;
+    border-radius: 20px;
+    background: white;
+    color: #0369a1;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .cat-btn:hover {
+    background: #e0f2fe;
+  }
+
+  .cat-btn.active {
+    background: #0ea5e9;
+    color: white;
+    border-color: #0ea5e9;
+  }
+
+  @media (max-width: 480px) {
+    .quiz-question {
+      font-size: 1.1rem;
+    }
+    .quiz-input {
+      width: 100px;
+    }
+    .button-row {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  // 題目生成器（インラインで定義）
+  type QuizType = 'length' | 'area' | 'volume' | 'compound' | 'density' | 'all';
+  
+  interface Quiz {
+    question: string;
+    answer: string;
+    answerUnit: string;
+    answerValue: number;
+    steps: string[];
+    hint?: string;
+  }
+
+  const formatExp = (exp: number): string => {
+    const superscripts = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+    const minus = '⁻';
+    if (exp === 0) return '⁰';
+    let result = '';
+    if (exp < 0) {
+      result = minus;
+      exp = Math.abs(exp);
+    }
+    for (const d of exp.toString()) {
+      result += superscripts[parseInt(d)];
+    }
+    return result;
+  };
+
+  const formatScientific = (num: number): string => {
+    if (num === 0) return '0';
+    if (Math.abs(num) >= 0.001 && Math.abs(num) < 10000) {
+      return Number.isInteger(num) ? num.toString() : num.toFixed(3).replace(/\.?0+$/, '');
+    }
+    const exp = Math.floor(Math.log10(Math.abs(num)));
+    const mantissa = num / Math.pow(10, exp);
+    const m = Math.round(mantissa * 10) / 10;
+    return `${m} × 10${formatExp(exp)}`;
+  };
+
+  const randChoice = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+
+  // 生成器
+  const generators: Record<string, () => Quiz> = {
+    length: () => {
+      const units = [
+        { from: 'km', exp: 3 },
+        { from: 'cm', exp: -2 },
+        { from: 'mm', exp: -3 },
+        { from: 'μm', exp: -6 },
+        { from: 'nm', exp: -9 },
+      ];
+      const u = randChoice(units);
+      const values = [1, 2, 2.5, 3, 3.5, 5, 10, 15, 25, 50, 100, 250, 500];
+      const v = randChoice(values);
+      const ans = v * Math.pow(10, u.exp);
+      return {
+        question: `${v} ${u.from}`,
+        answer: formatScientific(ans),
+        answerUnit: 'm',
+        answerValue: ans,
+        steps: [
+          `1 ${u.from} = 10${formatExp(u.exp)} m`,
+          `${v} ${u.from} = ${v} × 10${formatExp(u.exp)} m`,
+          `= <strong>${formatScientific(ans)} m</strong>`
+        ],
+        hint: `${u.from} → m は × 10${formatExp(u.exp)}`
+      };
+    },
+    area: () => {
+      const units = [
+        { from: 'km²', exp: 3 },
+        { from: 'cm²', exp: -2 },
+        { from: 'mm²', exp: -3 },
+      ];
+      const u = randChoice(units);
+      const values = [1, 2, 3, 5, 10, 20, 50, 100, 300, 500];
+      const v = randChoice(values);
+      const areaExp = u.exp * 2;
+      const ans = v * Math.pow(10, areaExp);
+      return {
+        question: `${v} ${u.from}`,
+        answer: formatScientific(ans),
+        answerUnit: 'm²',
+        answerValue: ans,
+        steps: [
+          `長さ：1 ${u.from.replace('²','')} = 10${formatExp(u.exp)} m`,
+          `面積：指数を <strong>2倍</strong>`,
+          `1 ${u.from} = (10${formatExp(u.exp)})² = 10${formatExp(areaExp)} m²`,
+          `${v} ${u.from} = <strong>${formatScientific(ans)} m²</strong>`
+        ],
+        hint: `面積は指数を 2倍 にする！`
+      };
+    },
+    volume: () => {
+      const choice = randChoice(['cm³', 'mm³', 'L', 'mL']);
+      const values = [1, 2, 4, 5, 10, 50, 100, 500, 1000, 2000, 4000];
+      const v = randChoice(values);
+      let ans: number, steps: string[];
+      if (choice === 'L') {
+        ans = v * 1e-3;
+        steps = [`1 L = 10⁻³ m³`, `${v} L = ${v} × 10⁻³ m³`, `= <strong>${formatScientific(ans)} m³</strong>`];
+      } else if (choice === 'mL') {
+        ans = v * 1e-6;
+        steps = [`1 mL = 10⁻⁶ m³`, `${v} mL = ${v} × 10⁻⁶ m³`, `= <strong>${formatScientific(ans)} m³</strong>`];
+      } else if (choice === 'cm³') {
+        ans = v * 1e-6;
+        steps = [`体積：指数を <strong>3倍</strong>`, `1 cm³ = (10⁻²)³ = 10⁻⁶ m³`, `${v} cm³ = <strong>${formatScientific(ans)} m³</strong>`];
+      } else {
+        ans = v * 1e-9;
+        steps = [`体積：指数を <strong>3倍</strong>`, `1 mm³ = (10⁻³)³ = 10⁻⁹ m³`, `${v} mm³ = <strong>${formatScientific(ans)} m³</strong>`];
+      }
+      return { question: `${v} ${choice}`, answer: formatScientific(ans), answerUnit: 'm³', answerValue: ans, steps, hint: `体積は指数を 3倍 にする！` };
+    },
+    compound: () => {
+      const speeds = [18, 36, 54, 72, 90, 108, 120, 144, 180];
+      const v = randChoice(speeds);
+      const ans = v / 3.6;
+      return {
+        question: `${v} km/h`,
+        answer: ans.toString(),
+        answerUnit: 'm/s',
+        answerValue: ans,
+        steps: [
+          `${v} km/h = ${v} × 1000 m / 3600 s`,
+          `= ${v * 1000} / 3600`,
+          `= <strong>${ans} m/s</strong>`,
+          `💡 速攻法：÷ 3.6`
+        ],
+        hint: `km/h → m/s は ÷ 3.6`
+      };
+    },
+    density: () => {
+      const densities = [0.8, 1.0, 1.5, 2.0, 2.5, 2.7, 5.0, 7.8, 8.9, 11.3, 13.6];
+      const v = randChoice(densities);
+      const ans = v * 1000;
+      return {
+        question: `${v} g/cm³`,
+        answer: ans.toString(),
+        answerUnit: 'kg/m³',
+        answerValue: ans,
+        steps: [
+          `g → kg: × 10⁻³`,
+          `cm³ → m³: × 10⁻⁶`,
+          `合計: 10⁻³ ÷ 10⁻⁶ = 10³`,
+          `${v} × 1000 = <strong>${ans} kg/m³</strong>`
+        ],
+        hint: `g/cm³ → kg/m³ は × 1000`
+      };
+    }
+  };
+
+  const generateQuiz = (type: QuizType): Quiz => {
+    if (type === 'all') {
+      const types = ['length', 'length', 'area', 'volume', 'compound', 'density'];
+      return generators[randChoice(types)]();
+    }
+    return generators[type]();
+  };
+
+  // メイン処理
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.infinite-quiz') as HTMLElement;
+    if (!container) return;
+
+    let currentCategory = (container.dataset.category || 'all') as QuizType;
+    const masteryThreshold = parseInt(container.dataset.mastery || '5');
+    
+    let currentQuiz: Quiz;
+    let correctCount = 0;
+    let streak = 0;
+    let totalCount = 0;
+    let answered = false;
+
+    const quizNum = document.getElementById('quiz-num')!;
+    const quizText = document.getElementById('quiz-text')!;
+    const quizInput = document.getElementById('quiz-input') as HTMLInputElement;
+    const quizUnit = document.getElementById('quiz-unit')!;
+    const checkBtn = document.getElementById('check-btn') as HTMLButtonElement;
+    const showBtn = document.getElementById('show-btn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+    const resultDiv = document.getElementById('quiz-result')!;
+    const solutionDiv = document.getElementById('quiz-solution')!;
+    const answerValue = document.getElementById('answer-value')!;
+    const stepsList = document.getElementById('steps-list')!;
+    const hintBox = document.getElementById('hint-box')!;
+    const masteryMsg = document.getElementById('mastery-message')!;
+    const masteryCount = document.getElementById('mastery-count')!;
+    const quizCard = document.getElementById('quiz-card')!;
+
+    const correctSpan = document.getElementById('correct')!;
+    const streakSpan = document.getElementById('streak')!;
+    const totalSpan = document.getElementById('total')!;
+
+    const loadQuiz = () => {
+      currentQuiz = generateQuiz(currentCategory);
+      totalCount++;
+      answered = false;
+
+      quizNum.textContent = totalCount.toString();
+      quizText.textContent = currentQuiz.question;
+      quizUnit.textContent = currentQuiz.answerUnit;
+      quizInput.value = '';
+      quizInput.disabled = false;
+      quizInput.className = 'quiz-input';
+      quizInput.focus();
+
+      checkBtn.disabled = false;
+      showBtn.disabled = false;
+      resultDiv.classList.add('hidden');
+      solutionDiv.classList.add('hidden');
+      nextBtn.classList.add('hidden');
+
+      totalSpan.textContent = totalCount.toString();
+    };
+
+    const checkAnswer = (showOnly = false) => {
+      if (answered) return;
+      answered = true;
+
+      const userInput = quizInput.value.trim()
+        .replace(/\s/g, '')
+        .replace(/×/g, '*')
+        .replace(/⁻/g, '-')
+        .toLowerCase();
+      
+      const correctAnswer = currentQuiz.answer
+        .replace(/\s/g, '')
+        .replace(/×/g, '*')
+        .replace(/⁻/g, '-')
+        .toLowerCase();
+
+      // 数値比較も許容
+      const userNum = parseFloat(userInput.replace(/[^\d.-]/g, ''));
+      const isCorrect = !showOnly && (
+        userInput === correctAnswer ||
+        Math.abs(userNum - currentQuiz.answerValue) < 0.001 ||
+        Math.abs(userNum / currentQuiz.answerValue - 1) < 0.01
+      );
+
+      // 結果表示
+      resultDiv.classList.remove('hidden', 'correct', 'incorrect');
+      if (showOnly) {
+        resultDiv.textContent = '📖 答えを確認';
+        resultDiv.className = 'quiz-result';
+        streak = 0;
+      } else if (isCorrect) {
+        resultDiv.textContent = '✅ 正解！';
+        resultDiv.classList.add('correct');
+        quizInput.classList.add('correct');
+        correctCount++;
+        streak++;
+        correctSpan.textContent = correctCount.toString();
+      } else {
+        resultDiv.textContent = '❌ 不正解...';
+        resultDiv.classList.add('incorrect');
+        quizInput.classList.add('incorrect');
+        streak = 0;
+      }
+      streakSpan.textContent = streak.toString();
+
+      // 解答表示
+      answerValue.textContent = `${currentQuiz.answer} ${currentQuiz.answerUnit}`;
+      stepsList.innerHTML = currentQuiz.steps.map(s => `<li>${s}</li>`).join('');
+      if (currentQuiz.hint) {
+        hintBox.innerHTML = `💡 ${currentQuiz.hint}`;
+        hintBox.classList.remove('hidden');
+      } else {
+        hintBox.classList.add('hidden');
+      }
+      solutionDiv.classList.remove('hidden');
+
+      quizInput.disabled = true;
+      checkBtn.disabled = true;
+      showBtn.disabled = true;
+      nextBtn.classList.remove('hidden');
+
+      // マスタリー判定
+      if (streak >= masteryThreshold) {
+        setTimeout(() => {
+          quizCard.classList.add('hidden');
+          masteryCount.textContent = streak.toString();
+          masteryMsg.classList.remove('hidden');
+        }, 500);
+      }
+    };
+
+    checkBtn.addEventListener('click', () => checkAnswer(false));
+    showBtn.addEventListener('click', () => checkAnswer(true));
+    nextBtn.addEventListener('click', loadQuiz);
+
+    quizInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        if (!answered) checkAnswer(false);
+        else loadQuiz();
+      }
+    });
+
+    // マスタリー後
+    document.getElementById('continue-btn')?.addEventListener('click', () => {
+      streak = 0;
+      streakSpan.textContent = '0';
+      masteryMsg.classList.add('hidden');
+      quizCard.classList.remove('hidden');
+      loadQuiz();
+    });
+
+    document.getElementById('change-btn')?.addEventListener('click', () => {
+      window.location.href = '/physics-basic/weeks/week03/';
+    });
+
+    // カテゴリ選択
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = (btn as HTMLElement).dataset.cat as QuizType;
+        streak = 0;
+        streakSpan.textContent = '0';
+        masteryMsg.classList.add('hidden');
+        quizCard.classList.remove('hidden');
+        loadQuiz();
+      });
+    });
+
+    // 初期化
+    loadQuiz();
+  });
+</script>

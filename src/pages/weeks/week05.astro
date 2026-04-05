@@ -8,192 +8,10 @@ import Math from '../../components/Math.astro';
   <h1>Week 5: 摩擦力</h1>
 
   <section class="content-section">
-    <h2>🎯 今週の目標</h2>
-    <div class="goal-list">
-      <ul>
-        <li>垂直抗力の性質と計算方法を理解する</li>
-        <li>静止摩擦力の性質と計算方法を理解する</li>
-        <li>動摩擦力の性質と計算方法を理解する</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <h2>📝 小テスト（事前確認）</h2>
-    <div class="intro-box">
-      今週の学習内容に入る前に、前回の復習と今回の導入として小テストに挑戦してみましょう。
-    </div>
-
-    <h3>設定条件</h3>
-    <div class="bullet-list">
-      <ul>
-        <li>あらい水平面上に質量 m = 2.0 kg の物体が静止</li>
-        <li>静止摩擦係数 μ = 0.50、動摩擦係数 μ' = 0.40</li>
-        <li>重力加速度 g = 10 m/s²</li>
-      </ul>
-    </div>
-
-    <h3>問題</h3>
-    <div class="bullet-list">
-      <ul>
-        <li>① 物体が水平面から受ける垂直抗力の大きさは？</li>
-        <li>② 水平右向きに F = 5.0 N で押したとき、垂直抗力は？</li>
-        <li>③ このときの摩擦力の大きさは？</li>
-        <li>④ 物体を押す力を徐々に大きくしていくと、ある瞬間に物体が運動を始めた。運動を始める直前の押す力の大きさは？</li>
-        <li>⑤ 運動を始めた後、押す力を徐々に小さくしていくと、ある瞬間に物体が静止した。静止する直前の押す力の大きさは？</li>
-      </ul>
-    </div>
-
-    <h3>解答</h3>
-    <div class="formula-box">
-      <p class="big-formula">① 2.0 × 10¹ N（= 20 N）</p>
-      <p class="big-formula">② 2.0 × 10¹ N（= 20 N）</p>
-      <p class="big-formula">③ 5.0 N</p>
-      <p class="big-formula">④ 1.0 × 10¹ N（= 10 N）</p>
-      <p class="big-formula">⑤ 8.0 N</p>
-      <p class="note-text">※ 指数表記：m × 10ⁿ（m：1以上10未満、n：整数）</p>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <h2>⚖️ 作用・反作用の法則</h2>
-    
-    <div class="intro-box">
-      <strong>「押したら、押し返される」</strong> — これが物理の大原則です。作用・反作用の法則は、力学の基本中の基本！
-    </div>
-
-    <div class="bullet-list">
-      <ul>
-        <li>壁を押すと、壁からも同じ力で押し返される</li>
-        <li>椅子に座ると、椅子からも押し返される</li>
-        <li>この「押し返す力」が抗力の正体です！</li>
-      </ul>
-    </div>
-
-    <div class="story-box">
-      <h3>📜 作用・反作用の歴史</h3>
-      <div class="history-grid">
-        <div class="history-card">
-          <h4>アイザック・ニュートン</h4>
-          <p>17世紀のイギリスの科学者。彼の著書『プリンキピア』で運動の3法則（慣性の法則、運動の法則、作用・反作用の法則）を提唱しました。</p>
-          <span class="era">17世紀</span>
-        </div>
-        <div class="history-card">
-          <h4>第三法則</h4>
-          <p>作用・反作用の法則は、ニュートンの運動の第三法則として知られています。全ての力はペアで存在し、互いに逆向きで等しい大きさです。</p>
-          <span class="concept">普遍的な原理</span>
-        </div>
-        <div class="history-card">
-          <h4>日常生活への応用</h4>
-          <p>ロケットの推進、歩行、水泳など、私たちの身の回りにある多くの現象が作用・反作用の法則によって説明できます。</p>
-          <span class="application">実用性</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="formula-box">
-      <h4>作用・反作用の法則</h4>
-      <p class="big-formula">「作用と反作用は、同一作用線上にあり、<br/>大きさが等しく、互いに逆向き」</p>
-      <p><strong>ポイント:</strong></p>
-      <ul>
-        <li>物体 A が物体 B を押す力（作用）</li>
-        <li>物体 B が物体 A を押し返す力（反作用）</li>
-        <li>この2つは必ずペアで発生する！</li>
-        <li><strong>注意:</strong> 作用と反作用は「別の物体」にはたらく</li>
-      </ul>
-    </div>
-
-    <div class="real-world-grid">
-      <div class="real-world-card">
-        <span>🚀</span>
-        <h4>ロケットの推進</h4>
-        <p>ロケットがガスを噴射（作用）すると、ガスがロケットを押し返す（反作用）ことで前進します。</p>
-      </div>
-      <div class="real-world-card">
-        <span>🚶</span>
-        <h4>歩行</h4>
-        <p>足で地面を後ろに蹴る（作用）と、地面が足を前に押し返す（反作用）ことで歩けます。</p>
-      </div>
-      <div class="real-world-card">
-        <span>🏊</span>
-        <h4>水泳</h4>
-        <p>手で水を後ろに押す（作用）と、水が体を前に押し返す（反作用）ことで進みます。</p>
-      </div>
-      <div class="real-world-card">
-        <span>🥊</span>
-        <h4>パンチ</h4>
-        <p>ボクサーがサンドバッグを殴る（作用）と、サンドバッグも同じ力でボクサーの拳を押し返します（反作用）。</p>
-      </div>
-      <div class="real-world-card">
-        <span>🛶</span>
-        <h4>ボートを漕ぐ</h4>
-        <p>オールで水を後ろに押す（作用）と、水がオールを介してボートを前に進めます（反作用）。</p>
-      </div>
-      <div class="real-world-card">
-        <span>🎈</span>
-        <h4>風船の空気</h4>
-        <p>風船から空気が噴き出す（作用）と、空気の反作用で風船が飛びます。</p>
-      </div>
-    </div>
-
-    <h3>作用・反作用の具体的な例</h3>
-    <div class="bullet-list">
-      <ul>
-        <li><strong>椅子に座る人:</strong> 人が椅子を押す力 → 椅子が人を押し返す力</li>
-        <li><strong>壁を押す人:</strong> 人が壁を押す力 → 壁が人を押し返す力</li>
-        <li><strong>床の上の物体:</strong> 物体が床を押す力（重力由来）→ 床が物体を押し返す力（抗力）</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <h2>📐 垂直抗力</h2>
-    
-    <div class="intro-box">
-      物体が面に接しているとき、面から<strong>垂直に</strong>受ける力を<strong>垂直抗力 (Normal Force)</strong> と言います。これは、物体が面を押す力に対する面の反作用です。
-    </div>
-
-    <h3>垂直抗力とは？</h3>
-    <div class="bullet-list">
-      <ul>
-        <li><strong>定義:</strong> 物体が面に接しているとき、面から垂直に受ける力</li>
-        <li><strong>水平面の場合:</strong> 重力と垂直抗力がつりあう → <Math f="N = mg" inline /></li>
-        <li><strong>斜面の場合:</strong> 重力の面に垂直な成分とつりあう → <Math f="N = mg \\cos \\theta" inline /></li>
-      </ul>
-    </div>
-
-    <div class="formula-box">
-      <h4>垂直抗力の公式</h4>
-      <p><strong>水平面：</strong><Math f="N = mg" block /></p>
-      <p><strong>斜面：</strong><Math f="N = mg \\cos \\theta" block /></p>
-      <p>N: 垂直抗力の大きさ [N], m: 物体の質量 [kg], g: 重力加速度 [m/s²], θ: 斜面の傾き [°]</p>
-      <p class="note-text">※ 斜面では cos θ < 1 なので、垂直抗力は重力より小さくなります。</p>
-    </div>
-
-    <div class="warning-box">
-      <strong>⚠️ 「抗力」と「垂直抗力」を混同しないこと！</strong><br/>
-      <ul>
-        <li><strong>水平面の場合:</strong> 面に垂直な方向の力しか働かないため、抗力 = 垂直抗力 となります。</li>
-        <li><strong>斜面の場合:</strong> 抗力は「垂直抗力（面に垂直）」と「摩擦力（面に平行）」の2成分に分解されます。この場合、抗力と垂直抗力は異なります。</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="content-section">
     <h2>🧊 静止摩擦力 vs 動摩擦力</h2>
     
     <div class="intro-box">
       摩擦力には <strong>2種類</strong> ある！ 物体が動いているかどうかで決まります。
-    </div>
-
-    <h3>摩擦力の種類</h3>
-    <div class="bullet-list">
-      <ul>
-        <li><strong>なめらかな面:</strong> 摩擦がはたらかない面（理想状態）</li>
-        <li><strong>あらい面:</strong> 摩擦がはたらく面（現実の面）</li>
-        <li><strong>静止摩擦力:</strong> 静止している物体にはたらく摩擦力</li>
-        <li><strong>動摩擦力:</strong> 運動している物体にはたらく摩擦力</li>
-      </ul>
     </div>
 
     <div class="incline-table">
@@ -217,159 +35,22 @@ import Math from '../../components/Math.astro';
       </table>
     </div>
 
-    <h3>🛑 静止摩擦力の特徴</h3>
-    <div class="bullet-list">
-      <ul>
-        <li><strong>大きさが変化する！</strong> 加えた力が小さい → 静止摩擦力も小さい。加えた力を大きくする → 静止摩擦力も大きくなります。</li>
-        <li><strong>つりあいの原理:</strong> 静止している = 力がつりあっている。→ 静止摩擦力 = 加えた力</li>
-        <li><strong>限界がある:</strong> 静止摩擦力には上限（最大静止摩擦力）があります！</li>
-      </ul>
-    </div>
-
     <div class="formula-box">
       <h4>最大静止摩擦力</h4>
-      <Math f="f_0 = \\mu N" block />
-      <p>f₀：最大静止摩擦力 [N]</p>
-      <p>μ: 静止摩擦係数（物体と面の組み合わせで決まる定数）</p>
-      <p>N: 垂直抗力 [N]</p>
-      <p class="note-text">※ 物体が動き出す条件: 加えた力 > μN</p>
-    </div>
-
-    <h3>⛰️ 斜面上の静止摩擦力</h3>
-    <div class="bullet-list">
-      <ul>
-        <li><strong>力のつりあい:</strong>
-          <ul>
-            <li>垂直方向: <Math f="N = mg \\cos \\theta" inline /></li>
-            <li>斜面方向: <Math f="f = mg \\sin \\theta" inline /> (静止しているとき)</li>
-          </ul>
-        </li>
-        <li><strong>動き出す条件:</strong> <Math f="mg \\sin \\theta > \\mu \\times mg \\cos \\theta \\Rightarrow \\tan \\theta > \\mu" inline /></li>
-        <li><strong>臨界角:</strong> <Math f="\\theta_0 = \\arctan(\\mu)" inline /> のとき、物体が動き出します。この角度を臨界角または摩擦角と呼びます。</li>
-      </ul>
-    </div>
-
-    <h3>🏃 動摩擦力の特徴</h3>
-    <div class="bullet-list">
-      <ul>
-        <li><strong>いったん動き出すと…</strong> 静止摩擦力 → 動摩擦力に切り替わります。</li>
-        <li><strong>動摩擦力 < 最大静止摩擦力:</strong> 動き出すのに必要な力は、動かし続けるのに必要な力よりも大きいです。</li>
-        <li><strong>一定の大きさ:</strong> 速度に関係なく、動摩擦力はほぼ一定の大きさです。</li>
-      </ul>
+      <Math f="f_{max} = \\muN" block />
+      <p>μ: 静止摩擦係数、N: 垂直抗力</p>
     </div>
 
     <div class="formula-box">
       <h4>動摩擦力</h4>
-      <Math f="f' = \\mu' N" block />
-      <p>f'：動摩擦力 [N]</p>
-      <p>μ': 動摩擦係数</p>
-      <p>N: 垂直抗力</p>
-      <p class="note-text">※ 一般に <Math f="\\mu' < \\mu" inline /> (動摩擦係数 < 静止摩擦係数)</p>
-    </div>
-
-    <div class="comparison-table">
-      <h3>静止摩擦力 vs 動摩擦力</h3>
-      <div class="comparison-grid">
-        <div class="comparison-card static">
-          <h4>🛑 静止摩擦力</h4>
-          <ul>
-            <li>静止している物体に働く</li>
-            <li>大きさは変化する (0 ≤ f ≤ μN)</li>
-            <li>加えた力とつりあう</li>
-            <li>最大値は f₀ = μN</li>
-          </ul>
-        </div>
-        <div class="comparison-card kinetic">
-          <h4>🏃 動摩擦力</h4>
-          <ul>
-            <li>運動している物体に働く</li>
-            <li>大きさは一定 (f' = μ'N)</li>
-            <li>速度によらない</li>
-            <li>μ' < μ なので、一般に小さい</li>
-          </ul>
-        </div>
-      </div>
+      <Math f="f' = \\mu'N" block />
+      <p>μ': 動摩擦係数、N: 垂直抗力</p>
     </div>
 
     <div class="warning-box">
       <strong>⚠️ ポイント：</strong><br/>
       摩擦力は「面を押し付ける力（垂直抗力 N）」に比例します！重さ mg ではありません（斜面の場合は N = mg cosθ になるので注意）。
     </div>
-  </section>
-
-  <!-- ===== 小テスト 詳細解説セクション ===== -->
-  <section class="content-section exercise-section">
-    <h2>📖 小テスト 詳細解説</h2>
-    <div class="intro-box">
-      冒頭の小テストの解答と解説を詳しく見ていきましょう。
-      設定条件は以下の通りです。
-      <ul>
-        <li>あらい水平面上に質量 m = 2.0 kg の物体が静止</li>
-        <li>静止摩擦係数 μ = 0.50、動摩擦係数 μ' = 0.40</li>
-        <li>重力加速度 g = 10 m/s²</li>
-      </ul>
-    </div>
-
-    <QuizCard 
-      id="14"
-      question="① 物体が水平面から受ける垂直抗力の大きさは？"
-      answer="20"
-      answerUnit="N"
-      steps={[
-        "水平面なので、垂直抗力 N は重力 mg とつりあいます。",
-        "N = mg",
-        "N = 2.0 kg × 10 m/s² = 20 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="15"
-      question="② 水平右向きに F = 5.0 N で押したとき、垂直抗力は？"
-      answer="20"
-      answerUnit="N"
-      steps={[
-        "垂直抗力は垂直方向の力のみで決まります。",
-        "水平方向の力は垂直抗力に影響しません。",
-        "したがって、N = mg = 20 N で変わらない。"
-      ]}
-    />
-
-    <QuizCard 
-      id="16"
-      question="③ このときの摩擦力の大きさは？"
-      answer="5.0"
-      answerUnit="N"
-      steps={[
-        "物体は静止しているため、力はつりあっています。",
-        "静止摩擦力は加えた力と等しくなります。",
-        "f = F = 5.0 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="17"
-      question="④ 物体を押す力を徐々に大きくしていくと、ある瞬間に物体が運動を始めた。運動を始める直前の押す力の大きさは？"
-      answer="10"
-      answerUnit="N"
-      steps={[
-        "運動を始める直前は、最大静止摩擦力がはたらいています。",
-        "f₀ = μN",
-        "f₀ = 0.50 × 20 N = 10 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="18"
-      question="⑤ 運動を始めた後、押す力を徐々に小さくしていくと、ある瞬間に物体が静止した。静止する直前の押す力の大きさは？"
-      answer="8.0"
-      answerUnit="N"
-      steps={[
-        "運動中は動摩擦力がはたらきます。",
-        "f' = μ'N",
-        "f' = 0.40 × 20 N = 8.0 N",
-        "押す力がこの動摩擦力と同じになると物体は静止します。"
-      ]}
-    />
   </section>
 
   <!-- ===== 練習セクション ===== -->
@@ -486,54 +167,6 @@ import Math from '../../components/Math.astro';
       ]}
     />
 
-    <h3>演習問題（斜面）</h3>
-    <div class="intro-box">
-      以下の設定条件で、斜面上の物体に関する問題を解いてみましょう。
-      <ul>
-        <li>あらい面の上に質量 m = 1.0 kg の物体を置く</li>
-        <li>面の傾きを 0° から徐々に大きくしていく</li>
-        <li>傾きが θ = 30° を超えた瞬間に物体が滑り始めた</li>
-        <li>重力加速度 g = 10 m/s²</li>
-      </ul>
-    </div>
-
-    <QuizCard 
-      id="11"
-      question="① 傾き θ = 30° のときの垂直抗力 N を求めよ"
-      answer="8.66"
-      answerUnit="N"
-      steps={[
-        "斜面上の垂直抗力：N = mg cos θ",
-        "N = 1.0 × 10 × cos 30°",
-        "N = 10 × (√3/2) ≈ 8.66 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="12"
-      question="② 傾き θ = 30° のときの摩擦力 f を求めよ"
-      answer="5.0"
-      answerUnit="N"
-      steps={[
-        "滑り出す直前なので、摩擦力は斜面方向の重力成分とつりあいます。",
-        "f = mg sin θ",
-        "f = 1.0 × 10 × sin 30°",
-        "f = 10 × 0.5 = 5.0 N"
-      ]}
-    />
-
-    <QuizCard 
-      id="13"
-      question="③ 静止摩擦係数 μ を求めよ"
-      answer="0.58"
-      answerUnit=""
-      steps={[
-        "滑り出す直前なので、f = f_max = μN の関係が成り立ちます。",
-        "μ = f / N = (mg sin θ) / (mg cos θ) = tan θ",
-        "μ = tan 30° = 1/√3 ≈ 0.577"
-      ]}
-    />
-
   </section>
 
   <!-- ===== まとめ ===== -->
@@ -541,39 +174,17 @@ import Math from '../../components/Math.astro';
     <h2>📝 今日のまとめ</h2>
     <div class="summary-grid">
       <div class="summary-item">
-        <span class="summary-icon">📐</span>
-        <span><strong>垂直抗力:</strong> 面に垂直な方向の力（水平面: N = mg、斜面: N = mg cos θ）</span>
-      </div>
-      <div class="summary-item">
         <span class="summary-icon">🛑</span>
-        <span><strong>静止摩擦力:</strong> 静止物体に働く。大きさは加えた力と同じ（上限: μN）</span>
+        <span>静止摩擦力：<strong>引く力と同じ</strong>（動かない間）</span>
       </div>
       <div class="summary-item">
         <span class="summary-icon">⚠️</span>
-        <span><strong>最大静止摩擦力:</strong> f₀ = μN（物体が動き出す条件）</span>
+        <span>最大静止摩擦力：<strong>f_max = μN</strong></span>
       </div>
       <div class="summary-item">
         <span class="summary-icon">🏃</span>
-        <span><strong>動摩擦力:</strong> 運動物体に働く。f' = μ'N（速度によらず一定）</span>
+        <span>動摩擦力：<strong>f' = μ'N</strong>（動いている時）</span>
       </div>
-      <div class="summary-item">
-        <span class="summary-icon">↔️</span>
-        <span><strong>係数の関係:</strong> μ' < μ（動摩擦係数は静止摩擦係数より小さい）</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <h2>📝 FIT-AIM 振り返り入力</h2>
-    <div class="bullet-list">
-      <ul>
-        <li>FIT-AIMにアクセスし、「物理基礎演習」の欄に本日の小テストの内容、結果、解説の振り返りを入力してください。</li>
-        <li>「記載欄（講義理解）」のはじめに、小テストの得点を記載すること。</li>
-      </ul>
-    </div>
-    <h3>【記入例】</h3>
-    <div class="intro-box">
-      （7）今回の小テストの結果、○○○を十分に理解できていないことがわかった。解説を聞いて、......
     </div>
   </section>
 
@@ -592,17 +203,10 @@ import Math from '../../components/Math.astro';
   .formula-box h4 { margin: 0 0 12px; color: #1d4ed8; }
   .big-formula { font-size: 1.5rem; font-weight: 700; color: #1d4ed8; display: block; margin: 8px 0; font-family: 'Courier New', monospace; }
   .formula-box p { margin: 8px 0 0; color: #475569; }
-  .formula-box ul { text-align: left; margin: 16px auto 0; max-width: 80%; list-style: disc; padding-left: 20px; color: #475569; }
-  .formula-box ul li { margin-bottom: 8px; }
-  .formula-box .note-text { font-size: 0.9rem; color: #64748b; margin-top: 10px; }
-
   .incline-table table { width: 100%; border-collapse: collapse; margin: 16px 0; }
   .incline-table th, .incline-table td { padding: 12px; border: 1px solid #e2e8f0; text-align: center; }
   .incline-table th { background: #f1f5f9; }
   .warning-box { background: #fef2f2; border: 2px solid #ef4444; border-radius: 12px; padding: 16px 20px; margin: 20px 0; color: #991b1b; }
-  .warning-box ul { margin-top: 10px; padding-left: 20px; list-style: disc; }
-  .warning-box ul li { margin-bottom: 5px; }
-
   .exercise-section { background: #fafbfc; }
   .summary-section { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; }
   .summary-section h2 { border-color: #10b981; color: #059669; }
@@ -615,190 +219,4 @@ import Math from '../../components/Math.astro';
   .nav-btn:not(.secondary):hover { background: #2563eb; }
   .nav-btn.secondary { background: #f1f5f9; color: #475569; }
   .nav-btn.secondary:hover { background: #e2e8f0; }
-
-  /* New styles from week02 */
-  .story-box {
-    background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);
-    border-radius: 12px;
-    padding: 24px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-  .story-box h3 {
-    color: #1e40af;
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #93c5fd;
-    padding-bottom: 10px;
-  }
-  .history-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-  }
-  .history-card {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    position: relative;
-    overflow: hidden;
-  }
-  .history-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: #3b82f6;
-  }
-  .history-card h4 {
-    color: #1e293b;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-  }
-  .history-card p {
-    color: #475569;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-  .history-card .era, .history-card .concept, .history-card .application {
-    display: inline-block;
-    background: #e0f2fe;
-    color: #1e40af;
-    padding: 4px 10px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-top: 15px;
-  }
-
-  .real-world-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-  }
-  .real-world-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.2s ease-in-out;
-  }
-  .real-world-card:hover {
-    transform: translateY(-5px);
-  }
-  .real-world-card span {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-  }
-  .real-world-card h4 {
-    color: #1e293b;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-  }
-  .real-world-card p {
-    color: #475569;
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .bullet-list ul {
-    list-style: disc;
-    padding-left: 25px;
-    margin-top: 15px;
-    color: #334155;
-  }
-  .bullet-list li {
-    margin-bottom: 8px;
-    line-height: 1.6;
-  }
-  .bullet-list li ul {
-    list-style: circle;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
-  .goal-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .goal-list li {
-    background: #e0f2fe;
-    border-left: 5px solid #3b82f6;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    font-size: 1.05rem;
-    color: #1e40af;
-  }
-
-  .comparison-table {
-    margin-top: 30px;
-    background: #f8fafc;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-  .comparison-table h3 {
-    text-align: center;
-    color: #1e293b;
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-  }
-  .comparison-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  .comparison-card {
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  }
-  .comparison-card.static {
-    background: #fffbeb; /* warning_light */
-    border: 2px solid #f59e0b; /* warning */
-  }
-  .comparison-card.kinetic {
-    background: #eff6ff; /* primary_light */
-    border: 2px solid #3b82f6; /* primary */
-  }
-  .comparison-card h4 {
-    text-align: center;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #1e293b;
-  }
-  .comparison-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .comparison-card li {
-    margin-bottom: 8px;
-    padding-left: 25px;
-    position: relative;
-    color: #334155;
-  }
-  .comparison-card li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #3b82f6; /* primary color for bullets */
-    font-size: 1.2em;
-    line-height: 1;
-  }
-  .comparison-card.static li::before {
-    color: #f59e0b; /* warning color for bullets */
-  }
 </style>

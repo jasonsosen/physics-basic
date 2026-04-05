@@ -7,162 +7,6 @@ import Math from '../../components/Math.astro';
 <Layout title="Week 3: 力と質量、密度">
   <h1>Week 3: 力と質量、密度</h1>
 
-  <section class="content-section">
-    <h2>🎯 今週の目標</h2>
-    <ul class="goal-list">
-      <li>質量・体積・密度の関係を理解する</li>
-      <li>質量・重力・重力加速度の関係を理解する</li>
-      <li>「重さ」と「質量」の違いを理解する</li>
-    </ul>
-  </section>
-
-  <!-- ===== Section: 小テスト（問題） ===== -->
-  <section class="content-section exercise-section">
-    <h2>📝 小テスト（問題）</h2>
-    <p class="section-desc">まずは現在の理解度を測ってみましょう。</p>
-
-    <div class="story-box">
-      <h3>前提条件</h3>
-      <ul>
-        <li><strong>物体 A：</strong>質量 2.0×10² g</li>
-        <li><strong>物体 B：</strong>密度 3.0 g/cm³ の物質で作られている</li>
-        <li><strong>ばね B：</strong>1.0 N の力で引っ張ると 5.0×10⁻² m 伸びる</li>
-        <li><strong>地表の重力加速度：</strong>10 m/s²</li>
-        <li><strong>月面の重力加速度：</strong>地表の 1/6</li>
-        <li><strong>物理定数：</strong>重力加速度の大きさ 1.0×10³ cm/s² (CGS単位系)</li>
-      </ul>
-      <p class="note-text">💡 CGS単位系（g, cm, s）とSI単位系（kg, m, s）が混在しています。注意して計算しましょう。</p>
-    </div>
-
-    <h3>密度と体積の問題</h3>
-    <QuizCard 
-      id="pre-quiz-1"
-      question="① 物体 A の体積が 40 cm³ だった場合、密度は何 g/cm³ か"
-      answer="5.0"
-      answerUnit="g/cm³"
-      steps={[
-        "公式：ρ = m / V",
-        "m = 2.0×10² g = 200 g",
-        "V = 40 cm³",
-        "ρ = 200 / 40 = <strong>5.0 g/cm³</strong>"
-      ]}
-    />
-    <QuizCard 
-      id="pre-quiz-2"
-      question="② 物体 A の密度が 4.0 g/cm³ だった場合、体積は何 cm³ か"
-      answer="5.0×10¹"
-      answerUnit="cm³"
-      steps={[
-        "公式：V = m / ρ",
-        "m = 2.0×10² g = 200 g",
-        "ρ = 4.0 g/cm³",
-        "V = 200 / 4.0 = <strong>50 cm³</strong>"
-      ]}
-    />
-    <QuizCard 
-      id="pre-quiz-3"
-      question="③ 物体 B の質量が 3.0×10² g だった場合、体積は何 cm³ か"
-      answer="1.0×10²"
-      answerUnit="cm³"
-      steps={[
-        "公式：V = m / ρ",
-        "m = 3.0×10² g = 300 g",
-        "ρ = 3.0 g/cm³",
-        "V = 300 / 3.0 = <strong>100 cm³</strong>"
-      ]}
-    />
-    <QuizCard 
-      id="pre-quiz-4"
-      question="④ 物体 B の体積が 20 cm³ だった場合、質量は何 g か"
-      answer="6.0×10¹"
-      answerUnit="g"
-      steps={[
-        "公式：m = ρ × V",
-        "ρ = 3.0 g/cm³",
-        "V = 20 cm³",
-        "m = 3.0 × 20 = <strong>60 g</strong>"
-      ]}
-    />
-
-    <h3>重力の問題</h3>
-    <QuizCard 
-      id="pre-quiz-5"
-      question="⑤ 物体 A にはたらく重力の大きさは何 g·cm/s² か"
-      answer="2.0×10⁵"
-      answerUnit="g·cm/s²"
-      steps={[
-        "公式：W = m × g",
-        "m = 2.0×10² g = 200 g",
-        "g = 1.0×10³ cm/s²",
-        "W = 200 × 1000 = <strong>2.0×10⁵ g·cm/s²</strong>"
-      ]}
-    />
-    <QuizCard 
-      id="pre-quiz-6"
-      question="⑥ 物体 B に 3.0 N の重力がはたらくとき、質量は何 g か"
-      answer="3.0×10²"
-      answerUnit="g"
-      steps={[
-        "公式：m = W / g",
-        "まず単位換算：1 N = 10⁵ dyn = 10⁵ g·cm/s²",
-        "W = 3.0 N = 3.0 × 10⁵ g·cm/s²",
-        "g = 1.0×10³ cm/s²",
-        "m = (3.0 × 10⁵) / (1.0 × 10³) = 3.0 × 10² g = <strong>300 g</strong>"
-      ]}
-      hint="N（ニュートン）と g·cm/s²（ダイン相当）の換算に注意！"
-    />
-
-    <h3>ばねと月面の問題</h3>
-    <QuizCard 
-      id="pre-quiz-7"
-      question="⑦ 地表でばねに物体 A をつるすと 2.4×10⁻¹ m 伸びた。重力は何 N？"
-      answer="4.8"
-      answerUnit="N"
-      steps={[
-        "ばね B のばね定数 k を求める：F = kx より k = F/x",
-        "k = 1.0 N / (5.0×10⁻² m) = 1.0 / 0.05 = 20 N/m",
-        "伸び x = 2.4×10⁻¹ m = 0.24 m",
-        "重力 W = F = kx = 20 × 0.24 = <strong>4.8 N</strong>"
-      ]}
-    />
-    <QuizCard 
-      id="pre-quiz-8"
-      question="⑧ 地表における物体 A の質量は何 kg か"
-      answer="4.8×10⁻¹"
-      answerUnit="kg"
-      steps={[
-        "公式：m = W / g",
-        "W = 4.8 N",
-        "地表の重力加速度 g = 10 m/s²",
-        "m = 4.8 / 10 = 0.48 kg = <strong>4.8×10⁻¹ kg</strong>"
-      ]}
-    />
-    <QuizCard 
-      id="pre-quiz-9"
-      question="⑨ 月面でばね B に物体 A を吊るすと、伸びは何 m か"
-      answer="4.0×10⁻²"
-      answerUnit="m"
-      steps={[
-        "月面の重力加速度 g_月 = 地表の g / 6 = 10 / 6 m/s²",
-        "月面での重力 W_月 = m × g_月 = 0.48 kg × (10/6) m/s² = 0.8 N",
-        "ばねの伸び x = W_月 / k = 0.8 N / 20 N/m = 0.04 m = <strong>4.0×10⁻² m</strong>"
-      ]}
-    />
-    <QuizCard 
-      id="pre-quiz-10"
-      question="⑩ 月面における物体 A の質量は何 kg か"
-      answer="4.8×10⁻¹"
-      answerUnit="kg"
-      steps={[
-        "🚨 陷阱注意！",
-        "質量は物体の固有の性質であり、場所によって変わりません。",
-        "地表での質量と同じ：<strong>4.8×10⁻¹ kg</strong>"
-      ]}
-      hint="月面でも質量は変わらない！"
-    />
-    <p class="note-text">💡 小テストの得点は成績に関係しません。現時点の理解度を測るためのテストです。</p>
-  </section>
-
   <!-- ===== Section 1: 密度 ===== -->
   <section class="content-section">
     <h2>📦 密度ってなんだろう？</h2>
@@ -172,48 +16,9 @@ import Math from '../../components/Math.astro';
       同じ大きさ（体積）で比べたときの「ぎっしり度」が違うから！
     </div>
 
-    <div class="story-box">
-      <h3>なぜ「密度」を学ぶ必要があるの？</h3>
-      <p>密度を知らないと、日常生活や仕事で思わぬトラブルや事故につながることがあります。</p>
-      <div class="real-world-grid">
-        <div class="real-world-card">
-          <span class="emoji">🏗️</span>
-          <h4>建築・工学</h4>
-          <p>建物の設計で材料の密度を間違えると、構造が不安定になり倒壊の危険が！</p>
-        </div>
-        <div class="real-world-card">
-          <span class="emoji">🚢</span>
-          <h4>造船・航空</h4>
-          <p>船や飛行機は、浮力や揚力を得るために材料の密度計算が不可欠です。</p>
-        </div>
-        <div class="real-world-card">
-          <span class="emoji">🧪</span>
-          <h4>化学・材料科学</h4>
-          <p>新しい物質を開発する際、その密度を正確に測定・予測することが重要です。</p>
-        </div>
-        <div class="real-world-card">
-          <span class="emoji">💎</span>
-          <h4>宝飾品鑑定</h4>
-          <p>金や宝石の真贋を見分ける際、密度は重要な手がかりになります。</p>
-        </div>
-        <div class="real-world-card">
-          <span class="emoji">🍎</span>
-          <h4>食品加工</h4>
-          <p>果物の熟度や油の品質管理など、食品の密度測定は品質維持に役立ちます。</p>
-        </div>
-        <div class="real-world-card">
-          <span class="emoji">🌡️</span>
-          <h4>気象学</h4>
-          <p>空気の密度は温度や湿度によって変わり、これが風や天候の変化に影響します。</p>
-        </div>
-      </div>
-      <p class="note-text">このように、密度は私たちの生活のあらゆる場面で重要な役割を果たしています。</p>
-    </div>
-
     <div class="formula-box main-formula">
       <Math f="\\rho = \\frac{m}{V}" block />
       <p>密度 ＝ 質量 ÷ 体積</p>
-      <p class="note-text">💡 水の密度 1.0 g/cm³ は、「1 cm³ の水の質量は 1 g」という意味です。</p>
     </div>
 
     <!-- 公式三変形 -->
@@ -247,37 +52,14 @@ import Math from '../../components/Math.astro';
     <h3>代表的な物質の密度</h3>
     <div class="density-table">
       <table>
-        <tr><th>物質</th><th>密度 (g/cm³)</th><th>特徴</th><th>水に入れると</th></tr>
-        <tr><td>空気（0℃）</td><td>0.0013</td><td>とても軽い</td><td>🔼 浮く</td></tr>
-        <tr><td>発泡スチロール</td><td>0.02〜0.1</td><td>軽い緩衝材</td><td>🔼 浮く</td></tr>
-        <tr class="float"><td>木材</td><td>0.4〜0.8</td><td>家具や建材に</td><td>🔼 浮く</td></tr>
-        <tr><td>水</td><td>1.00</td><td>基準！</td><td>（基準）</td></tr>
-        <tr class="sink"><td>アルミニウム</td><td>2.70</td><td>軽い金属</td><td>🔽 沈む</td></tr>
-        <tr class="sink"><td>鉄</td><td>7.87</td><td>重い金属</td><td>🔽 沈む</td></tr>
-        <tr class="sink"><td>金</td><td>19.32</td><td>超重い！</td><td>🔽 沈む</td></tr>
+        <tr><th>物質</th><th>密度 (g/cm³)</th><th>水に入れると</th></tr>
+        <tr><td>水</td><td>1.00</td><td>（基準）</td></tr>
+        <tr class="float"><td>木</td><td>約 0.5</td><td>🔼 浮く</td></tr>
+        <tr class="sink"><td>アルミ</td><td>2.70</td><td>🔽 沈む</td></tr>
+        <tr class="sink"><td>鉄</td><td>7.87</td><td>🔽 沈む</td></tr>
+        <tr class="sink"><td>金</td><td>19.32</td><td>🔽 沈む</td></tr>
       </table>
-      <p class="table-note">📌 密度 < 1.0 → 水に浮く、密度 > 1.0 → 水に沈む</p>
-    </div>
-
-    <div class="comparison-cards">
-      <div class="comp-card mass-card">
-        <h4>質量・体積 📦</h4>
-        <div class="comp-icon">📏</div>
-        <ul>
-          <li>物体の大きさ・形状に依存</li>
-          <li>同じ物質でも違う値になる</li>
-          <li>例：鉄1kgと鉄10kg → 体積も質量も違う</li>
-        </ul>
-      </div>
-      <div class="comp-card weight-card">
-        <h4>密度 🔬</h4>
-        <div class="comp-icon">🧬</div>
-        <ul>
-          <li>物質固有の性質（物性）</li>
-          <li>大きさ・形状に関係なく一定</li>
-          <li>例：鉄1kgも鉄10kgも → 密度は同じ 7.9 g/cm³</li>
-        </ul>
-      </div>
+      <p class="table-note">📌 密度 < 1.0 → 水に浮く！</p>
     </div>
   </section>
 
@@ -319,3 +101,824 @@ import Math from '../../components/Math.astro';
         "体積を求める → V = m/ρ",
         "V = 39 ÷ 7.8",
         "= <strong>5.0 cm³</strong>"
+      ]}
+      hint="3つ目の変形！V = m ÷ ρ"
+    />
+  </section>
+
+  <!-- ===== Section 3: 質量と重さの違い ===== -->
+  <section class="content-section">
+    <h2>⚖️ 質量と重さは違う！</h2>
+    
+    <p class="transition-text">
+      密度は「物質そのものの特性」でした。<br/>
+      では、その物質が<strong>地球や月にいるとき</strong>、どんな力を受けるでしょう？<br/>
+      → それが「重力（重さ）」です！
+    </p>
+
+    <div class="danger-box">
+      <span class="danger-icon">⚠️</span>
+      <span>最重要！「質量」と「重さ」を混同しないで！</span>
+    </div>
+
+    <div class="comparison-cards">
+      <div class="comp-card mass-card">
+        <h4>質量 (m)</h4>
+        <div class="comp-icon">⚛️</div>
+        <ul>
+          <li><strong>意味：</strong>物体の「中身の量」</li>
+          <li><strong>単位：</strong>kg</li>
+          <li><strong>場所で変わる？</strong>❌ 変わらない</li>
+          <li><strong>月に行くと：</strong>同じ！</li>
+        </ul>
+      </div>
+      <div class="comp-card weight-card">
+        <h4>重さ・重力 (W)</h4>
+        <div class="comp-icon">⬇️</div>
+        <ul>
+          <li><strong>意味：</strong>星に引っ張られる力</li>
+          <li><strong>単位：</strong>N（ニュートン）</li>
+          <li><strong>場所で変わる？</strong>⭕ 変わる</li>
+          <li><strong>月に行くと：</strong>約 1/6</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <Math f="W = mg" block />
+      <p>重力 ＝ 質量 × 重力加速度</p>
+    </div>
+
+    <div class="g-table">
+      <table>
+        <tr><th>場所</th><th>重力加速度 g</th><th>備考</th></tr>
+        <tr><td>地球（地表）</td><td>9.8 m/s² ≈ <strong>10</strong></td><td>計算では10を使う</td></tr>
+        <tr><td>月</td><td>約 1.6 m/s²</td><td>地球の <strong>1/6</strong></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== Section 4: 月の比較（可視化） ===== -->
+  <section class="content-section">
+    <h2>🌙 月への旅行で考えよう</h2>
+
+    <div class="moon-comparison">
+      <div class="planet-card earth">
+        <div class="planet-icon">🌍</div>
+        <h4>地球</h4>
+        <div class="astronaut">👨‍🚀</div>
+        <div class="value-row">
+          <span class="label">質量：</span>
+          <span class="value">60 kg</span>
+        </div>
+        <div class="value-row highlight">
+          <span class="label">重さ：</span>
+          <span class="value">600 N</span>
+        </div>
+        <p class="calc">W = 60 × 10 = 600 N</p>
+      </div>
+
+      <div class="arrow-container">
+        <div class="travel-arrow">🚀</div>
+      </div>
+
+      <div class="planet-card moon">
+        <div class="planet-icon">🌙</div>
+        <h4>月</h4>
+        <div class="astronaut">👨‍🚀</div>
+        <div class="value-row same">
+          <span class="label">質量：</span>
+          <span class="value">60 kg</span>
+          <span class="badge">同じ！</span>
+        </div>
+        <div class="value-row highlight">
+          <span class="label">重さ：</span>
+          <span class="value">100 N</span>
+        </div>
+        <p class="calc">W = 60 × 1.6 ≈ 100 N</p>
+      </div>
+    </div>
+
+    <div class="trap-warning">
+      <h4>🚨 陥りやすい罠！</h4>
+      <p>「月に行ったら質量も1/6になる」→ <strong>❌ 間違い！</strong></p>
+      <p>質量は物体の固有の性質。どこに行っても変わらない！</p>
+      <p>変わるのは<strong>重力（重さ）</strong>だけ！</p>
+    </div>
+
+    <h3>測定器具の違い</h3>
+    <div class="tool-comparison">
+      <div class="tool-card">
+        <div class="tool-icon">🔧</div>
+        <h5>バネばかり</h5>
+        <p>測るもの：<strong>重さ（重力）</strong></p>
+        <p>月では：値が<span class="down">小さくなる</span></p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">⚖️</div>
+        <h5>上皿天秤</h5>
+        <p>測るもの：<strong>質量</strong></p>
+        <p>月では：<span class="same-text">同じ値</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Section 5: 練習 - 重力 ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習 Level 2：重力の計算</h2>
+
+    <QuizCard 
+      id="4"
+      question="質量 5 kg の物体の重力（g = 10 m/s²）"
+      answer="50"
+      answerUnit="N"
+      steps={[
+        "W = mg",
+        "W = 5 × 10",
+        "= <strong>50 N</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="5"
+      question="質量 200 g のリンゴの重力（g = 10 m/s²）"
+      answer="2"
+      answerUnit="N"
+      steps={[
+        "まず単位をSIに：200 g = 0.2 kg",
+        "W = mg = 0.2 × 10",
+        "= <strong>2 N</strong>"
+      ]}
+      hint="g → kg に換算してから計算！"
+    />
+
+    <QuizCard 
+      id="6"
+      question="月で重さが 10 N の物体、地球での重さ"
+      answer="60"
+      answerUnit="N"
+      steps={[
+        "月の重力 = 地球の 1/6",
+        "地球での重さ = 月での重さ × 6",
+        "= 10 × 6 = <strong>60 N</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="7"
+      question="重力 30 N を受けている物体の質量（g = 10）"
+      answer="3"
+      answerUnit="kg"
+      steps={[
+        "W = mg より m = W/g",
+        "m = 30 ÷ 10",
+        "= <strong>3 kg</strong>"
+      ]}
+      hint="公式を変形：m = W ÷ g"
+    />
+  </section>
+
+  <!-- ===== Section 6: 陷阱題専區 ===== -->
+  <section class="content-section exercise-section trap-section">
+    <h2>🚨 陷阱チェック：質量 vs 重さ</h2>
+    <p class="section-desc">この問題、間違える人が本当に多い！</p>
+
+    <QuizCard 
+      id="8"
+      question="宇宙飛行士の地球での質量は 72 kg。月に行ったら質量は？"
+      answer="72"
+      answerUnit="kg"
+      steps={[
+        "🚨 陷阱注意！",
+        "質量は「物体に含まれる物質の量」",
+        "場所が変わっても <strong>質量は変わらない</strong>",
+        "答え：<strong>72 kg</strong>（同じ！）"
+      ]}
+      hint="間違えやすい！重さと質量を混同しないで"
+    />
+
+    <QuizCard 
+      id="9"
+      question="地球で 600 N の重力を受ける人、月での重力は？"
+      answer="100"
+      answerUnit="N"
+      steps={[
+        "月の重力加速度 = 地球の 1/6",
+        "月での重力 = 600 ÷ 6",
+        "= <strong>100 N</strong>"
+      ]}
+    />
+  </section>
+
+  <!-- ===== Section 7: バネの力（フックの法則） ===== -->
+  <section class="content-section">
+    <h2>🔩 バネの力（フックの法則）</h2>
+
+    <p class="intro-text">バネを引っ張ると、元に戻ろうとする力が生まれます。</p>
+
+    <div class="formula-box">
+      <Math f="F = kx" block />
+      <p>弾性力 ＝ バネ定数 × 伸び</p>
+    </div>
+
+    <div class="symbol-table">
+      <table>
+        <tr><th>記号</th><th>意味</th><th>単位</th></tr>
+        <tr><td>F</td><td>弾性力（バネの力）</td><td>N</td></tr>
+        <tr><td>k</td><td>バネ定数（硬さ）</td><td>N/m</td></tr>
+        <tr><td>x</td><td>伸び（自然長からの変化）</td><td>m</td></tr>
+      </table>
+    </div>
+
+    <div class="spring-demo">
+      <div class="spring-visual">
+        <div class="spring-base">📍</div>
+        <div class="spring-coil">〰️〰️〰️</div>
+        <div class="spring-weight">🔴</div>
+      </div>
+      <div class="spring-labels">
+        <p>自然長からの伸び = <strong>x</strong></p>
+        <p>重りの重力 = バネの弾性力</p>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 バネばかりの原理</strong>
+      <p>物体をバネに吊るすと、重力 W とバネの力 F がつり合う：</p>
+      <p class="formula-inline"><strong>W = F = kx</strong></p>
+      <p>伸び x を測れば、重力（重さ）がわかる！</p>
+    </div>
+  </section>
+
+  <!-- ===== Section 8: 練習 - バネ ===== -->
+  <section class="content-section exercise-section">
+    <h2>✏️ 練習 Level 3：バネの計算</h2>
+
+    <QuizCard 
+      id="10"
+      question="バネ定数 50 N/m のバネが 0.2 m 伸びた時の弾性力"
+      answer="10"
+      answerUnit="N"
+      steps={[
+        "F = kx",
+        "F = 50 × 0.2",
+        "= <strong>10 N</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="11"
+      question="バネ定数 25 N/m のバネに物体を吊るしたら 0.24 m 伸びた。物体の重力は？"
+      answer="6"
+      answerUnit="N"
+      steps={[
+        "つり合い状態：重力 W = 弾性力 F",
+        "F = kx = 25 × 0.24",
+        "= <strong>6 N</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="12"
+      question="問11のバネと物体を月に持っていくと、伸びは？"
+      answer="0.04"
+      answerUnit="m"
+      steps={[
+        "月では重力が 1/6 になる",
+        "W_月 = 6 ÷ 6 = 1 N",
+        "F = kx より x = F/k",
+        "x = 1 ÷ 25 = <strong>0.04 m</strong>"
+      ]}
+      hint="バネ定数 k は場所で変わらない！"
+    />
+
+    <QuizCard 
+      id="13"
+      question="問11の物体の質量は？（地球 g = 10）"
+      answer="0.6"
+      answerUnit="kg"
+      steps={[
+        "地球での重力 W = 6 N",
+        "W = mg より m = W/g",
+        "m = 6 ÷ 10 = <strong>0.6 kg</strong>"
+      ]}
+    />
+
+    <QuizCard 
+      id="14"
+      question="問11の物体を月に持っていった時の質量は？"
+      answer="0.6"
+      answerUnit="kg"
+      steps={[
+        "🚨 また陷阱！",
+        "質量は場所で変わらない",
+        "答え：<strong>0.6 kg</strong>（同じ！）"
+      ]}
+      hint="2回目の陷阱！もう間違えないよね？"
+    />
+  </section>
+
+  <!-- ===== Section 9: まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">📦</span>
+        <span>密度：<strong>ρ = m/V</strong>（3変形を使い分ける）</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">⬇️</span>
+        <span>重力：<strong>W = mg</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">🔩</span>
+        <span>バネの力：<strong>F = kx</strong></span>
+      </div>
+      <div class="summary-item warning">
+        <span class="summary-icon">⚠️</span>
+        <span><strong>質量は場所で変わらない、重さは変わる！</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">🌙</span>
+        <span>月の重力加速度は地球の <strong>1/6</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="nav-buttons">
+    <a href="/physics-basic/weeks/week02/" class="nav-btn secondary">← Week 2</a>
+    <a href="/physics-basic/weeks/week04/" class="nav-btn">Week 4 へ →</a>
+  </div>
+</Layout>
+
+<style>
+  /* ===== 基本スタイル ===== */
+  .content-section {
+    margin: 40px 0;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .content-section h2 {
+    color: #1e293b;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #3b82f6;
+  }
+
+  .section-desc {
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+
+  .intro-text, .transition-text {
+    font-size: 1.05rem;
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  /* ===== 導入ボックス ===== */
+  .intro-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  /* ===== 公式ボックス ===== */
+  .formula-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .big-formula {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1d4ed8;
+  }
+
+  .formula-box p {
+    margin: 8px 0 0;
+    color: #475569;
+  }
+
+  /* ===== 公式三変形カード ===== */
+  .formula-trio {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .formula-card {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .formula-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+  }
+
+  .formula-icon {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .formula-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    font-family: 'Courier New', monospace;
+  }
+
+  .formula-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 4px;
+  }
+
+  /* ===== テーブル ===== */
+  .symbol-table table, .g-table table, .density-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+  }
+
+  .symbol-table th, .symbol-table td,
+  .g-table th, .g-table td,
+  .density-table th, .density-table td {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+  }
+
+  .symbol-table th, .g-table th, .density-table th {
+    background: #f1f5f9;
+    font-weight: 600;
+  }
+
+  .density-table .float { background: #dcfce7; }
+  .density-table .sink { background: #fee2e2; }
+  .table-note { font-size: 0.9rem; color: #059669; margin-top: 8px; }
+
+  /* ===== 危険ボックス ===== */
+  .danger-box {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 2px solid #ef4444;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .danger-icon {
+    font-size: 1.5rem;
+  }
+
+  /* ===== 質量vs重さ比較カード ===== */
+  .comparison-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 24px 0;
+  }
+
+  .comp-card {
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .comp-card h4 {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .comp-icon {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .comp-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .comp-card li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .mass-card {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    border: 2px solid #10b981;
+  }
+
+  .weight-card {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #f59e0b;
+  }
+
+  /* ===== 月比較 ===== */
+  .moon-comparison {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+  }
+
+  .planet-card {
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    min-width: 200px;
+  }
+
+  .planet-card.earth {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border: 2px solid #3b82f6;
+  }
+
+  .planet-card.moon {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    border: 2px solid #6b7280;
+  }
+
+  .planet-icon {
+    font-size: 2.5rem;
+  }
+
+  .planet-card h4 {
+    margin: 8px 0;
+  }
+
+  .astronaut {
+    font-size: 3rem;
+    margin: 12px 0;
+  }
+
+  .value-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 0;
+  }
+
+  .value-row.highlight .value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #dc2626;
+  }
+
+  .value-row.same .badge {
+    background: #10b981;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+
+  .calc {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 8px;
+  }
+
+  .arrow-container {
+    font-size: 2rem;
+  }
+
+  /* ===== 陷阱警告 ===== */
+  .trap-warning {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 3px solid #dc2626;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .trap-warning h4 {
+    color: #dc2626;
+    margin: 0 0 12px;
+  }
+
+  .trap-warning p {
+    margin: 8px 0;
+  }
+
+  /* ===== 測定器具 ===== */
+  .tool-comparison {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .tool-card {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .tool-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  .tool-card h5 {
+    margin: 0 0 8px;
+  }
+
+  .tool-card .down { color: #dc2626; font-weight: 600; }
+  .tool-card .same-text { color: #059669; font-weight: 600; }
+
+  /* ===== バネデモ ===== */
+  .spring-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 24px 0;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+  }
+
+  .spring-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+
+  .spring-coil {
+    letter-spacing: -4px;
+  }
+
+  .spring-labels p {
+    margin: 4px 0;
+    color: #475569;
+  }
+
+  /* ===== ヒントボックス ===== */
+  .tip-box {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+  }
+
+  .tip-box p {
+    margin: 8px 0;
+  }
+
+  .formula-inline {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+  }
+
+  /* ===== 練習セクション ===== */
+  .exercise-section {
+    background: #fafbfc;
+  }
+
+  .trap-section {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border: 2px solid #f97316;
+  }
+
+  .trap-section h2 {
+    border-color: #f97316;
+    color: #c2410c;
+  }
+
+  /* ===== まとめ ===== */
+  .summary-section {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    border: 2px solid #10b981;
+  }
+
+  .summary-section h2 {
+    border-color: #10b981;
+    color: #059669;
+  }
+
+  .summary-grid {
+    display: grid;
+    gap: 12px;
+  }
+
+  .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.05rem;
+  }
+
+  .summary-item.warning {
+    color: #dc2626;
+    font-weight: 600;
+  }
+
+  .summary-icon {
+    font-size: 1.3rem;
+  }
+
+  /* ===== ナビゲーション ===== */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 16px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    display: inline-block;
+    padding: 14px 24px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:not(.secondary) {
+    background: #3b82f6;
+    color: white;
+  }
+
+  .nav-btn:not(.secondary):hover {
+    background: #2563eb;
+  }
+
+  .nav-btn.secondary {
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .nav-btn.secondary:hover {
+    background: #e2e8f0;
+  }
+
+  /* ===== レスポンシブ ===== */
+  @media (max-width: 640px) {
+    .moon-comparison {
+      flex-direction: column;
+    }
+    
+    .arrow-container {
+      transform: rotate(90deg);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.quiz-card');
+    
+    cards.forEach(card => {
+      const input = card.querySelector('.quiz-input') as HTMLInputElement;
+      const btn = card.querySelector('.quiz-btn') as HTMLButtonElement;
+      const solution = card.querySelector('.quiz-solution') as HTMLDivElement;
+      
+      const showAnswer = () => {
+        solution.classList.remove('hidden');
+        input.disabled = true;
+        btn.disabled = true;
+        btn.textContent = '回答済み';
+        card.classList.add('answered');
+        solution.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      };
+
+      btn.addEventListener('click', showAnswer);
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          showAnswer();
+        }
+      });
+    });
+  });
+</script>
