@@ -1,4 +1,5 @@
 ---
+import TabView from '../../components/TabView.astro';
 import VectorAdder from "../../components/VectorAdder.astro";
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
@@ -7,6 +8,11 @@ import Math from '../../components/Math.astro';
 
 <Layout title="Week 4: 力の合成と分解">
   <h1>Week 4: 力の合成と分解</h1>
+
+  <TabView>
+    <!-- ========== 内容タブ ========== -->
+    <div slot="content">
+
 
   <!-- ===== Section 1: ベクトルの基礎 ===== -->
   <section class="content-section">
@@ -77,6 +83,149 @@ import Math from '../../components/Math.astro';
     </div>
   </section>
 
+  <!-- ===== Section 4: 力の分解 ===== -->
+  <section class="content-section">
+    <h2>➗ 力の分解（分力）</h2>
+
+    <div class="intro-box">
+      1つの力を、<strong>2つの方向（x と y）</strong>に分ける！
+    </div>
+
+    <div class="formula-box">
+      <Math f="Fx = F cos \\theta" block />
+      <Math f="Fy = F sin \\theta" block />
+      <p>θ は x軸（水平）からの角度</p>
+    </div>
+
+    <div class="trig-memory">
+      <h4>💡 sin・cos の覚え方</h4>
+      <div class="memory-cards">
+        <div class="memory-card">
+          <div class="memory-fn">cos θ</div>
+          <div class="memory-hint">→ 地面に落ちた影（横方向）</div>
+        </div>
+        <div class="memory-card">
+          <div class="memory-fn">sin θ</div>
+          <div class="memory-hint">↑ 壁に映った影（縦方向）</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>三角関数の値（暗記！）</h3>
+    <div class="trig-table">
+      <table>
+        <tr><th>角度 θ</th><th>sin θ</th><th>cos θ</th></tr>
+        <tr><td>0°</td><td>0</td><td>1</td></tr>
+        <tr><td>30°</td><td>1/2 = 0.5</td><td>√3/2 ≈ 0.87</td></tr>
+        <tr><td>45°</td><td>√2/2 ≈ 0.71</td><td>√2/2 ≈ 0.71</td></tr>
+        <tr><td>60°</td><td>√3/2 ≈ 0.87</td><td>1/2 = 0.5</td></tr>
+        <tr><td>90°</td><td>1</td><td>0</td></tr>
+        <tr class="highlight-row"><td>120°</td><td>√3/2 ≈ 0.87</td><td><strong>-1/2 = -0.5</strong></td></tr>
+      </table>
+    </div>
+
+    <div class="warning-box">
+      <strong>⚠️ 注意：90°を超えると cos が負になる！</strong><br/>
+      cos 120° = -0.5（x成分が負＝左向き）
+    </div>
+  </section>
+
+  <!-- ===== Section 6: 斜面上の物体 ===== -->
+  <section class="content-section">
+    <h2>⛰️ 斜面上の物体</h2>
+
+    <div class="intro-box">
+      重力 mg を斜面に沿って分解すると...
+    </div>
+
+    <div class="incline-diagram">
+      <div class="incline-visual">
+        <div class="incline-slope"></div>
+        <div class="incline-object">📦</div>
+        <div class="incline-angle">θ</div>
+        <div class="force-parallel">mg sin θ</div>
+        <div class="force-perp">mg cos θ</div>
+      </div>
+    </div>
+
+    <div class="incline-table">
+      <table>
+        <tr><th>成分</th><th>公式</th><th>意味</th></tr>
+        <tr>
+          <td>斜面に平行 ↘</td>
+          <td><strong>mg sin θ</strong></td>
+          <td>滑り落ちる力</td>
+        </tr>
+        <tr>
+          <td>斜面に垂直 ↗</td>
+          <td><strong>mg cos θ</strong></td>
+          <td>面を押す力（垂直抗力と釣り合う）</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 覚え方</strong>
+      <p>斜面角度が大きくなると → <strong>滑る力 (sin θ) が増える</strong></p>
+      <p>θ = 90° なら自由落下（全部滑る力）、θ = 0° なら水平（滑らない）</p>
+    </div>
+  </section>
+
+  <!-- ===== Section 8: 力のつり合い ===== -->
+  <section class="content-section">
+    <h2>⚖️ 力のつり合い</h2>
+
+    <div class="formula-box">
+      <Math f="\\Sigma F_x = 0, \\quad \\Sigma F_y = 0" block />
+      <p>静止している物体は、力がつり合っている！</p>
+    </div>
+
+    <div class="equilibrium-example">
+      <h4>例：3つの力のつり合い</h4>
+      <p>F₁ + F₂ + F₃ = 0 のとき、F₃ を求める</p>
+      <div class="solution-steps">
+        <p>F₁ = (3, 0) N、F₂ = (0, 4) N とすると...</p>
+        <p>F₃ = -(F₁ + F₂) = -((3, 4)) = <strong>(-3, -4) N</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Section 10: まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">➕</span>
+        <span>合力：<strong>成分ごとに足す</strong> F = (F₁x+F₂x, F₁y+F₂y)</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">📐</span>
+        <span>大きさ：<strong>|F| = √(Fx² + Fy²)</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">➗</span>
+        <span>分解：<strong>Fx = F cos θ、Fy = F sin θ</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">⛰️</span>
+        <span>斜面：滑る力 = <strong>mg sin θ</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">⚖️</span>
+        <span>つり合い：<strong>ΣFx = 0、ΣFy = 0</strong></span>
+      </div>
+      <div class="summary-item warning">
+        <span class="summary-icon">⚠️</span>
+        <span>90°超え → <strong>cos が負になる</strong></span>
+      </div>
+    </div>
+  </section>
+    </div>
+
+    <!-- ========== 題目タブ ========== -->
+    <div slot="problems">
+
+
   <!-- ===== Section 3: 練習 - 合成 ===== -->
   <section class="content-section exercise-section">
     <h2>✏️ 練習 Level 1：ベクトルの合成</h2>
@@ -129,53 +278,6 @@ import Math from '../../components/Math.astro';
         "= √68 ≈ <strong>8.2 N</strong>"
       ]}
     />
-  </section>
-
-  <!-- ===== Section 4: 力の分解 ===== -->
-  <section class="content-section">
-    <h2>➗ 力の分解（分力）</h2>
-
-    <div class="intro-box">
-      1つの力を、<strong>2つの方向（x と y）</strong>に分ける！
-    </div>
-
-    <div class="formula-box">
-      <Math f="Fx = F cos \\theta" block />
-      <Math f="Fy = F sin \\theta" block />
-      <p>θ は x軸（水平）からの角度</p>
-    </div>
-
-    <div class="trig-memory">
-      <h4>💡 sin・cos の覚え方</h4>
-      <div class="memory-cards">
-        <div class="memory-card">
-          <div class="memory-fn">cos θ</div>
-          <div class="memory-hint">→ 地面に落ちた影（横方向）</div>
-        </div>
-        <div class="memory-card">
-          <div class="memory-fn">sin θ</div>
-          <div class="memory-hint">↑ 壁に映った影（縦方向）</div>
-        </div>
-      </div>
-    </div>
-
-    <h3>三角関数の値（暗記！）</h3>
-    <div class="trig-table">
-      <table>
-        <tr><th>角度 θ</th><th>sin θ</th><th>cos θ</th></tr>
-        <tr><td>0°</td><td>0</td><td>1</td></tr>
-        <tr><td>30°</td><td>1/2 = 0.5</td><td>√3/2 ≈ 0.87</td></tr>
-        <tr><td>45°</td><td>√2/2 ≈ 0.71</td><td>√2/2 ≈ 0.71</td></tr>
-        <tr><td>60°</td><td>√3/2 ≈ 0.87</td><td>1/2 = 0.5</td></tr>
-        <tr><td>90°</td><td>1</td><td>0</td></tr>
-        <tr class="highlight-row"><td>120°</td><td>√3/2 ≈ 0.87</td><td><strong>-1/2 = -0.5</strong></td></tr>
-      </table>
-    </div>
-
-    <div class="warning-box">
-      <strong>⚠️ 注意：90°を超えると cos が負になる！</strong><br/>
-      cos 120° = -0.5（x成分が負＝左向き）
-    </div>
   </section>
 
   <!-- ===== Section 5: 練習 - 分解 ===== -->
@@ -248,47 +350,6 @@ import Math from '../../components/Math.astro';
     />
   </section>
 
-  <!-- ===== Section 6: 斜面上の物体 ===== -->
-  <section class="content-section">
-    <h2>⛰️ 斜面上の物体</h2>
-
-    <div class="intro-box">
-      重力 mg を斜面に沿って分解すると...
-    </div>
-
-    <div class="incline-diagram">
-      <div class="incline-visual">
-        <div class="incline-slope"></div>
-        <div class="incline-object">📦</div>
-        <div class="incline-angle">θ</div>
-        <div class="force-parallel">mg sin θ</div>
-        <div class="force-perp">mg cos θ</div>
-      </div>
-    </div>
-
-    <div class="incline-table">
-      <table>
-        <tr><th>成分</th><th>公式</th><th>意味</th></tr>
-        <tr>
-          <td>斜面に平行 ↘</td>
-          <td><strong>mg sin θ</strong></td>
-          <td>滑り落ちる力</td>
-        </tr>
-        <tr>
-          <td>斜面に垂直 ↗</td>
-          <td><strong>mg cos θ</strong></td>
-          <td>面を押す力（垂直抗力と釣り合う）</td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="tip-box">
-      <strong>💡 覚え方</strong>
-      <p>斜面角度が大きくなると → <strong>滑る力 (sin θ) が増える</strong></p>
-      <p>θ = 90° なら自由落下（全部滑る力）、θ = 0° なら水平（滑らない）</p>
-    </div>
-  </section>
-
   <!-- ===== Section 7: 練習 - 斜面 ===== -->
   <section class="content-section exercise-section">
     <h2>✏️ 練習 Level 3：斜面の分解</h2>
@@ -333,25 +394,6 @@ import Math from '../../components/Math.astro';
     />
   </section>
 
-  <!-- ===== Section 8: 力のつり合い ===== -->
-  <section class="content-section">
-    <h2>⚖️ 力のつり合い</h2>
-
-    <div class="formula-box">
-      <Math f="\\Sigma F_x = 0, \\quad \\Sigma F_y = 0" block />
-      <p>静止している物体は、力がつり合っている！</p>
-    </div>
-
-    <div class="equilibrium-example">
-      <h4>例：3つの力のつり合い</h4>
-      <p>F₁ + F₂ + F₃ = 0 のとき、F₃ を求める</p>
-      <div class="solution-steps">
-        <p>F₁ = (3, 0) N、F₂ = (0, 4) N とすると...</p>
-        <p>F₃ = -(F₁ + F₂) = -((3, 4)) = <strong>(-3, -4) N</strong></p>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== Section 9: 練習 - つり合い ===== -->
   <section class="content-section exercise-section">
     <h2>✏️ 練習 Level 4：力のつり合い</h2>
@@ -381,37 +423,8 @@ import Math from '../../components/Math.astro';
       ]}
     />
   </section>
-
-  <!-- ===== Section 10: まとめ ===== -->
-  <section class="content-section summary-section">
-    <h2>📝 今日のまとめ</h2>
-    <div class="summary-grid">
-      <div class="summary-item">
-        <span class="summary-icon">➕</span>
-        <span>合力：<strong>成分ごとに足す</strong> F = (F₁x+F₂x, F₁y+F₂y)</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">📐</span>
-        <span>大きさ：<strong>|F| = √(Fx² + Fy²)</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">➗</span>
-        <span>分解：<strong>Fx = F cos θ、Fy = F sin θ</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">⛰️</span>
-        <span>斜面：滑る力 = <strong>mg sin θ</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">⚖️</span>
-        <span>つり合い：<strong>ΣFx = 0、ΣFy = 0</strong></span>
-      </div>
-      <div class="summary-item warning">
-        <span class="summary-icon">⚠️</span>
-        <span>90°超え → <strong>cos が負になる</strong></span>
-      </div>
     </div>
-  </section>
+  </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week03/" class="nav-btn secondary">← Week 3</a>

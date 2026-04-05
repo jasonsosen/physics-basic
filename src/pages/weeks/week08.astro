@@ -1,4 +1,5 @@
 ---
+import TabView from '../../components/TabView.astro';
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
 import Math from '../../components/Math.astro';
@@ -6,6 +7,11 @@ import Math from '../../components/Math.astro';
 
 <Layout title="Week 8: 力のモーメント">
   <h1>Week 8: 力のモーメント</h1>
+
+  <TabView>
+    <!-- ========== 内容タブ ========== -->
+    <div slot="content">
+
 
   <section class="content-section">
     <h2>🔄 力のモーメント（回転させる働き）</h2>
@@ -49,6 +55,30 @@ import Math from '../../components/Math.astro';
       <p>3. ①と②の式を立てて解く。</p>
     </div>
   </section>
+
+  <!-- ===== まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">🔄</span>
+        <span>モーメントの公式：<strong>M = F × d</strong> （力 × 腕の長さ）</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">⚖️</span>
+        <span>棒の平衡：<strong>力のつり合い ＆ モーメントのつり合い</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">🎯</span>
+        <span>コツ：<strong>未知の力がある場所を支点にする</strong>と計算がラク！</span>
+      </div>
+    </div>
+  </section>
+    </div>
+
+    <!-- ========== 題目タブ ========== -->
+    <div slot="problems">
+
 
   <!-- ===== 練習セクション ===== -->
   <section class="content-section exercise-section">
@@ -169,25 +199,8 @@ import Math from '../../components/Math.astro';
       ]}
     />
   </section>
-
-  <!-- ===== まとめ ===== -->
-  <section class="content-section summary-section">
-    <h2>📝 今日のまとめ</h2>
-    <div class="summary-grid">
-      <div class="summary-item">
-        <span class="summary-icon">🔄</span>
-        <span>モーメントの公式：<strong>M = F × d</strong> （力 × 腕の長さ）</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">⚖️</span>
-        <span>棒の平衡：<strong>力のつり合い ＆ モーメントのつり合い</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">🎯</span>
-        <span>コツ：<strong>未知の力がある場所を支点にする</strong>と計算がラク！</span>
-      </div>
     </div>
-  </section>
+  </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week07/" class="nav-btn secondary">← Week 7</a>

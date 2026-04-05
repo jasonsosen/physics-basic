@@ -1,4 +1,5 @@
 ---
+import TabView from '../../components/TabView.astro';
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
 import Math from '../../components/Math.astro';
@@ -6,6 +7,11 @@ import Math from '../../components/Math.astro';
 
 <Layout title="Week 7: 剛体と重心">
   <h1>Week 7: 剛体と重心</h1>
+
+  <TabView>
+    <!-- ========== 内容タブ ========== -->
+    <div slot="content">
+
 
   <section class="content-section">
     <h2>🧱 剛体（ごうたい）とは？</h2>
@@ -35,6 +41,30 @@ import Math from '../../components/Math.astro';
       </ul>
     </div>
   </section>
+
+  <!-- ===== まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">🧱</span>
+        <span>剛体：<strong>変形しない物体</strong>（回転を考える）</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">📍</span>
+        <span>重心の公式：<strong>x_G = (m₁x₁ + m₂x₂) / (m₁ + m₂)</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">⚖️</span>
+        <span>直感：<strong>重い方に近づく！（逆比）</strong></span>
+      </div>
+    </div>
+  </section>
+    </div>
+
+    <!-- ========== 題目タブ ========== -->
+    <div slot="problems">
+
 
   <!-- ===== 練習セクション ===== -->
   <section class="content-section exercise-section">
@@ -151,25 +181,8 @@ import Math from '../../components/Math.astro';
       ]}
     />
   </section>
-
-  <!-- ===== まとめ ===== -->
-  <section class="content-section summary-section">
-    <h2>📝 今日のまとめ</h2>
-    <div class="summary-grid">
-      <div class="summary-item">
-        <span class="summary-icon">🧱</span>
-        <span>剛体：<strong>変形しない物体</strong>（回転を考える）</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">📍</span>
-        <span>重心の公式：<strong>x_G = (m₁x₁ + m₂x₂) / (m₁ + m₂)</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">⚖️</span>
-        <span>直感：<strong>重い方に近づく！（逆比）</strong></span>
-      </div>
     </div>
-  </section>
+  </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week06/" class="nav-btn secondary">← Week 6</a>

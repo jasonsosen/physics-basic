@@ -1,4 +1,5 @@
 ---
+import TabView from '../../components/TabView.astro';
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
 import Math from '../../components/Math.astro';
@@ -6,6 +7,11 @@ import Math from '../../components/Math.astro';
 
 <Layout title="Week 10: 運動方程式">
   <h1>Week 10: 運動方程式</h1>
+
+  <TabView>
+    <!-- ========== 内容タブ ========== -->
+    <div slot="content">
+
 
   <!-- ===== Section 1: 運動方程式 F=ma ===== -->
   <section class="content-section">
@@ -48,6 +54,11 @@ import Math from '../../components/Math.astro';
       <p>※ 運動方程式 $ma = mg \sin \theta$ より、$m$が消える！つまり質量に関係なく加速度は同じ。</p>
     </div>
   </section>
+    </div>
+
+    <!-- ========== 題目タブ ========== -->
+    <div slot="problems">
+
 
   <!-- ===== Section 3: 練習問題 ===== -->
   <section class="content-section exercise-section">
@@ -175,6 +186,8 @@ import Math from '../../components/Math.astro';
     />
 
   </section>
+    </div>
+  </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week09/" class="nav-btn secondary">← Week 9</a>

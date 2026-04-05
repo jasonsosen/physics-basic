@@ -1,4 +1,5 @@
 ---
+import TabView from '../../components/TabView.astro';
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
 import Math from '../../components/Math.astro';
@@ -6,6 +7,11 @@ import Math from '../../components/Math.astro';
 
 <Layout title="Week 5: 摩擦力">
   <h1>Week 5: 摩擦力</h1>
+
+  <TabView>
+    <!-- ========== 内容タブ ========== -->
+    <div slot="content">
+
 
   <section class="content-section">
     <h2>🧊 静止摩擦力 vs 動摩擦力</h2>
@@ -52,6 +58,30 @@ import Math from '../../components/Math.astro';
       摩擦力は「面を押し付ける力（垂直抗力 N）」に比例します！重さ mg ではありません（斜面の場合は N = mg cosθ になるので注意）。
     </div>
   </section>
+
+  <!-- ===== まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">🛑</span>
+        <span>静止摩擦力：<strong>引く力と同じ</strong>（動かない間）</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">⚠️</span>
+        <span>最大静止摩擦力：<strong>f_max = μN</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">🏃</span>
+        <span>動摩擦力：<strong>f' = μ'N</strong>（動いている時）</span>
+      </div>
+    </div>
+  </section>
+    </div>
+
+    <!-- ========== 題目タブ ========== -->
+    <div slot="problems">
+
 
   <!-- ===== 練習セクション ===== -->
   <section class="content-section exercise-section">
@@ -168,25 +198,8 @@ import Math from '../../components/Math.astro';
     />
 
   </section>
-
-  <!-- ===== まとめ ===== -->
-  <section class="content-section summary-section">
-    <h2>📝 今日のまとめ</h2>
-    <div class="summary-grid">
-      <div class="summary-item">
-        <span class="summary-icon">🛑</span>
-        <span>静止摩擦力：<strong>引く力と同じ</strong>（動かない間）</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">⚠️</span>
-        <span>最大静止摩擦力：<strong>f_max = μN</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">🏃</span>
-        <span>動摩擦力：<strong>f' = μ'N</strong>（動いている時）</span>
-      </div>
     </div>
-  </section>
+  </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week04/" class="nav-btn secondary">← Week 4</a>

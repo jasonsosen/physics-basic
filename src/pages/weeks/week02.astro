@@ -1,4 +1,5 @@
 ---
+import TabView from '../../components/TabView.astro';
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
 import Math from '../../components/Math.astro';
@@ -7,6 +8,11 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
 
 <Layout title="Week 2: 単位系と単位換算">
   <h1>Week 2: 単位系と単位換算</h1>
+
+  <TabView>
+    <!-- ========== 内容タブ ========== -->
+    <div slot="content">
+
 
   <!-- ===== Section 1: 物理世界の基石 ===== -->
   <section class="content-section">
@@ -214,6 +220,126 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
     </div>
   </section>
 
+  <!-- ===== Section 4: 面積・体積（重点！） ===== -->
+  <section class="content-section danger-zone">
+    <h2>⚠️ 超重要！面積と体積の換算</h2>
+    
+    <div class="danger-banner">
+      <span class="danger-icon">🚨</span>
+      <span>ここで多くの人が間違える！</span>
+    </div>
+
+    <div class="key-question">
+      <p>問題：<strong>1 m = 100 cm</strong> なら、<strong>1 m² = 100 cm²</strong> ？</p>
+      <p class="answer-reveal">❌ <strong>違います！</strong> 1 m² = <span class="big-num">10000</span> cm²</p>
+    </div>
+
+    <!-- 面積比較図 -->
+    <div class="area-comparison">
+      <div class="comparison-side">
+        <h4>長さ（1次元）</h4>
+        <div class="line-demo">
+          <div class="line-full">1 m</div>
+          <div class="line-small">1 cm</div>
+        </div>
+        <p>1 cm = 10⁻² m<br/><span class="note">（100等分の1つ）</span></p>
+      </div>
+      
+      <div class="comparison-side">
+        <h4>面積（2次元）</h4>
+        <div class="grid-demo">
+          <div class="grid-container">
+            <div class="grid-highlight"></div>
+          </div>
+          <div class="grid-label">100 × 100 = 10000個</div>
+        </div>
+        <p>1 cm² = (10⁻²)² = <strong>10⁻⁴</strong> m²<br/><span class="note">（10000等分の1つ）</span></p>
+      </div>
+    </div>
+
+    <div class="formula-box">
+      <h4>🔑 黄金ルール</h4>
+      <div class="formula">
+        <p><strong>面積</strong>：指数を <span class="highlight-orange">2倍</span> にする</p>
+        <p class="example">cm → m は ×10⁻² → cm² → m² は ×10⁻⁴</p>
+      </div>
+      <div class="formula">
+        <p><strong>体積</strong>：指数を <span class="highlight-orange">3倍</span> にする</p>
+        <p class="example">cm → m は ×10⁻² → cm³ → m³ は ×10⁻⁶</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Section 7: 複合単位 ===== -->
+  <section class="content-section">
+    <h2>🔀 複合単位の換算</h2>
+    <p class="intro-text">分数の形で考える：<strong>分子と分母を別々に換算</strong>してから計算</p>
+
+    <!-- 複合単位のフロー図 -->
+    <div class="compound-flow">
+      <div class="flow-example">
+        <div class="flow-title">例：g/cm³ → kg/m³</div>
+        <div class="flow-diagram">
+          <div class="flow-fraction">
+            <div class="flow-num">
+              <span class="label">分子（質量）</span>
+              <span class="calc">1 g → 10⁻³ kg</span>
+            </div>
+            <div class="flow-line"></div>
+            <div class="flow-den">
+              <span class="label">分母（体積）</span>
+              <span class="calc">1 cm³ → 10⁻⁶ m³</span>
+            </div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-result">
+            <span class="calc-final">10⁻³ ÷ 10⁻⁶</span>
+            <span class="calc-final">= 10⁻³⁺⁶ = <strong>10³</strong></span>
+          </div>
+        </div>
+        <div class="flow-conclusion">
+          ∴ 1 g/cm³ = <strong>1000 kg/m³</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 覚えておくと便利</strong>
+      <ul>
+        <li>km/h → m/s：<strong>÷ 3.6</strong></li>
+        <li>g/cm³ → kg/m³：<strong>× 1000</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== まとめ ===== -->
+  <section class="content-section summary-section">
+    <h2>📝 今日のまとめ</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-icon">✅</span>
+        <span>SI基本単位：<strong>m, kg, s</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">✅</span>
+        <span>接頭語：k(10³), c(10⁻²), m(10⁻³), μ(10⁻⁶)</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">⚠️</span>
+        <span>面積は指数 <strong>×2</strong>、体積は <strong>×3</strong></span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-icon">✅</span>
+        <span>複合単位は分子・分母を分けて考える</span>
+      </div>
+    </div>
+  </section>
+    </div>
+
+    <!-- ========== 題目タブ ========== -->
+    <div slot="problems">
+
+
   <!-- ===== Section 3: 練習 Level 1 - 基礎 ===== -->
   <section class="content-section exercise-section">
     <h2>✏️ 練習 Level 1：基礎換算</h2>
@@ -360,56 +486,6 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
     />
   </section>
 
-  <!-- ===== Section 4: 面積・体積（重点！） ===== -->
-  <section class="content-section danger-zone">
-    <h2>⚠️ 超重要！面積と体積の換算</h2>
-    
-    <div class="danger-banner">
-      <span class="danger-icon">🚨</span>
-      <span>ここで多くの人が間違える！</span>
-    </div>
-
-    <div class="key-question">
-      <p>問題：<strong>1 m = 100 cm</strong> なら、<strong>1 m² = 100 cm²</strong> ？</p>
-      <p class="answer-reveal">❌ <strong>違います！</strong> 1 m² = <span class="big-num">10000</span> cm²</p>
-    </div>
-
-    <!-- 面積比較図 -->
-    <div class="area-comparison">
-      <div class="comparison-side">
-        <h4>長さ（1次元）</h4>
-        <div class="line-demo">
-          <div class="line-full">1 m</div>
-          <div class="line-small">1 cm</div>
-        </div>
-        <p>1 cm = 10⁻² m<br/><span class="note">（100等分の1つ）</span></p>
-      </div>
-      
-      <div class="comparison-side">
-        <h4>面積（2次元）</h4>
-        <div class="grid-demo">
-          <div class="grid-container">
-            <div class="grid-highlight"></div>
-          </div>
-          <div class="grid-label">100 × 100 = 10000個</div>
-        </div>
-        <p>1 cm² = (10⁻²)² = <strong>10⁻⁴</strong> m²<br/><span class="note">（10000等分の1つ）</span></p>
-      </div>
-    </div>
-
-    <div class="formula-box">
-      <h4>🔑 黄金ルール</h4>
-      <div class="formula">
-        <p><strong>面積</strong>：指数を <span class="highlight-orange">2倍</span> にする</p>
-        <p class="example">cm → m は ×10⁻² → cm² → m² は ×10⁻⁴</p>
-      </div>
-      <div class="formula">
-        <p><strong>体積</strong>：指数を <span class="highlight-orange">3倍</span> にする</p>
-        <p class="example">cm → m は ×10⁻² → cm³ → m³ は ×10⁻⁶</p>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== Section 5: 練習 Level 2 - 面積 ===== -->
   <section class="content-section exercise-section">
     <h2>✏️ 練習 Level 2：面積換算</h2>
@@ -501,48 +577,6 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
         "= <strong>5 × 10⁻⁴ m³</strong>"
       ]}
     />
-  </section>
-
-  <!-- ===== Section 7: 複合単位 ===== -->
-  <section class="content-section">
-    <h2>🔀 複合単位の換算</h2>
-    <p class="intro-text">分数の形で考える：<strong>分子と分母を別々に換算</strong>してから計算</p>
-
-    <!-- 複合単位のフロー図 -->
-    <div class="compound-flow">
-      <div class="flow-example">
-        <div class="flow-title">例：g/cm³ → kg/m³</div>
-        <div class="flow-diagram">
-          <div class="flow-fraction">
-            <div class="flow-num">
-              <span class="label">分子（質量）</span>
-              <span class="calc">1 g → 10⁻³ kg</span>
-            </div>
-            <div class="flow-line"></div>
-            <div class="flow-den">
-              <span class="label">分母（体積）</span>
-              <span class="calc">1 cm³ → 10⁻⁶ m³</span>
-            </div>
-          </div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-result">
-            <span class="calc-final">10⁻³ ÷ 10⁻⁶</span>
-            <span class="calc-final">= 10⁻³⁺⁶ = <strong>10³</strong></span>
-          </div>
-        </div>
-        <div class="flow-conclusion">
-          ∴ 1 g/cm³ = <strong>1000 kg/m³</strong>
-        </div>
-      </div>
-    </div>
-
-    <div class="tip-box">
-      <strong>💡 覚えておくと便利</strong>
-      <ul>
-        <li>km/h → m/s：<strong>÷ 3.6</strong></li>
-        <li>g/cm³ → kg/m³：<strong>× 1000</strong></li>
-      </ul>
-    </div>
   </section>
 
   <!-- ===== Section 8: 練習 Level 4 - 複合単位 ===== -->
@@ -726,29 +760,8 @@ import InfiniteQuiz from '../../components/InfiniteQuiz.astro';
     </p>
     <InfiniteQuiz category="all" masteryThreshold={5} />
   </section>
-
-  <!-- ===== まとめ ===== -->
-  <section class="content-section summary-section">
-    <h2>📝 今日のまとめ</h2>
-    <div class="summary-grid">
-      <div class="summary-item">
-        <span class="summary-icon">✅</span>
-        <span>SI基本単位：<strong>m, kg, s</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">✅</span>
-        <span>接頭語：k(10³), c(10⁻²), m(10⁻³), μ(10⁻⁶)</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">⚠️</span>
-        <span>面積は指数 <strong>×2</strong>、体積は <strong>×3</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">✅</span>
-        <span>複合単位は分子・分母を分けて考える</span>
-      </div>
     </div>
-  </section>
+  </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/" class="nav-btn secondary">← ホームへ</a>

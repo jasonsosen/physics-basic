@@ -1,4 +1,5 @@
 ---
+import TabView from '../../components/TabView.astro';
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
 import Math from '../../components/Math.astro';
@@ -6,6 +7,11 @@ import Math from '../../components/Math.astro';
 
 <Layout title="Week 11: 等速度運動と等加速度運動">
   <h1>Week 11: 等速度運動と等加速度運動</h1>
+
+  <TabView>
+    <!-- ========== 内容タブ ========== -->
+    <div slot="content">
+
 
   <!-- ===== Section 1: 等速直線運動 ===== -->
   <section class="content-section">
@@ -51,6 +57,11 @@ import Math from '../../components/Math.astro';
       </div>
     </div>
   </section>
+    </div>
+
+    <!-- ========== 題目タブ ========== -->
+    <div slot="problems">
+
 
   <!-- ===== Section 3: 練習問題 ===== -->
   <section class="content-section exercise-section">
@@ -202,6 +213,8 @@ import Math from '../../components/Math.astro';
       ]}
     />
   </section>
+    </div>
+  </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week10/" class="nav-btn secondary">← Week 10</a>

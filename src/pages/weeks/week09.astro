@@ -1,4 +1,5 @@
 ---
+import TabView from '../../components/TabView.astro';
 import Layout from '../../layouts/Layout.astro';
 import QuizCard from '../../components/QuizCard.astro';
 import Math from '../../components/Math.astro';
@@ -6,6 +7,11 @@ import Math from '../../components/Math.astro';
 
 <Layout title="Week 9: 運動の表し方">
   <h1>Week 9: 運動の表し方</h1>
+
+  <TabView>
+    <!-- ========== 内容タブ ========== -->
+    <div slot="content">
+
 
   <!-- ===== Section 1: x-t グラフ ===== -->
   <section class="content-section">
@@ -59,6 +65,11 @@ import Math from '../../components/Math.astro';
       </div>
     </div>
   </section>
+    </div>
+
+    <!-- ========== 題目タブ ========== -->
+    <div slot="problems">
+
 
   <!-- ===== Section 3: 練習問題 ===== -->
   <section class="content-section exercise-section">
@@ -173,6 +184,8 @@ import Math from '../../components/Math.astro';
       ]}
     />
   </section>
+    </div>
+  </TabView>
 
   <div class="nav-buttons">
     <a href="/physics-basic/weeks/week08/" class="nav-btn secondary">← Week 8</a>
