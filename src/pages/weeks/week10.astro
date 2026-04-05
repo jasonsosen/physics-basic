@@ -50,7 +50,63 @@ import Math from '../../components/Math.astro';
   </section>
 
   <!-- ===== Section 3: 練習問題 ===== -->
-  <section class="content-section exercise-section">
+  
+  <!-- ===== 追加内容 ===== -->
+  <section class="content-section">
+    <h2>🌍 身の回りの物理と歴史</h2>
+    
+    <div class="history-grid">
+      <div class="history-card">
+        <div class="history-header">🏛️ 背景と応用</div>
+        <div class="history-content">
+          <p>物理法則は私たちの身の回りの様々な現象に応用されています。歴史的な背景を知ることで、より深く理解できます。</p>
+          <p class="fun-fact">💡 多くの物理法則は、実世界の問題を解決するために発見されました！</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>💡 具体的な例</h3>
+    <div class="real-world-grid">
+
+      <div class="real-world-card">
+        <span class="rw-icon">📱</span>
+        <span class="rw-title">🎯 今週の目標</span>
+        <span class="rw-value" style="font-size:0.8rem;white-space:normal;color:#475569">滑らかな面上を運動する物体の運動方程式を立てられる</span>
+      </div>
+
+      <div class="real-world-card">
+        <span class="rw-icon">🚗</span>
+        <span class="rw-title">🎯 今週の目標</span>
+        <span class="rw-value" style="font-size:0.8rem;white-space:normal;color:#475569">摩擦力を受ける物体の運動方程式を立てられる</span>
+      </div>
+
+      <div class="real-world-card">
+        <span class="rw-icon">🌊</span>
+        <span class="rw-title">🎯 今週の目標</span>
+        <span class="rw-value" style="font-size:0.8rem;white-space:normal;color:#475569">複数の物体が連結された系の運動方程式を立てられる</span>
+      </div>
+
+      <div class="real-world-card">
+        <span class="rw-icon">✈️</span>
+        <span class="rw-title">小テスト ①〜③：水平面上の運動</span>
+        <span class="rw-value" style="font-size:0.8rem;white-space:normal;color:#475569">滑らかな水平面上に置かれた質量 m の物体に、</span>
+      </div>
+
+      <div class="real-world-card">
+        <span class="rw-icon">🏗️</span>
+        <span class="rw-title">小テスト ①〜③：水平面上の運動</span>
+        <span class="rw-value" style="font-size:0.8rem;white-space:normal;color:#475569">水平方向の力 F を加えたところ、加速度 a で運動を始めた。</span>
+      </div>
+
+      <div class="real-world-card">
+        <span class="rw-icon">🔬</span>
+        <span class="rw-title">小テスト ④〜⑥：斜面上の運動</span>
+        <span class="rw-value" style="font-size:0.8rem;white-space:normal;color:#475569">質量 m の物体が傾角 30° の斜面上を滑っている。</span>
+      </div>
+
+    </div>
+  </section>
+<section class="content-section exercise-section">
     <h2>✏️ 練習問題（全11問）</h2>
 
     <QuizCard 
@@ -287,4 +343,16 @@ import Math from '../../components/Math.astro';
   .nav-btn.secondary:hover {
     background: #e2e8f0;
   }
+
+  .history-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0; }
+  .history-card { background: #fefce8; border: 2px solid #fbbf24; border-radius: 12px; overflow: hidden; }
+  .history-header { background: #fbbf24; color: #78350f; padding: 10px 16px; font-weight: 700; font-size: 1.1rem; }
+  .history-content { padding: 16px; }
+  .history-content p { margin: 8px 0; }
+  .fun-fact { background: #fef3c7; padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; margin-top: 12px !important; }
+  .real-world-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+  .real-world-card { display: flex; flex-direction: column; align-items: center; text-align: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; }
+  .rw-icon { font-size: 2rem; margin-bottom: 8px; }
+  .rw-title { font-weight: 600; color: #334155; font-size: 0.95rem; margin-bottom: 4px; }
+  .rw-value { font-family: 'Courier New', monospace; color: #3b82f6; font-weight: 700; font-size: 0.9rem; }
 </style>

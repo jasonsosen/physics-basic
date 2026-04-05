@@ -1,12 +1,63 @@
----
-import VectorAdder from "../../components/VectorAdder.astro";
-import Layout from '../../layouts/Layout.astro';
-import QuizCard from '../../components/QuizCard.astro';
-import Math from '../../components/Math.astro';
----
-
 <Layout title="Week 4: 力の合成と分解">
   <h1>Week 4: 力の合成と分解</h1>
+
+  <!-- New: 今週の目標 -->
+  <section class="content-section">
+    <h2>🎯 今週の目標</h2>
+    <ul class="goal-list">
+      <li>力を合成する（合力を求める）方法を習得する</li>
+      <li>力を分解する（分力を求める）方法を習得する</li>
+      <li>力のつり合い条件について理解する</li>
+    </ul>
+  </section>
+
+  <!-- New: なぜ力を分解・合成する？ -->
+  <section class="content-section">
+    <h2>🤔 なぜ力を分解・合成する？</h2>
+    <div class="story-box">
+      <h3>こんな経験ありませんか？</h3>
+      <p>重い荷物を2人で運ぶ時、協力すると楽になる！</p>
+      <ul class="story-points">
+        <li>引っ越しで冷蔵庫を運ぶ → 1人では無理、2人なら OK</li>
+        <li>綱引きで相手チームと引っ張り合い → どっちが勝つ？</li>
+        <li>斜面で自転車を押す → 真上に持ち上げるより楽</li>
+        <li>これらはすべて「力の合成・分解」の問題！</li>
+      </ul>
+    </div>
+
+    <div class="real-world-grid">
+      <div class="real-world-card">
+        <span class="emoji">💪</span>
+        <h4>重い荷物運び</h4>
+        <p>複数人で力を合わせることで、一人では動かせないものが動く。</p>
+      </div>
+      <div class="real-world-card">
+        <span class="emoji">🪢</span>
+        <h4>綱引き</h4>
+        <p>チーム全体の合力が相手チームの合力を上回ると勝利。</p>
+      </div>
+      <div class="real-world-card">
+        <span class="emoji">🚴‍♀️</span>
+        <h4>坂道での自転車</h4>
+        <p>重力を斜面と垂直・平行な方向に分解して考える。</p>
+      </div>
+      <div class="real-world-card">
+        <span class="emoji">⛵</span>
+        <h4>ヨットの帆</h4>
+        <p>風の力を分解し、前進する力と横に流される力を利用。</p>
+      </div>
+      <div class="real-world-card">
+        <span class="emoji">🏗️</span>
+        <h4>クレーン</h4>
+        <p>ワイヤーにかかる力を分解し、構造の安定性を計算。</p>
+      </div>
+      <div class="real-world-card">
+        <span class="emoji">🌉</span>
+        <h4>橋の設計</h4>
+        <p>橋にかかる様々な力を合成・分解し、安全な構造を設計。</p>
+      </div>
+    </div>
+  </section>
 
   <!-- ===== Section 1: ベクトルの基礎 ===== -->
   <section class="content-section">
@@ -34,13 +85,21 @@ import Math from '../../components/Math.astro';
 
     <div class="formula-box">
       <h4>大きさの求め方（三平方の定理）</h4>
-      <Math f="|F| = \\sqrt(Fx^2 + Fy^2)" block />
+      <Math f="|F| = \\sqrt{Fx^2 + Fy^2}" block />
+      <p>3次元の場合: <Math f="|F| = \\sqrt{Fx^2 + Fy^2 + Fz^2}" inline /></p>
+      <p>例：F = (3, 4) N の大きさは <Math f="\\sqrt{3^2 + 4^2} = \\sqrt{9+16} = \\sqrt{25} = 5" inline /> N</p>
     </div>
   </section>
 
   <!-- ===== Section 2: 力の合成 ===== -->
   <section class="content-section">
     <h2>➕ 力の合成（合力）</h2>
+
+    <div class="intro-box">
+      <h3>合力とは？</h3>
+      <p>複数の力と「同じはたらき」をする1つの力のこと。</p>
+      <p>なぜ合力を考える？ → 物体にはたらく複雑な力を、たった1つの力として扱うことで、運動の予測がしやすくなります。</p>
+    </div>
 
     <h3>一直線上の力</h3>
     <div class="simple-cases">
@@ -58,7 +117,10 @@ import Math from '../../components/Math.astro';
 
     <h3>斜めの力：成分ごとに足す</h3>
     <div class="formula-box">
+      <h4>方法1：成分ごとに足す（計算が正確！）</h4>
       <Math f="F = F_{1} + F_{2} = (F_{1}x + F_{2}x, F_{1}y + F_{2}y)" block />
+      <p>x成分同士、y成分同士をそれぞれ足し合わせます。</p>
+      <p>試験では主にこの方法を使います！</p>
     </div>
 
     <div class="example-box">
@@ -68,6 +130,12 @@ import Math from '../../components/Math.astro';
         <p>F = F₁ + F₂ = (5.0 + (-2.0), 0.0 + 4.0) = <strong>(3.0, 4.0) N</strong></p>
         <p>|F| = √(3² + 4²) = √25 = <strong>5.0 N</strong></p>
       </div>
+    </div>
+
+    <div class="formula-box">
+      <h4>方法2：平行四辺形の法則（図でイメージ）</h4>
+      <p>2つの力を隣り合う2辺とする平行四辺形を描き、その対角線が合力となります。</p>
+      <p>この方法は視覚的に理解するのに役立ちます。</p>
     </div>
 
     <h3>🎮 ベクトル合成シミュレーター</h3>
@@ -136,13 +204,18 @@ import Math from '../../components/Math.astro';
     <h2>➗ 力の分解（分力）</h2>
 
     <div class="intro-box">
-      1つの力を、<strong>2つの方向（x と y）</strong>に分ける！
+      <h3>分力とは？</h3>
+      <p>1つの力を、<strong>2つ以上の方向</strong>に分けた力のことです。</p>
+      <p>合成と分解は逆の関係です。合成は複数の力を1つにまとめ、分解は1つの力を複数に分けます。</p>
+      <p>なぜ分解が必要？ → 斜面上の物体にかかる重力を斜面に沿った成分と垂直な成分に分解すると、運動の解析が非常に楽になります。</p>
     </div>
 
     <div class="formula-box">
+      <h4>三角関数を使った分解</h4>
       <Math f="Fx = F cos \\theta" block />
       <Math f="Fy = F sin \\theta" block />
-      <p>θ は x軸（水平）からの角度</p>
+      <p>F は力の大きさ、θ は x軸（水平）からの角度です。</p>
+      <p>cos は「隣り合う辺（x成分）」、sin は「向かい合う辺（y成分）」と覚えると良いでしょう。</p>
     </div>
 
     <div class="trig-memory">
@@ -162,14 +235,15 @@ import Math from '../../components/Math.astro';
     <h3>三角関数の値（暗記！）</h3>
     <div class="trig-table">
       <table>
-        <tr><th>角度 θ</th><th>sin θ</th><th>cos θ</th></tr>
-        <tr><td>0°</td><td>0</td><td>1</td></tr>
-        <tr><td>30°</td><td>1/2 = 0.5</td><td>√3/2 ≈ 0.87</td></tr>
-        <tr><td>45°</td><td>√2/2 ≈ 0.71</td><td>√2/2 ≈ 0.71</td></tr>
-        <tr><td>60°</td><td>√3/2 ≈ 0.87</td><td>1/2 = 0.5</td></tr>
-        <tr><td>90°</td><td>1</td><td>0</td></tr>
-        <tr class="highlight-row"><td>120°</td><td>√3/2 ≈ 0.87</td><td><strong>-1/2 = -0.5</strong></td></tr>
+        <tr><th>角度 θ</th><th>sin θ</th><th>cos θ</th><th>tan θ</th></tr>
+        <tr><td>0°</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>30°</td><td>1/2 = 0.5</td><td>√3/2 ≈ 0.87</td><td>1/√3 ≈ 0.58</td></tr>
+        <tr><td>45°</td><td>√2/2 ≈ 0.71</td><td>√2/2 ≈ 0.71</td><td>1</td></tr>
+        <tr><td>60°</td><td>√3/2 ≈ 0.87</td><td>1/2 = 0.5</td><td>√3 ≈ 1.73</td></tr>
+        <tr><td>90°</td><td>1</td><td>0</td><td>定義なし</td></tr>
+        <tr class="highlight-row"><td>120°</td><td>√3/2 ≈ 0.87</td><td><strong>-1/2 = -0.5</strong></td><td>-√3 ≈ -1.73</td></tr>
       </table>
+      <p class="table-note">覚え方：sin は 30°→45°→60° で増える（1/2, √2/2, √3/2）、cos は逆。</p>
     </div>
 
     <div class="warning-box">
@@ -262,665 +336,4 @@ import Math from '../../components/Math.astro';
         <div class="incline-object">📦</div>
         <div class="incline-angle">θ</div>
         <div class="force-parallel">mg sin θ</div>
-        <div class="force-perp">mg cos θ</div>
-      </div>
-    </div>
-
-    <div class="incline-table">
-      <table>
-        <tr><th>成分</th><th>公式</th><th>意味</th></tr>
-        <tr>
-          <td>斜面に平行 ↘</td>
-          <td><strong>mg sin θ</strong></td>
-          <td>滑り落ちる力</td>
-        </tr>
-        <tr>
-          <td>斜面に垂直 ↗</td>
-          <td><strong>mg cos θ</strong></td>
-          <td>面を押す力（垂直抗力と釣り合う）</td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="tip-box">
-      <strong>💡 覚え方</strong>
-      <p>斜面角度が大きくなると → <strong>滑る力 (sin θ) が増える</strong></p>
-      <p>θ = 90° なら自由落下（全部滑る力）、θ = 0° なら水平（滑らない）</p>
-    </div>
-  </section>
-
-  <!-- ===== Section 7: 練習 - 斜面 ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 3：斜面の分解</h2>
-
-    <QuizCard 
-      id="10"
-      question="30°斜面で質量 2 kg の物体を滑らせる力（g=10）"
-      answer="10"
-      answerUnit="N"
-      steps={[
-        "滑る力 = mg sin θ",
-        "= 2 × 10 × sin 30°",
-        "= 20 × 0.5",
-        "= <strong>10 N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="11"
-      question="30°斜面で質量 2 kg の物体が面を押す力（g=10）"
-      answer="17.3"
-      answerUnit="N"
-      steps={[
-        "垂直抗力 = mg cos θ",
-        "= 2 × 10 × cos 30°",
-        "= 20 × (√3/2)",
-        "≈ <strong>17.3 N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="12"
-      question="45°斜面で質量 4 kg の物体を滑らせる力（g=10）"
-      answer="28.3"
-      answerUnit="N"
-      steps={[
-        "滑る力 = mg sin θ",
-        "= 4 × 10 × sin 45°",
-        "= 40 × (√2/2)",
-        "≈ <strong>28.3 N</strong>"
-      ]}
-    />
-  </section>
-
-  <!-- ===== Section 8: 力のつり合い ===== -->
-  <section class="content-section">
-    <h2>⚖️ 力のつり合い</h2>
-
-    <div class="formula-box">
-      <Math f="\\SigmaFx = 0、\\SigmaFy = 0" block />
-      <p>静止している物体は、力がつり合っている！</p>
-    </div>
-
-    <div class="equilibrium-example">
-      <h4>例：3つの力のつり合い</h4>
-      <p>F₁ + F₂ + F₃ = 0 のとき、F₃ を求める</p>
-      <div class="solution-steps">
-        <p>F₁ = (3, 0) N、F₂ = (0, 4) N とすると...</p>
-        <p>F₃ = -(F₁ + F₂) = -((3, 4)) = <strong>(-3, -4) N</strong></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Section 9: 練習 - つり合い ===== -->
-  <section class="content-section exercise-section">
-    <h2>✏️ 練習 Level 4：力のつり合い</h2>
-
-    <QuizCard 
-      id="13"
-      question="F₁=(4,0)N, F₂=(0,3)N とつり合う F₃ は？"
-      answer="(-4, -3)"
-      answerUnit="N"
-      steps={[
-        "つり合い条件：F₁ + F₂ + F₃ = 0",
-        "F₃ = -(F₁ + F₂)",
-        "= -((4,0) + (0,3))",
-        "= <strong>(-4, -3) N</strong>"
-      ]}
-    />
-
-    <QuizCard 
-      id="14"
-      question="問13の F₃ の大きさは？"
-      answer="5"
-      answerUnit="N"
-      steps={[
-        "|F₃| = √((-4)² + (-3)²)",
-        "= √(16 + 9) = √25",
-        "= <strong>5 N</strong>"
-      ]}
-    />
-  </section>
-
-  <!-- ===== Section 10: まとめ ===== -->
-  <section class="content-section summary-section">
-    <h2>📝 今日のまとめ</h2>
-    <div class="summary-grid">
-      <div class="summary-item">
-        <span class="summary-icon">➕</span>
-        <span>合力：<strong>成分ごとに足す</strong> F = (F₁x+F₂x, F₁y+F₂y)</span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">📐</span>
-        <span>大きさ：<strong>|F| = √(Fx² + Fy²)</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">➗</span>
-        <span>分解：<strong>Fx = F cos θ、Fy = F sin θ</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">⛰️</span>
-        <span>斜面：滑る力 = <strong>mg sin θ</strong></span>
-      </div>
-      <div class="summary-item">
-        <span class="summary-icon">⚖️</span>
-        <span>つり合い：<strong>ΣFx = 0、ΣFy = 0</strong></span>
-      </div>
-      <div class="summary-item warning">
-        <span class="summary-icon">⚠️</span>
-        <span>90°超え → <strong>cos が負になる</strong></span>
-      </div>
-    </div>
-  </section>
-
-  <div class="nav-buttons">
-    <a href="/physics-basic/weeks/week03/" class="nav-btn secondary">← Week 3</a>
-    <a href="/physics-basic/weeks/week05/" class="nav-btn">Week 5 へ →</a>
-  </div>
-</Layout>
-
-<style>
-  /* ===== 基本スタイル ===== */
-  .content-section {
-    margin: 40px 0;
-    padding: 24px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-
-  .content-section h2 {
-    color: #1e293b;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 3px solid #3b82f6;
-  }
-
-  .intro-box {
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 24px;
-    font-size: 1.05rem;
-  }
-
-  /* ===== 公式ボックス ===== */
-  .formula-box {
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border: 2px solid #3b82f6;
-    border-radius: 12px;
-    padding: 24px;
-    text-align: center;
-    margin: 24px 0;
-  }
-
-  .formula-box h4 {
-    margin: 0 0 12px;
-    color: #1d4ed8;
-  }
-
-  .big-formula {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1d4ed8;
-    display: block;
-    margin: 8px 0;
-    font-family: 'Courier New', monospace;
-  }
-
-  .formula-box p {
-    margin: 8px 0 0;
-    color: #475569;
-  }
-
-  /* ===== ベクトル表記 ===== */
-  .notation-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin: 16px 0;
-  }
-
-  .notation-card {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-  }
-
-  .notation-title {
-    font-weight: 600;
-    color: #64748b;
-    font-size: 0.9rem;
-  }
-
-  .notation-example {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #1d4ed8;
-    margin: 8px 0;
-    font-family: 'Courier New', monospace;
-  }
-
-  .notation-desc {
-    font-size: 0.85rem;
-    color: #94a3b8;
-  }
-
-  /* ===== 一直線上の力 ===== */
-  .simple-cases {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    margin: 20px 0;
-  }
-
-  .case-card {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-  }
-
-  .case-icon {
-    font-size: 1.5rem;
-    margin-bottom: 8px;
-  }
-
-  .case-example {
-    font-family: 'Courier New', monospace;
-    color: #059669;
-    font-weight: 600;
-    margin-top: 8px;
-  }
-
-  /* ===== 例題ボックス ===== */
-  .example-box {
-    background: #f0fdf4;
-    border: 2px solid #22c55e;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 20px 0;
-  }
-
-  .example-box h4 {
-    color: #15803d;
-    margin: 0 0 12px;
-  }
-
-  .solution-steps {
-    background: white;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-top: 12px;
-  }
-
-  .solution-steps p {
-    margin: 6px 0;
-    font-family: 'Courier New', monospace;
-  }
-
-  /* ===== キャンバス ===== */
-  .animation-container {
-    text-align: center;
-    margin: 24px 0;
-  }
-
-  #vectorCanvas {
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    background: white;
-    cursor: crosshair;
-    max-width: 100%;
-  }
-
-  .canvas-hint {
-    font-size: 0.9rem;
-    color: #64748b;
-    margin-top: 8px;
-  }
-
-  /* ===== 三角関数 ===== */
-  .trig-memory {
-    margin: 24px 0;
-  }
-
-  .memory-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-top: 12px;
-  }
-
-  .memory-card {
-    background: #fef3c7;
-    border: 2px solid #f59e0b;
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-  }
-
-  .memory-fn {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #d97706;
-    font-family: 'Courier New', monospace;
-  }
-
-  .memory-hint {
-    font-size: 0.9rem;
-    color: #92400e;
-    margin-top: 8px;
-  }
-
-  .trig-table table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-  }
-
-  .trig-table th, .trig-table td {
-    padding: 12px;
-    border: 1px solid #e2e8f0;
-    text-align: center;
-  }
-
-  .trig-table th {
-    background: #f1f5f9;
-    font-weight: 600;
-  }
-
-  .highlight-row {
-    background: #fef3c7 !important;
-  }
-
-  .highlight-row td {
-    font-weight: 600;
-  }
-
-  /* ===== 警告ボックス ===== */
-  .warning-box {
-    background: #fef2f2;
-    border: 2px solid #ef4444;
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin: 20px 0;
-    color: #991b1b;
-  }
-
-  /* ===== 斜面 ===== */
-  .incline-diagram {
-    margin: 24px 0;
-    padding: 20px;
-    background: #f8fafc;
-    border-radius: 12px;
-    text-align: center;
-  }
-
-  .incline-table table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-  }
-
-  .incline-table th, .incline-table td {
-    padding: 12px;
-    border: 1px solid #e2e8f0;
-    text-align: center;
-  }
-
-  .incline-table th {
-    background: #f1f5f9;
-  }
-
-  /* ===== ヒント ===== */
-  .tip-box {
-    background: #eff6ff;
-    border-left: 4px solid #3b82f6;
-    padding: 16px 20px;
-    border-radius: 0 8px 8px 0;
-    margin: 20px 0;
-  }
-
-  .tip-box p {
-    margin: 6px 0;
-  }
-
-  /* ===== つり合い例 ===== */
-  .equilibrium-example {
-    background: #f0fdf4;
-    border: 2px solid #22c55e;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 20px 0;
-  }
-
-  .equilibrium-example h4 {
-    color: #15803d;
-    margin: 0 0 12px;
-  }
-
-  /* ===== 練習セクション ===== */
-  .exercise-section {
-    background: #fafbfc;
-  }
-
-  /* ===== まとめ ===== */
-  .summary-section {
-    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-    border: 2px solid #10b981;
-  }
-
-  .summary-section h2 {
-    border-color: #10b981;
-    color: #059669;
-  }
-
-  .summary-grid {
-    display: grid;
-    gap: 12px;
-  }
-
-  .summary-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 1rem;
-  }
-
-  .summary-item.warning {
-    color: #dc2626;
-    font-weight: 600;
-  }
-
-  .summary-icon {
-    font-size: 1.3rem;
-  }
-
-  /* ===== ナビゲーション ===== */
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-    gap: 16px;
-  }
-
-  .nav-btn {
-    flex: 1;
-    display: inline-block;
-    padding: 14px 24px;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.2s;
-  }
-
-  .nav-btn:not(.secondary) {
-    background: #3b82f6;
-    color: white;
-  }
-
-  .nav-btn:not(.secondary):hover {
-    background: #2563eb;
-  }
-
-  .nav-btn.secondary {
-    background: #f1f5f9;
-    color: #475569;
-  }
-
-  .nav-btn.secondary:hover {
-    background: #e2e8f0;
-  }
-</style>
-
-<script>
-  // Vector animation
-  const canvas = document.getElementById('vectorCanvas') as HTMLCanvasElement;
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    const origin = { x: 200, y: 200 };
-    let vecA = { x: 80, y: -60 };
-    let vecB = { x: 100, y: 40 };
-    let dragging: string | null = null;
-
-    function draw() {
-      if (!ctx) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Grid
-      ctx.strokeStyle = '#e2e8f0';
-      ctx.lineWidth = 1;
-      for (let i = 0; i < canvas.width; i += 20) {
-        ctx.beginPath();
-        ctx.moveTo(i, 0);
-        ctx.lineTo(i, canvas.height);
-        ctx.stroke();
-      }
-      for (let i = 0; i < canvas.height; i += 20) {
-        ctx.beginPath();
-        ctx.moveTo(0, i);
-        ctx.lineTo(canvas.width, i);
-        ctx.stroke();
-      }
-
-      // Parallelogram (dotted)
-      ctx.strokeStyle = '#94a3b8';
-      ctx.setLineDash([5, 5]);
-      ctx.beginPath();
-      ctx.moveTo(origin.x + vecA.x, origin.y + vecA.y);
-      ctx.lineTo(origin.x + vecA.x + vecB.x, origin.y + vecA.y + vecB.y);
-      ctx.lineTo(origin.x + vecB.x, origin.y + vecB.y);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Vector A (red)
-      drawArrow(ctx, origin.x, origin.y, origin.x + vecA.x, origin.y + vecA.y, '#ef4444', 3);
-      
-      // Vector B (blue)
-      drawArrow(ctx, origin.x, origin.y, origin.x + vecB.x, origin.y + vecB.y, '#3b82f6', 3);
-      
-      // Resultant (green)
-      const resultX = vecA.x + vecB.x;
-      const resultY = vecA.y + vecB.y;
-      drawArrow(ctx, origin.x, origin.y, origin.x + resultX, origin.y + resultY, '#22c55e', 4);
-
-      // Labels
-      ctx.font = 'bold 14px sans-serif';
-      ctx.fillStyle = '#ef4444';
-      ctx.fillText('F₁', origin.x + vecA.x + 5, origin.y + vecA.y);
-      ctx.fillStyle = '#3b82f6';
-      ctx.fillText('F₂', origin.x + vecB.x + 5, origin.y + vecB.y);
-      ctx.fillStyle = '#22c55e';
-      ctx.fillText('合力', origin.x + resultX + 5, origin.y + resultY);
-
-      // Magnitude
-      const mag = (Math.sqrt(resultX * resultX + resultY * resultY) / 20).toFixed(1);
-      ctx.fillStyle = '#1e293b';
-      ctx.fillText(`|合力| ≈ ${mag} 単位`, 10, 20);
-    }
-
-    function drawArrow(ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number, color: string, width: number) {
-      const headLen = 12;
-      const angle = Math.atan2(y2 - y1, x2 - x1);
-      
-      ctx.strokeStyle = color;
-      ctx.fillStyle = color;
-      ctx.lineWidth = width;
-      
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-      
-      ctx.beginPath();
-      ctx.moveTo(x2, y2);
-      ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
-      ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
-      ctx.closePath();
-      ctx.fill();
-    }
-
-    canvas.addEventListener('mousedown', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const distA = Math.hypot(x - (origin.x + vecA.x), y - (origin.y + vecA.y));
-      const distB = Math.hypot(x - (origin.x + vecB.x), y - (origin.y + vecB.y));
-      
-      if (distA < 20) dragging = 'A';
-      else if (distB < 20) dragging = 'B';
-    });
-
-    canvas.addEventListener('mousemove', (e) => {
-      if (!dragging) return;
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      if (dragging === 'A') {
-        vecA = { x: x - origin.x, y: y - origin.y };
-      } else if (dragging === 'B') {
-        vecB = { x: x - origin.x, y: y - origin.y };
-      }
-      draw();
-    });
-
-    canvas.addEventListener('mouseup', () => { dragging = null; });
-    canvas.addEventListener('mouseleave', () => { dragging = null; });
-
-    draw();
-  }
-
-  // Quiz interaction
-  document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.quiz-card');
-    cards.forEach(card => {
-      const input = card.querySelector('.quiz-input') as HTMLInputElement;
-      const btn = card.querySelector('.quiz-btn') as HTMLButtonElement;
-      const solution = card.querySelector('.quiz-solution') as HTMLDivElement;
-      
-      const showAnswer = () => {
-        solution.classList.remove('hidden');
-        input.disabled = true;
-        btn.disabled = true;
-        btn.textContent = '回答済み';
-        card.classList.add('answered');
-        solution.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      };
-
-      btn.addEventListener('click', showAnswer);
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          showAnswer();
-        }
-      });
-    });
-  });
-</script>
+        <
