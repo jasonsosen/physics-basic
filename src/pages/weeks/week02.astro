@@ -20,7 +20,70 @@ import Math from '../../components/Math.astro';
       </div>
     </div>
 
-    <h3>SI基本単位（この授業で使う3つ）</h3>
+    <!-- 単位の歴史 -->
+    <div class="history-grid">
+      <div class="history-card">
+        <div class="history-header">🇯🇵 尺貫法（〜1958年）</div>
+        <div class="history-content">
+          <p><strong>一寸</strong> ≈ 3.03 cm　<strong>一尺</strong> ≈ 30.3 cm</p>
+          <p><strong>一貫</strong> ≈ 3.75 kg</p>
+          <p class="fun-fact">💡 今も使われてる！畳のサイズ、お寿司の「一貫」</p>
+        </div>
+      </div>
+      <div class="history-card">
+        <div class="history-header">🇬🇧🇺🇸 ヤード・ポンド法</div>
+        <div class="history-content">
+          <p><strong>1 inch</strong> = 2.54 cm　<strong>1 foot</strong> = 30.48 cm</p>
+          <p><strong>1 mile</strong> ≈ 1.6 km　<strong>1 pound</strong> ≈ 454 g</p>
+          <p class="fun-fact">💡 アメリカでは今も日常で使用！ゴルフ、野球、身長</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="solution-box">
+      <div class="solution-header">💡 解決策：メートル法（SI単位系）</div>
+      <div class="solution-content">
+        <p>1799年フランスで誕生 → 世界共通の「ものさし」に</p>
+        <p><strong>10進法</strong>で計算しやすい！（1 km = 1000 m = 100000 cm）</p>
+      </div>
+    </div>
+
+    <!-- 身の回りの単位 -->
+    <h3>💡 単位は身の回りにある！</h3>
+    <div class="real-world-grid">
+      <div class="real-world-card">
+        <span class="rw-icon">📱</span>
+        <span class="rw-title">スマホの厚さ</span>
+        <span class="rw-value">8 mm = 0.008 m</span>
+      </div>
+      <div class="real-world-card">
+        <span class="rw-icon">⚽</span>
+        <span class="rw-title">サッカーボール直径</span>
+        <span class="rw-value">22 cm = 0.22 m</span>
+      </div>
+      <div class="real-world-card">
+        <span class="rw-icon">✈️</span>
+        <span class="rw-title">飛行機の巡航高度</span>
+        <span class="rw-value">10 km = 10,000 m</span>
+      </div>
+      <div class="real-world-card">
+        <span class="rw-icon">🔬</span>
+        <span class="rw-title">赤血球の直径</span>
+        <span class="rw-value">7 μm = 7×10⁻⁶ m</span>
+      </div>
+      <div class="real-world-card">
+        <span class="rw-icon">🧬</span>
+        <span class="rw-title">DNAの幅</span>
+        <span class="rw-value">2 nm = 2×10⁻⁹ m</span>
+      </div>
+      <div class="real-world-card">
+        <span class="rw-icon">🌊</span>
+        <span class="rw-title">マリアナ海溝</span>
+        <span class="rw-value">10.9 km = 10,900 m</span>
+      </div>
+    </div>
+
+    <h3>SI基本単位（7つ）</h3>
     <div class="unit-cards-small">
       <div class="unit-card-sm">
         <span class="unit-sym">m</span>
@@ -34,7 +97,24 @@ import Math from '../../components/Math.astro';
         <span class="unit-sym">s</span>
         <span class="unit-desc">時間（秒）</span>
       </div>
+      <div class="unit-card-sm">
+        <span class="unit-sym">A</span>
+        <span class="unit-desc">電流（アンペア）</span>
+      </div>
+      <div class="unit-card-sm">
+        <span class="unit-sym">K</span>
+        <span class="unit-desc">温度（ケルビン）</span>
+      </div>
+      <div class="unit-card-sm">
+        <span class="unit-sym">mol</span>
+        <span class="unit-desc">物質量（モル）</span>
+      </div>
+      <div class="unit-card-sm">
+        <span class="unit-sym">cd</span>
+        <span class="unit-desc">光度（カンデラ）</span>
+      </div>
     </div>
+    <p class="note-text">💡 この授業では主に <strong>m, kg, s</strong> を使います</p>
 
     <div class="unit-systems">
       <h4>📊 単位系の比較</h4>
@@ -1331,6 +1411,114 @@ import Math from '../../components/Math.astro';
 
   .nav-btn.secondary:hover {
     background: #e2e8f0;
+  }
+
+  /* ===== 歴史カード ===== */
+  .history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .history-card {
+    background: #fefce8;
+    border: 2px solid #fbbf24;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .history-header {
+    background: #fbbf24;
+    color: #78350f;
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .history-content {
+    padding: 16px;
+  }
+
+  .history-content p {
+    margin: 8px 0;
+  }
+
+  .fun-fact {
+    background: #fef3c7;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 12px !important;
+  }
+
+  /* ===== 解決策ボックス ===== */
+  .solution-box {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    border: 2px solid #10b981;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+
+  .solution-header {
+    background: #10b981;
+    color: white;
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .solution-content {
+    padding: 16px;
+  }
+
+  .solution-content p {
+    margin: 8px 0;
+  }
+
+  /* ===== 身の回りカード ===== */
+  .real-world-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .real-world-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .real-world-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .rw-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  .rw-title {
+    font-weight: 600;
+    color: #334155;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .rw-value {
+    font-family: 'Courier New', monospace;
+    color: #3b82f6;
+    font-weight: 700;
+    font-size: 0.9rem;
   }
 </style>
 
