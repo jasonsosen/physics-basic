@@ -1,0 +1,117 @@
+---
+/**
+ * 选项卡视图组件
+ * 用法:
+ *   <TabView>
+ *     <div slot="content">内容部分</div>
+ *     <div slot="problems">题目部分</div>
+ *   </TabView>
+ */
+interface Props {
+  defaultTab?: 'content' | 'problems';
+}
+
+const { defaultTab = 'content' } = Astro.props;
+---
+
+<div class="tab-container">
+  <div class="tab-header">
+    <button class="tab-btn" data-tab="content" class:list={[{ active: defaultTab === 'content' }]}>
+      📖 内容
+    </button>
+    <button class="tab-btn" data-tab="problems" class:list={[{ active: defaultTab === 'problems' }]}>
+      ✏️ 題目
+    </button>
+  </div>
+  
+  <div class="tab-content" data-content="content" style={defaultTab === 'content' ? '' : 'display: none'}>
+    <slot name="content" />
+  </div>
+  
+  <div class="tab-content" data-content="problems" style={defaultTab === 'problems' ? '' : 'display: none'}>
+    <slot name="problems" />
+  </div>
+</div>
+
+<style>
+  .tab-container {
+    margin: 20px 0;
+  }
+  
+  .tab-header {
+    display: flex;
+    gap: 0;
+    background: #f1f5f9;
+    border-radius: 12px 12px 0 0;
+    padding: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .tab-btn {
+    flex: 1;
+    padding: 14px 24px;
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  
+  .tab-btn:hover {
+    color: #334155;
+    background: #e2e8f0;
+  }
+  
+  .tab-btn.active {
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  }
+  
+  .tab-content {
+    background: #ffffff;
+    border-radius: 0 0 12px 12px;
+    min-height: 400px;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+    
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.getAttribute('data-tab');
+        
+        // Update buttons
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Update content
+        contents.forEach(c => {
+          if (c.getAttribute('data-content') === tab) {
+            c.style.display = '';
+          } else {
+            c.style.display = 'none';
+          }
+        });
+        
+        // Save preference
+        localStorage.setItem('preferredTab', tab);
+      });
+    });
+    
+    // Restore preference
+    const saved = localStorage.getItem('preferredTab');
+    if (saved) {
+      const btn = document.querySelector(`.tab-btn[data-tab="${saved}"]`);
+      if (btn) btn.click();
+    }
+  });
+</script>
